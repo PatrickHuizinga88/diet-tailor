@@ -3,8 +3,8 @@
     <LayoutContainer>
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <NuxtLink to="/">
-          <div class="size-10 bg-primary rounded-xl"></div>
-<!--          <img src="../assets/images/logo.svg" alt="Logo" class="h-9">-->
+<!--          <div class="size-10 bg-primary rounded-xl"></div>-->
+          <img src="@/assets/images/logo.svg" alt="Logo" class="h-7">
         </NuxtLink>
         <Button variant="outline" size="sm">Need help?</Button>
       </nav>

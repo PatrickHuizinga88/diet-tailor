@@ -8,10 +8,6 @@ defineProps<{
   response: any
 }>()
 
-const normalizeMeals = (meals: any) => {
-  return Array.isArray(meals) ? meals : [meals];
-};
-
 const mealType = (index: string) => {
   switch (index) {
     case 'breakfast':
@@ -36,15 +32,14 @@ const mealType = (index: string) => {
   <h2 class="h3 text-primary-dark text-center w-full mb-6">Your Weekly Meal Plan</h2>
   <Tabs default-value="Monday" class="w-full pb-4">
     <div class="overflow-hidden rounded-md mb-8">
-      <TabsList class="overflow-x-auto">
+      <TabsList class="overflow-x-auto justify-stretch w-full">
         <TabsTrigger v-for="day in response.mealPlan" :value="day.day">
           {{ day.day }}
         </TabsTrigger>
       </TabsList>
     </div>
-
-    <h3 class="h4 mb-3">Daily Nutrition Overview</h3>
-    <TabsContent v-for="day in response.mealPlan" :value="day.day">
+    <TabsContent v-for="day in response.mealPlan" :value="day.day" :key="day.day">
+      <h3 class="h4 mb-3">{{ day.day }}'s Nutrition Overview</h3>
       <dl class="bg-muted rounded-lg text-sm divide-y divide-border px-2 mb-8">
         <div class="flex items-center justify-between py-2">
           <dt class="font-medium">Calories</dt>
@@ -65,7 +60,7 @@ const mealType = (index: string) => {
       </dl>
       <div class="border rounded-2xl space-y-8 p-4">
         <div v-for="(meal, index) in day.meals">
-          <h4 class="mb-2">{{ mealType(index) }}</h4>
+          <h4 class="mb-2">{{ mealType(index.toString()) }}</h4>
           <template v-if="!meal.items">
             <p class="mb-4">{{ meal.name }}</p>
             <NutritionDetailList v-if="meal.nutritionDetails">
@@ -78,7 +73,7 @@ const mealType = (index: string) => {
                                    :unit="meal.nutritionDetails.fats.unit"/>
             </NutritionDetailList>
           </template>
-          <ul v-else>
+          <ul v-else class="space-y-4">
             <li v-for="snack in meal.items">
               <p class="mb-4">{{ snack.name }}</p>
               <NutritionDetailList v-if="snack.nutritionDetails">
@@ -92,14 +87,12 @@ const mealType = (index: string) => {
               </NutritionDetailList>
             </li>
           </ul>
-
-
-<!--          <div class="grid grid-cols-2 gap-4">-->
-<!--            <Button size="sm" variant="outline">Tweak {{ index }}</Button>-->
-<!--            <Button size="sm" variant="outline" asChild>-->
-<!--              <a href="#">View recipe</a>-->
-<!--            </Button>-->
-<!--          </div>-->
+          <!--          <div class="grid grid-cols-2 gap-4">-->
+          <!--            <Button size="sm" variant="outline">Tweak {{ index }}</Button>-->
+          <!--            <Button size="sm" variant="outline" asChild>-->
+          <!--              <a href="#">View recipe</a>-->
+          <!--            </Button>-->
+          <!--          </div>-->
         </div>
       </div>
     </TabsContent>
