@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const props = defineProps<{
   heading: string
-  subheading: string
-  formFieldType: 'input' | 'radio' | 'checkbox'
+  subheading?: string
+  description?: string
+  formFieldType?: 'input' | 'radio' | 'checkbox'
 }>()
 
 const description = computed(() => {
