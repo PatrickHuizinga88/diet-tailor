@@ -3,12 +3,12 @@ import Header from "~/components/layout/Header.vue";
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="#4f46e5"/>
+  <NuxtLoadingIndicator color="#40AD76"/>
   <Header/>
 
-  <div class="h-[calc(100svh-var(--header-height))] pt-[72px] overflow-y-auto">
-    <div class="container h-full pb-4">
+  <div class="h-svh pt-[calc(72px+var(--header-height))] overflow-y-auto">
+    <LayoutContainer class="h-full pb-4">
       <slot/>
-    </div>
+    </LayoutContainer>
   </div>
 </template>

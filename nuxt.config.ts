@@ -10,12 +10,12 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'DietTailor',
+      title: "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs",
       meta: [
         {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-        {name: 'og:title', content: 'DietTailor'},
-        {name: 'description', content: 'Kickstart your Nuxt app.'},
-        {name: 'og:description', content: 'Kickstart your Nuxt app.'},
+        {name: 'og:title', content: "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs"},
+        {name: 'description', content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"},
+        {name: 'og:description', content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"},
         {name: 'msapplication-TileColor', content: '#ffffff'},
         {name: 'theme-color', content: '#ffffff'},
       ],

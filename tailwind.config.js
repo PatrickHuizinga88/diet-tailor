@@ -1,7 +1,7 @@
-const animate = require("tailwindcss-animate")
+import tailwindcss_animate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ["class"],
   safelist: ["dark"],
   prefix: "",
@@ -66,6 +66,9 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      transitionDelay: {
+        '400': '400ms',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
@@ -92,5 +95,7 @@ module.exports = {
       },
     },
   },
-  plugins: [animate],
-}
+  plugins: [
+    tailwindcss_animate
+  ],
+};

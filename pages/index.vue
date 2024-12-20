@@ -1,21 +1,48 @@
 <script setup lang="ts">
 import {ArrowRight, ExternalLink} from "lucide-vue-next";
 
-definePageMeta({
-  layout: 'default'
-})
+const steps = [
+  {
+    title: "Tell us about yourself",
+    description: "Tell us about your goals, preferences, and dietary restrictions."
+  },
+  {
+    title: "Get your meal plan",
+    description: "Get a personalized meal plan tailored just for you."
+  },
+  {
+    title: "Start eating",
+    description: "Start eating healthy and reach your goals."
+  }
+]
 </script>
 
 <template>
-  <section id="hero" class="text-center">
-    <h1 class="mb-3">Create Your Personalized Meal Plan in Minutes!</h1>
-    <p class="text-lg text-muted-foreground">Tell us your goals and preferences, and get a meal plan tailored just for you.</p>
-  </section>
-  <section id="steps">
+  <div class="pb-40">
+    <section id="hero" class="text-center mb-12">
+      <h1 class="mb-3">Create Your Personalized Meal Plan in Minutes!</h1>
+      <p class="text-lg text-muted-foreground">Tell us your goals and preferences, and get a meal plan tailored just for you.</p>
+    </section>
+    <section id="steps">
+      <h2 class="h3 text-center text-primary-dark mb-4">How It Works</h2>
+      <ol class="space-y-2">
+        <li v-for="(step, index) in steps" class="bg-muted rounded-lg p-4 flex">
+          <div class="flex items-center justify-center shrink-0 h4 text-primary-dark bg-background rounded size-8 mr-4">
+            {{ index + 1 }}
+          </div>
+          <div>
+            <h3 class="h4 mb-1">{{ step.title }}</h3>
+            <p>
+              {{ step.description }}
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+  </div>
 
-  </section>
-  <div class="fixed left-0 bottom-8 w-full px-4">
-    <Button class="group w-full shadow-2xl mb-4" size="lg" asChild>
+  <div class="fixed left-1/2 bottom-8 -translate-x-1/2 w-full max-w-xl px-4">
+    <Button class="group w-full shadow-2xl mb-2" size="lg" asChild>
       <NuxtLink to="/wizard">
         Let's get Started
         <ArrowRight class="size-5 ml-2 group-hover:translate-x-0.5 duration-200" />

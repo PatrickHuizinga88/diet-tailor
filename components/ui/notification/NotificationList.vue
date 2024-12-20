@@ -12,7 +12,7 @@ defineProps<{
 
 <template>
   <div aria-live="assertive" class="pointer-events-none fixed inset-0 flex items-end py-6 z-20">
-    <div class="container">
+    <LayoutContainer>
       <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
         <transition-group
             enter-active-class="transform linear duration-200 transition"
@@ -38,7 +38,7 @@ defineProps<{
 <!--          />-->
         </transition-group>
       </div>
-    </div>
+    </LayoutContainer>
   </div>
 </template>
 
