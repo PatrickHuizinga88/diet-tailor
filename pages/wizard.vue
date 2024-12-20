@@ -2,20 +2,16 @@
 import stepCategories from '~/data/wizardSteps'
 import Heading from "~/components/wizard/Heading.vue";
 import {Loader2} from "lucide-vue-next";
-import exampleResponse from "~/data/exampleResponse";
-import {Tabs, TabsList, TabsTrigger, TabsContent} from "~/components/ui/tabs";
-import NutritionDetailList from "~/components/wizard/NutritionDetailList.vue";
-import NutritionDetailItem from "~/components/wizard/NutritionDetailItem.vue";
-import Meal from "~/components/wizard/Meal.vue";
+// import exampleResponse from "~/data/exampleResponse";
 import MealPlan from "~/components/wizard/MealPlan.vue";
 
 const wizardFormStore = useWizardFormStore()
 
 const currentStep = ref(1)
 const resultsLoading = ref(false)
-const showResults = ref(true)
+const showResults = ref(false)
 const formData = ref<Record<string, any>>({})
-const response = ref<any>(JSON.parse(exampleResponse))
+const response = ref<any>('')
 
 const nextStep = async () => {
   if (currentStep.value === stepCategories.reduce((acc, category) => acc + category.steps.length, 0)) {
