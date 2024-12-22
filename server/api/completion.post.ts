@@ -132,7 +132,7 @@ export default defineEventHandler(async (event) => {
     //   }
     // }
 
-    return await openai.chat.completions.create({
+    const { data: response } =  await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         {role: "system", content: "You are a nutrition expert."},
@@ -140,6 +140,9 @@ export default defineEventHandler(async (event) => {
       ],
       temperature: 0.7,
     }).withResponse();
+    return {
+      data: response.choices[0].message.content
+    }
   } catch (error) {
     return {
       data: null,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import stepCategories from '~/data/wizardSteps'
 import Heading from "~/components/wizard/Heading.vue";
-import {Loader2} from "lucide-vue-next";
+import {ArrowRight, Loader2} from "lucide-vue-next";
 // import exampleResponse from "~/data/exampleResponse";
 import MealPlan from "~/components/wizard/MealPlan.vue";
 
@@ -51,78 +51,85 @@ const generateDiet = async () => {
     method: 'POST',
     body: wizardFormStore.wizardForm
   })
-  if (!data.choices[0].message.content) return
-  response.value = JSON.parse(data.choices[0].message.content)
+  if (!data) return
+  response.value = JSON.parse(data)
 }
 </script>
 
 <template>
   <form v-if="!resultsLoading && !showResults" @submit.prevent="handleSubmit" class="flex flex-col h-full">
-    <div v-for="category in stepCategories" :key="category.id" class="flex-1">
-      <div v-for="(step, index) in category.steps" :key="step.id">
-        <div>
-          <transition
-              mode="out-in"
-              enter-active-class="delay-400"
-              enter-from-class="opacity-0 translate-y-4"
-              enter-to-class="opacity-1 translate-y-0"
-              leave-from-class="opacity-1 translate-y-0"
-              leave-to-class="opacity-0 translate-y-4"
-              appear
-          >
-            <Heading
-                v-if="currentStep === index + 1"
-                :heading="step.question"
-                :subheading="category.name"
-                :formFieldType="step.formFieldType"
-                class="duration-300"
-            />
-          </transition>
-          <transition
-              mode="out-in"
-              enter-active-class="delay-500"
-              enter-from-class="opacity-0 translate-y-4"
-              enter-to-class="opacity-1 translate-y-0"
-              leave-from-class="opacity-1 translate-y-0"
-              leave-to-class="opacity-0 translate-y-4"
-              appear
-          >
-            <WizardForm
-                v-if="currentStep === index + 1"
-                v-model="formData[step.id]"
-                :questionId="step.id"
-                :type="step.formFieldType"
-                :options="step.options"
-                :placeholder="step.placeholder"
-                :suffix="step.suffix"
-                class="duration-300"
-            />
-          </transition>
-        </div>
+    <div v-for="category in stepCategories" :key="category.id" class="flex flex-col flex-1">
+      <div v-for="(step, index) in category.steps" :key="step.id"
+           :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
+        <transition
+            enter-active-class="delay-300 duration-300"
+            enter-from-class="opacity-0 translate-y-4"
+            enter-to-class="static opacity-1 translate-y-0"
+            leave-active-class="duration-300"
+            leave-from-class="opacity-1 translate-y-0"
+            leave-to-class="opacity-0 translate-y-4"
+            appear
+        >
+          <Heading
+              v-if="currentStep === index + 1"
+              :heading="step.question"
+              :subheading="category.name"
+              :formFieldType="step.formFieldType"
+          />
+        </transition>
+        <transition
+            enter-active-class="delay-400 duration-300"
+            enter-from-class="opacity-0 translate-y-4"
+            enter-to-class="static opacity-1 translate-y-0"
+            leave-active-class="duration-300"
+            leave-from-class="opacity-1 translate-y-0"
+            leave-to-class="opacity-0 translate-y-4"
+            appear
+        >
+          <WizardForm
+              v-if="currentStep === index + 1"
+              v-model="formData[step.id]"
+              :questionId="step.id"
+              :type="step.formFieldType"
+              :options="step.options"
+              :placeholder="step.placeholder"
+              :suffix="step.suffix"
+          />
+        </transition>
       </div>
     </div>
     <div class="shrink-0">
-      <Button type="submit" size="lg" class="w-full mt-10">Next step</Button>
-      <Button type="button" size="lg" variant="ghost" class="w-full mt-2" @click="previousStep">Previous step</Button>
+      <Button type="submit" size="lg" class="group w-full mt-10">
+        Next step
+        <ArrowRight class="size-5 ml-2 group-hover:translate-x-0.5 duration-200"/>
+      </Button>
+      <div class="h-14">
+        <Button type="button" size="lg" variant="ghost" class="w-full mt-2" @click="previousStep"
+                v-if="currentStep > 1">
+          Previous step
+        </Button>
+      </div>
     </div>
   </form>
+
   <div v-else-if="resultsLoading" class="relative flex flex-col h-full">
     <div class="flex-1">
-      <section id="heading" class="text-center">
-        <p class="text-primary-dark font-medium mb-2">Thank you for your time!</p>
-        <h1 class="mb-3">Your journey to healthier eating is just seconds away!</h1>
-      </section>
+      <Heading
+          heading="Your journey to healthier eating is just seconds away!"
+          subheading="Thank you for your time!"
+          class="text-center"
+      />
     </div>
-    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div class="flex justify-center flex-1">
       <Loader2 class="size-12 text-primary animate-spin"/>
     </div>
-    <p class="text-lg text-center text-muted-foreground">We’re analyzing your preferences and goals to create a meal
-      plan tailored
-      just for you. This may take a moment.</p>
+    <p class="text-lg text-center text-muted-foreground">
+      We’re analyzing your preferences and goals to create a meal plan tailored just for you. This may take a moment.
+    </p>
   </div>
-  <div v-if="showResults">
-    <MealPlan :response="response"/>
-  </div>
+
+  <MealPlan v-if="showResults" :response="response" @retryResponse="nextStep"/>
+
 </template>
 
 <style scoped>
