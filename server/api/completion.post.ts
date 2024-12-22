@@ -4,23 +4,25 @@ import exampleResponse from "~/data/exampleResponse";
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
   const openai = new OpenAI({apiKey: openaiApiKey});
-  const {
-    age,
-    gender,
-    weight,
-    height,
-    activity_level,
-    primary_goal,
-    cuisine,
-    include_foods,
-    exclude_foods,
-    allergies,
-    diet_type,
-    meals_per_day,
-    calorie_target,
-  } = await readBody(event)
 
-  const prompt = `
+  try {
+    const {
+      age,
+      gender,
+      weight,
+      height,
+      activity_level,
+      primary_goal,
+      cuisine,
+      include_foods,
+      exclude_foods,
+      allergies,
+      diet_type,
+      meals_per_day,
+      calorie_target,
+    } = await readBody(event)
+
+    const prompt = `
     Act as a professional nutritionist and dietitian. Your task is to create a highly personalized 7-day meal plan for the user based on their preferences, goals, and restrictions. 
 
     The user has provided the following details:
@@ -56,7 +58,8 @@ export default defineEventHandler(async (event) => {
     4. Only have pure JSON as output that is parsable using the JSON.parse function.
     5. Do not include the format of the JSON in the response.
     6. Avoid any escape characters.
-    7. The JSON must strictly adhere to the following structure (without escape characters) for each day of the meal plan:
+    7. The nutritionOverview should be a sum of the individual meals and snacks for that day.
+    8. The JSON must strictly adhere to the following structure (without escape characters) for each day of the meal plan:
     {
       "day": "Monday",
       "nutritionOverview": {
@@ -121,20 +124,29 @@ export default defineEventHandler(async (event) => {
     Begin generating the meal plan below.
   `
 
-  // return {
-  //   data: {
-  //     choices: [
-  //       { message: { content: exampleResponse } }
-  //     ]
-  //   }
-  // }
+    // return {
+    //   data: {
+    //     choices: [
+    //       { message: { content: exampleResponse } }
+    //     ]
+    //   }
+    // }
 
-  return await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      {role: "system", content: "You are a nutrition expert."},
-      {role: "user", content: prompt},
-    ],
-    temperature: 0.7,
-  }).withResponse();
+    return await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        {role: "system", content: "You are a nutrition expert."},
+        {role: "user", content: prompt},
+      ],
+      temperature: 0.7,
+    }).withResponse();
+  } catch (error) {
+    return {
+      data: null,
+      error: {
+        message: "An error occurred while generating the meal plan. Please try again later.",
+        error
+      }
+    }
+  }
 })
