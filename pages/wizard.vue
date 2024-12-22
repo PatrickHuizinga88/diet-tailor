@@ -64,7 +64,7 @@ const generateDiet = async () => {
         <transition
             enter-active-class="delay-300 duration-300"
             enter-from-class="opacity-0 translate-y-4"
-            enter-to-class="static opacity-1 translate-y-0"
+            enter-to-class="opacity-1 translate-y-0"
             leave-active-class="duration-300"
             leave-from-class="opacity-1 translate-y-0"
             leave-to-class="opacity-0 translate-y-4"
@@ -80,7 +80,7 @@ const generateDiet = async () => {
         <transition
             enter-active-class="delay-400 duration-300"
             enter-from-class="opacity-0 translate-y-4"
-            enter-to-class="static opacity-1 translate-y-0"
+            enter-to-class="opacity-1 translate-y-0"
             leave-active-class="duration-300"
             leave-from-class="opacity-1 translate-y-0"
             leave-to-class="opacity-0 translate-y-4"
