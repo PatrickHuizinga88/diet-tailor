@@ -8,6 +8,7 @@ import MealPlan from "~/components/wizard/MealPlan.vue";
 const wizardFormStore = useWizardFormStore()
 
 const currentStep = ref(1)
+const currentCategory = ref(1)
 const resultsLoading = ref(false)
 const showResults = ref(false)
 const formData = ref<Record<string, any>>({})
@@ -24,6 +25,11 @@ const nextStep = async () => {
       resultsLoading.value = false
       showResults.value = true
     }
+    return
+  }
+  if (currentStep.value === stepCategories[currentCategory.value - 1].steps.length) {
+    currentCategory.value++
+    currentStep.value = 1
     return
   }
   currentStep.value++
@@ -58,10 +64,11 @@ const generateDiet = async () => {
 
 <template>
   <form v-if="!resultsLoading && !showResults" @submit.prevent="handleSubmit" class="flex flex-col h-full">
-    <div v-for="category in stepCategories" :key="category.id" class="flex flex-col flex-1">
-      <div v-for="(step, index) in category.steps" :key="step.id"
-           :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
-        <transition
+    <div v-for="(category, index) in stepCategories" :key="category.id"  class="flex flex-col flex-1">
+      <template v-if="currentCategory === index + 1">
+        <div v-for="(step, index) in category.steps" :key="step.id"
+             :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
+          <transition
             enter-active-class="delay-300 duration-300"
             enter-from-class="opacity-0 translate-y-4"
             enter-to-class="opacity-1 translate-y-0"
@@ -69,15 +76,15 @@ const generateDiet = async () => {
             leave-from-class="opacity-1 translate-y-0"
             leave-to-class="opacity-0 translate-y-4"
             appear
-        >
-          <Heading
+          >
+            <Heading
               v-if="currentStep === index + 1"
               :heading="step.question"
               :subheading="category.name"
               :formFieldType="step.formFieldType"
-          />
-        </transition>
-        <transition
+            />
+          </transition>
+          <transition
             enter-active-class="delay-400 duration-300"
             enter-from-class="opacity-0 translate-y-4"
             enter-to-class="opacity-1 translate-y-0"
@@ -85,8 +92,8 @@ const generateDiet = async () => {
             leave-from-class="opacity-1 translate-y-0"
             leave-to-class="opacity-0 translate-y-4"
             appear
-        >
-          <WizardForm
+          >
+            <WizardForm
               v-if="currentStep === index + 1"
               v-model="formData[step.id]"
               :questionId="step.id"
@@ -94,9 +101,10 @@ const generateDiet = async () => {
               :options="step.options"
               :placeholder="step.placeholder"
               :suffix="step.suffix"
-          />
-        </transition>
-      </div>
+            />
+          </transition>
+        </div>
+      </template>
     </div>
     <div class="shrink-0">
       <Button type="submit" size="lg" class="group w-full mt-10">

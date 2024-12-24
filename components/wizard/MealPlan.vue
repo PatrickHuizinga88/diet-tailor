@@ -62,11 +62,17 @@ defineEmits(['retryResponse'])
             <dd>{{ day.nutritionOverview.fats.amount + day.nutritionOverview.fats.unit }}</dd>
           </div>
         </dl>
+        <Button size="lg" class="group w-full mb-8" asChild>
+          <NuxtLink to="/login">
+            Save and customize plan
+          </NuxtLink>
+        </Button>
         <div class="border rounded-2xl space-y-8 p-4">
           <div v-for="(meal, index) in day.meals">
-            <h4 class="mb-2">{{ mealType(index.toString()) }}</h4>
+            <h3 class="inline-flex items-center text-sm text-primary-dark font-sans font-medium bg-primary/10 rounded h-7 px-2 mb-2">{{ mealType(index.toString()) }}</h3>
             <template v-if="!meal.items">
-              <p class="mb-4">{{ meal.name }}</p>
+              <h4 class="mb-1">{{ meal.name }}</h4>
+              <p class="text-sm text-muted-foreground mb-4">{{ meal.description }}</p>
               <NutritionDetailList v-if="meal.nutritionDetails">
                 <NutritionDetailItem label="Calories" :amount="meal.nutritionDetails.calories" unit="kcal"/>
                 <NutritionDetailItem label="Protein" :amount="meal.nutritionDetails.protein.amount"
@@ -79,7 +85,8 @@ defineEmits(['retryResponse'])
             </template>
             <ul v-else class="space-y-4">
               <li v-for="snack in meal.items">
-                <p class="mb-4">{{ snack.name }}</p>
+                <p class="mb-2">{{ snack.name }}</p>
+                <p class="text-sm mb-4">{{ snack.description }}</p>
                 <NutritionDetailList v-if="snack.nutritionDetails">
                   <NutritionDetailItem label="Calories" :amount="snack.nutritionDetails.calories" unit="kcal"/>
                   <NutritionDetailItem label="Protein" :amount="snack.nutritionDetails.protein.amount"

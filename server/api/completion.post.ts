@@ -13,13 +13,16 @@ export default defineEventHandler(async (event) => {
       height,
       activity_level,
       primary_goal,
-      cuisine,
-      include_foods,
-      exclude_foods,
-      allergies,
+      weight_loss_goal,
+      health_goals,
+      dietary_restrictions,
+      medical_conditions,
+      medications,
       diet_type,
-      meals_per_day,
-      calorie_target,
+      food_dislike,
+      adventurous_food,
+      favorite_cuisine,
+      meals_amount,
     } = await readBody(event)
 
     const prompt = `
@@ -36,30 +39,33 @@ export default defineEventHandler(async (event) => {
     
     **Goals:**
     - Primary goal: ${primary_goal || 'not specified'}
+    - Weight loss target: ${weight_loss_goal || 'not specified'} per week
+    - Health goals: ${health_goals || 'not specified'}
+    
+    **Medical history:**
+    - Dietary restrictions: ${dietary_restrictions || 'not specified'}
+    - Medical conditions: ${medical_conditions || 'not specified'}
+    - Medications: ${medications || 'not specified'}
     
     **Dietary Preferences:**
-    - Preferred cuisine(s): ${cuisine || 'not specified'}
-    - Specific foods to include: ${include_foods || 'not specified'}
-    - Specific foods to avoid: ${exclude_foods || 'not specified'}
-    - Allergies: ${allergies || 'not specified'}
     - Diet type: ${diet_type || 'not specified'}
+    - Specific foods to avoid: ${food_dislike || 'not specified'}
+    - Adventurous eater: Likes ${adventurous_food || 'not specified'}
+    - Preferred cuisine(s): ${favorite_cuisine || 'not specified'}
     
     **Meal Preferences:**
-    - Number of meals per day: ${meals_per_day ? meals_per_day.meals : 'not specified'}
-    - Snacks: ${meals_per_day ? meals_per_day.snacks : 'not specified'}
+    - Number of meals per day: ${meals_amount || 'not specified'}
     
-    **Caloric Requirements:**
-    - Target daily calorie intake: ${calorie_target || 'not specified'} kcal
-
     ### Instructions:
     1. Generate a meal plan for 7 days based on the above information.
     2. Ensure meals are balanced, nutrient-rich, and aligned with the user’s caloric goals.
     3. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
-    4. Only have pure JSON as output that is parsable using the JSON.parse function.
-    5. Do not include the format of the JSON in the response.
-    6. Avoid any escape characters.
-    7. The nutritionOverview should be a sum of the individual meals and snacks for that day.
-    8. The JSON must strictly adhere to the following structure (without escape characters) for each day of the meal plan:
+    4. The meal descriptions should be detailed and appealing, considering the user's tastes and dietary needs.
+    5. The amounts in the nutritionOverview must be a sum of the individual meals and snacks for that day.
+    6. Only have pure JSON as output that is parsable using the JSON.parse function.
+    7. Do not include the format of the JSON in the response.
+    8. Avoid any escape characters.
+    9. The JSON must strictly adhere to the following structure (without escape characters) for each day of the meal plan:
     {
       "day": "Monday",
       "nutritionOverview": {
@@ -71,6 +77,7 @@ export default defineEventHandler(async (event) => {
       "meals": {
         "breakfast": {
           "name": "{{breakfast_name}}",
+          "description": "{{breakfast_description}}",
           "nutritionDetails": {
             "calories": "{{breakfast_calories}}",
             "protein": { "amount": "{{breakfast_protein}}", "unit": "g" },
@@ -80,6 +87,7 @@ export default defineEventHandler(async (event) => {
         },
         "lunch": {
           "name": "{{lunch_name}}",
+          "description": "{{lunch_description}}",
           "nutritionDetails": {
             "calories": "{{lunch_calories}}",
             "protein": { "amount": "{{lunch_protein}}", "unit": "g" },
@@ -89,6 +97,7 @@ export default defineEventHandler(async (event) => {
         },
         "dinner": {
           "name": "{{dinner_name}}",
+          "description": "{{dinner_description}}",
           "nutritionDetails": {
             "calories": "{{dinner_calories}}",
             "protein": { "amount": "{{dinner_protein}}", "unit": "g" },
@@ -100,6 +109,7 @@ export default defineEventHandler(async (event) => {
           "items": [
             {
               "name": "{{snack_1_name}}",
+              "description": "{{snack_1_description}}",
               "nutritionDetails": {
                 "calories": "{{snack_1_calories}}",
                 "protein": { "amount": "{{snack_1_protein}}", "unit": "g" },
@@ -109,6 +119,7 @@ export default defineEventHandler(async (event) => {
             },
             {
               "name": "{{snack_2_name}}",
+              "description": "{{snack_2_description}}",
               "nutritionDetails": {
                 "calories": "{{snack_2_calories}}",
                 "protein": { "amount": "{{snack_2_protein}}", "unit": "g" },

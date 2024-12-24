@@ -6,7 +6,7 @@ import Header from "~/components/layout/Header.vue";
   <NuxtLoadingIndicator color="#40AD76"/>
   <Header/>
 
-  <div class="h-svh pt-[calc(72px+var(--header-height))] overflow-y-auto">
+  <div class="h-svh pt-[calc(64px+var(--header-height))] overflow-y-auto">
     <LayoutContainer class="h-full pb-4">
       <slot/>
     </LayoutContainer>
