@@ -40,7 +40,7 @@ watch(modelValue, (newValue) => {
     </div>
     <div v-else-if="type === 'checkbox'" class="grid grid-cols-2 gap-4">
       <div v-for="option in options" class="relative">
-        <input v-model="checked" type="checkbox" :value="option.value" :id="option.value" :name="questionId.toString()" class="peer absolute opacity-0 -z-10 inset-0 pointer-events-none" required/>
+        <input v-model="checked" type="checkbox" :value="option.value" :id="option.value" :name="questionId.toString()" class="peer absolute opacity-0 -z-10 inset-0 pointer-events-none"/>
         <label :for="option.value" class="flex flex-col rounded-lg border p-4 h-full cursor-pointer transition-[background-color] duration-200 hover:bg-muted peer-focus-visible:rin peer-focus-visible:ring-offset-2 ring-offset-background peer-focus-visible:ring-ring peer-checked:border-primary peer-checked:outline peer-checked:outline-2 peer-checked:outline-primary peer-checked:text-primary-dark">
           <span class="font-medium">{{option.label}}</span>
           <p v-if="option.description" class="text-sm text-muted-foreground mt-1">{{option.description}}</p>
