@@ -85,8 +85,8 @@ defineEmits(['retryResponse'])
             </template>
             <ul v-else class="space-y-4">
               <li v-for="snack in meal.items">
-                <p class="mb-2">{{ snack.name }}</p>
-                <p class="text-sm mb-4">{{ snack.description }}</p>
+                <h4 class="mb-1">{{ snack.name }}</h4>
+                <p class="text-sm text-muted-foreground mb-4">{{ snack.description }}</p>
                 <NutritionDetailList v-if="snack.nutritionDetails">
                   <NutritionDetailItem label="Calories" :amount="snack.nutritionDetails.calories" unit="kcal"/>
                   <NutritionDetailItem label="Protein" :amount="snack.nutritionDetails.protein.amount"

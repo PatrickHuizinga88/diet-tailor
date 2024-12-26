@@ -15,7 +15,7 @@ const formData = ref<Record<string, any>>({})
 const response = ref<any>('')
 
 const nextStep = async () => {
-  if (currentStep.value === stepCategories.reduce((acc, category) => acc + category.steps.length, 0)) {
+  if (currentStep.value === stepCategories[stepCategories.length - 1].steps.length && currentCategory.value === stepCategories.length) {
     resultsLoading.value = true
     try {
       await generateDiet()
@@ -64,8 +64,8 @@ const generateDiet = async () => {
 
 <template>
   <form v-if="!resultsLoading && !showResults" @submit.prevent="handleSubmit" class="flex flex-col h-full">
-    <div v-for="(category, index) in stepCategories" :key="category.id"  class="flex flex-col flex-1">
-      <template v-if="currentCategory === index + 1">
+    <template v-for="(category, index) in stepCategories" :key="category.id">
+      <div v-if="currentCategory === index + 1" class="flex flex-col flex-1">
         <div v-for="(step, index) in category.steps" :key="step.id"
              :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
           <transition
@@ -104,8 +104,8 @@ const generateDiet = async () => {
             />
           </transition>
         </div>
-      </template>
-    </div>
+      </div>
+    </template>
     <div class="shrink-0">
       <Button type="submit" size="lg" class="group w-full mt-10">
         Next step

@@ -10,14 +10,14 @@ const props = defineProps<{
     value: string
     isOther?: boolean
   }[]
-  modelValue?: string | string[]
+  modelValue?: string | number | string[]
 }>()
 
 const emit = defineEmits(['update:modelValue'])
 
 const checked = ref([])
 
-const modelValue = ref<string | string[]>(props.modelValue || (props.type === 'checkbox' ? [] : ''))
+const modelValue = ref(props.modelValue || (props.type === 'checkbox' ? [] : ''))
 
 watch(modelValue, (newValue) => {
   emit('update:modelValue', newValue)
@@ -26,7 +26,7 @@ watch(modelValue, (newValue) => {
 
 <template>
   <div v-if="type === 'input'" class="flex items-center gap-4">
-    <Input v-model="modelValue" type="number" :placeholder="placeholder" inputmode="numeric" min="0" required/>
+    <Input v-model="modelValue" type="number" :placeholder="placeholder" inputmode="numeric" min="0" required aria-labelledby="heading-title"/>
     <p v-if="suffix" class="shrink-0">{{ suffix }}</p>
   </div>
     <div v-else-if="type === 'radio'" class="grid grid-cols-2 gap-4">

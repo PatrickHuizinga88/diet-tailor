@@ -18,11 +18,11 @@ const description = computed(() => {
 </script>
 
 <template>
-  <div class="mb-10">
+  <section id="heading" class="mb-10">
     <h1 class="text-base font-medium font-sans text-primary-dark">{{subheading}}</h1>
-    <h2 class="h1 mt-2">{{heading}}</h2>
+    <h2 id="heading-title" class="h1 mt-2">{{heading}}</h2>
     <p v-if="description" class="text-lg text-muted-foreground mt-2">{{description}}</p>
-  </div>
+  </section>
 </template>
 
 <style scoped>
