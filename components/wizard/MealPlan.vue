@@ -2,7 +2,7 @@
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "~/components/ui/tabs";
 import NutritionDetailList from "~/components/wizard/NutritionDetailList.vue";
 import NutritionDetailItem from "~/components/wizard/NutritionDetailItem.vue";
-import Heading from "~/components/wizard/Heading.vue";
+import { Heading, HeadingTitle, HeadingDescription} from "~/components/wizard/heading";
 import {RotateCcw} from "lucide-vue-next";
 
 defineProps<{
@@ -26,12 +26,12 @@ defineEmits(['retryResponse'])
 </script>
 
 <template>
-  <section id="heading" class="text-center mb-16">
-    <Heading
-        :heading="response ? 'Your Personalized Meal Plan is Ready!' : 'Oops... Looks like something went wrong.'"
-        description="Based on your preferences, goals, and lifestyle, we've created a plan tailored to help you succeed."
-    />
-  </section>
+  <Heading>
+    <HeadingTitle>{{ response ? 'Your Personalized Meal Plan is Ready!' : 'Oops... Looks like something went wrong.' }}</HeadingTitle>
+    <HeadingDescription>
+      Based on your preferences, goals, and lifestyle, we've created a plan tailored to help you succeed.
+    </HeadingDescription>
+  </Heading>
   <template v-if="response">
     <h2 class="h3 text-primary-dark text-center w-full mb-6">Your Weekly Meal Plan</h2>
     <Tabs default-value="Monday" class="w-full pb-4">

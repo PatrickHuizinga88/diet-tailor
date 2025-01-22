@@ -1,21 +1,20 @@
-import type StepCategory from "~/types/StepCategory";
+import type QuestionCategory from "~/types/QuestionCategory";
 
-const stepCategories: StepCategory[] = [
+const questionCategories: QuestionCategory[] = [
   {
     id: 1,
     name: "Personal Information",
-    steps: [
+    questions: [
       {
         id: "age",
         question: "What is your age?",
-        formFieldType: "input",
+        inputType: "number",
         placeholder: "Enter your age",
         suffix: "years old"
       },
       {
         id: "gender",
         question: "What is your gender?",
-        formFieldType: "radio",
         options: [
           {label: "Male", value: "male"},
           {label: "Female", value: "female"},
@@ -26,23 +25,22 @@ const stepCategories: StepCategory[] = [
       {
         id: "height",
         question: "What is your height?",
-        formFieldType: "input",
+        inputType: "number",
         suffix: "cm"
       },
       {
         id: "weight",
         question: "What is your weight?",
-        formFieldType: "input",
+        inputType: "number",
         suffix: "kg"
       },
       {
         id: "activity_level",
         question: "What is your activity level?",
-        formFieldType: "radio",
         options: [
           {label: "Little or no exercise", value: "sedentary"},
           {label: "Exercising 1-3 days per week", value: "lightly_active"},
-          {label: "Exercising 3-5  days per week", value: "moderately_active"},
+          {label: "Exercising 3-5 days per week", value: "moderately_active"},
           {label: "Exercise 6-7 days per week", value: "very_active"},
           {label: "More than once every day", value: "super_active"}
         ]
@@ -53,12 +51,11 @@ const stepCategories: StepCategory[] = [
     id: 2,
     name:
       "Health Goals",
-    steps:
+    questions:
       [
         {
           id: "primary_goal",
           question: "What is your primary goal?",
-          formFieldType: "radio",
           options: [
             {label: "Lose weight", value: "lose_weight"},
             {label: "Gain weight", value: "gain_weight"},
@@ -70,17 +67,16 @@ const stepCategories: StepCategory[] = [
         {
           id: "weight_loss_goal",
           question: "How much weight would you like to lose per week?",
-          formFieldType: "radio",
           options: [
             {label: "0.25 kg (0.5 lbs)", value: "0.25kg"},
             {label: "0.5 kg (1 lbs)", value: "0.5kg", description: "Recommended"},
             {label: "1 kg (2 lbs)", value: "1kg", description: "For rapid results"}
-          ]
+          ],
+          condition: "lose_weight"
         },
         {
           id: "health_goals",
           question: "Do you have specific health goals?",
-          formFieldType: "checkbox",
           options: [
             {label: "Lower cholesterol", value: "lowerCholesterol"},
             {label: "Stabilize blood sugar", value: "stabilizeBloodSugar"},
@@ -88,7 +84,8 @@ const stepCategories: StepCategory[] = [
             {label: "Increase energy levels", value: "increaseEnergy"},
             {label: "Reduce inflammation", value: "reduceInflammation"},
             {label: "Other", value: "other", isOther: true}
-          ]
+          ],
+          multiple: true
         }
       ]
   }
@@ -97,24 +94,23 @@ const stepCategories: StepCategory[] = [
     id: 3,
     name:
       "Medical History",
-    steps:
+    questions:
       [
         {
           id: "dietary_restrictions",
           question: "Do you have any dietary restrictions?",
-          formFieldType: "checkbox",
           options: [
             {label: "Gluten-free", value: "glutenFree"},
             {label: "Lactose-free", value: "lactoseFree"},
             {label: "Nut-free", value: "nutFree"},
             {label: "Shellfish-free", value: "shellfishFree"},
             {label: "Other", value: "other", isOther: true}
-          ]
+          ],
+          multiple: true
         },
         {
           id: "medical_conditions",
           question: "Do you have any diagnosed medical conditions that influence your diet?",
-          formFieldType: "checkbox",
           options: [
             {label: "Diabetes (Type 1 or Type 2)", value: "diabetes"},
             {label: "High cholesterol", value: "highCholesterol"},
@@ -122,12 +118,12 @@ const stepCategories: StepCategory[] = [
             {label: "Irritable Bowel Syndrome (IBS)", value: "ibs"},
             {label: "Food allergies", value: "foodAllergies"},
             {label: "Other", value: "other", isOther: true}
-          ]
+          ],
+          multiple: true
         },
         {
           id: "medications",
           question: "Are you taking any medications or supplements that may affect your nutritional needs?",
-          formFieldType: "radio",
           options: [
             {label: "Yes", value: "yes"},
             {label: "No", value: "no"}
@@ -140,12 +136,11 @@ const stepCategories: StepCategory[] = [
     id: 4,
     name:
       "Food Preferences",
-    steps:
+    questions:
       [
         {
           id: "diet_type",
           question: "What type of diet do you follow or prefer?",
-          formFieldType: "radio",
           options: [
             {label: "Omnivore", value: "omnivore"},
             {label: "Vegetarian", value: "vegetarian"},
@@ -161,7 +156,6 @@ const stepCategories: StepCategory[] = [
         {
           id: "food_dislike",
           question: "Are there any foods you dislike or want to avoid?",
-          formFieldType: "checkbox",
           options: [
             // Make conditional based on diet type
             {label: "Red meat", value: "red-meat"},
@@ -173,11 +167,11 @@ const stepCategories: StepCategory[] = [
             {label: "Soy", value: "soy"},
             {label: "Other", value: "other", isOther: true},
           ],
+          multiple: true
         },
         {
           id: "adventurous_food",
           question: "How adventurous are you with food choices?",
-          formFieldType: "radio",
           options: [
             {label: "I love trying new foods", value: "new-foods"},
             {label: "I prefer familiar foods", value: "familiar-foods"},
@@ -187,7 +181,6 @@ const stepCategories: StepCategory[] = [
         {
           id: "favorite_cuisine",
           question: "What are your favorite types of cuisine?",
-          formFieldType: "checkbox",
           options: [
             {label: "Italian", value: "italian"},
             {label: "Mexican", value: "mexican"},
@@ -197,6 +190,7 @@ const stepCategories: StepCategory[] = [
             {label: "American", value: "american"},
             {label: "Other", value: "other", isOther: true},
           ],
+          multiple: true
         },
       ]
   }
@@ -205,12 +199,11 @@ const stepCategories: StepCategory[] = [
     id: 5,
     name:
       "Practical Considerations",
-    steps:
+    questions:
       [
         {
           id: "meals_amount",
           question: "How many meals do you prefer to have each day?",
-          formFieldType: "radio",
           options: [
             {label: "3 meals", description: "Breakfast, lunch and dinner", value: "3-meals"},
             {label: "4 meals", description: "3 meals + 1 snack", value: "4-meals"},
@@ -221,7 +214,6 @@ const stepCategories: StepCategory[] = [
         {
           id: "time_restrictions",
           question: "How much time can you spend preparing meals?",
-          formFieldType: "radio",
           options: [
             {label: "Less than 15 minutes", value: "less-than-15"},
             {label: "15-30 minutes", value: "15-30"},
@@ -231,7 +223,6 @@ const stepCategories: StepCategory[] = [
         }
       ]
   }
-
 ]
 
-export default stepCategories;
+export default questionCategories;
