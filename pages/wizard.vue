@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import questionCategories from '~/data/wizardSteps'
+import questions from '~/data/questions'
 import {Heading, HeadingTitle, HeadingSubtitle} from "~/components/wizard/heading";
 import {ArrowRight, ArrowLeft, Loader2} from "lucide-vue-next";
 // import exampleResponse from "~/data/exampleResponse";
@@ -10,16 +10,24 @@ import {Progress} from "~/components/ui/progress";
 const wizardFormStore = useWizardFormStore()
 
 const currentStep = ref(1)
-const overallStep = ref(1)
-const currentCategory = ref(1)
 const resultsLoading = ref(false)
 const showResults = ref(false)
 const formData = ref<Record<string, any>>({})
 const response = ref<any>('')
 
 const stepperValue = computed(() => {
-  const totalSteps = questionCategories.reduce((acc, category) => acc + category.questions.length, 0)
-  return overallStep.value / totalSteps * 100
+  return currentStep.value / questions.length * 100
+})
+
+const nextStepButtonText = computed(() => {
+  const currentQuestion = questions[currentStep.value - 1]
+  if (currentStep.value === questions.length) {
+    return 'Generate Meal Plan'
+  }
+  if (!Object.keys(formData.value).includes(currentQuestion.id) && currentQuestion.optional) {
+    return 'Skip step'
+  }
+  return 'Next step'
 })
 
 const checkCondition = (question: any, answer: any) => {
@@ -28,51 +36,43 @@ const checkCondition = (question: any, answer: any) => {
 };
 
 const nextStep = async () => {
-  const currentAnswer = formData.value[questionCategories[currentCategory.value - 1].questions[currentStep.value - 1].id];
-
-  while (true) {
-    if (currentStep.value === questionCategories[questionCategories.length - 1].questions.length && currentCategory.value === questionCategories.length) {
-      resultsLoading.value = true;
-      try {
-        await generateDiet();
-      } catch (e) {
-        console.error(e);
-      } finally {
-        resultsLoading.value = false;
-        showResults.value = true;
-      }
-      return;
+  if (currentStep.value === questions.length) {
+    resultsLoading.value = true;
+    try {
+      await generateDiet();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      resultsLoading.value = false;
+      showResults.value = true;
     }
-    if (currentStep.value === questionCategories[currentCategory.value - 1].questions.length) {
-      currentCategory.value++;
-      currentStep.value = 1;
-    } else {
-      currentStep.value++;
-    }
-
-    const nextQuestion = questionCategories[currentCategory.value - 1].questions[currentStep.value - 1];
-    if (checkCondition(nextQuestion, currentAnswer)) break;
+    return;
   }
-  overallStep.value++;
+
+  const currentAnswer = formData.value[questions[currentStep.value - 1].id];
+  const nextQuestion = questions[currentStep.value];
+
+  if (checkCondition(nextQuestion, currentAnswer)) {
+    currentStep.value++;
+    return;
+  }
+  if (Object.keys(formData.value).includes(nextQuestion.id)) {
+    delete formData.value[nextQuestion.id];
+  }
+  currentStep.value = currentStep.value + 2;
 };
 
 const previousStep = () => {
-  if (currentStep.value === 1 && currentCategory.value > 1) {
-    currentCategory.value--;
-    currentStep.value = questionCategories[currentCategory.value - 1].questions.length;
-  } else {
+  const previousQuestion = questions[currentStep.value - 2];
+  if (previousQuestion && Object.keys(formData.value).includes(previousQuestion.id)) {
     currentStep.value--;
+    return;
   }
-  overallStep.value--;
-
-  const previousQuestion = questionCategories[currentCategory.value - 1].questions[currentStep.value - 1];
-  const currentAnswer = formData.value[previousQuestion.id];
-
-  if (checkCondition(previousQuestion, currentAnswer)) return;
+  currentStep.value = currentStep.value - 2;
 }
 
 const handleSubmit = () => {
-  const currentQuestionData = questionCategories[currentCategory.value - 1].questions[currentStep.value - 1]
+  const currentQuestionData = questions[currentStep.value - 1]
 
   if (currentQuestionData) {
     wizardFormStore.setWizardForm(currentQuestionData.id, formData.value[currentQuestionData.id])
@@ -81,6 +81,12 @@ const handleSubmit = () => {
 }
 
 const generateDiet = async () => {
+  const prompt = await $fetch('/api/completion', {
+    method: 'POST',
+    body: wizardFormStore.wizardForm
+  })
+  console.log(prompt)
+  return
   const {data} = await $fetch('/api/completion', {
     method: 'POST',
     body: wizardFormStore.wizardForm
@@ -95,57 +101,45 @@ const generateDiet = async () => {
     <LayoutContainer
         class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
       <Progress class="hidden sm:block h-1.5 bg-muted mb-12" :model-value="stepperValue"/>
-      <div v-for="(category, index) in questionCategories" :key="category.id"
-           :class="{'order-last': currentCategory === index + 1}">
+      <div v-for="(question, index) in questions" :key="question.id"
+           :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
         <transition
             leave-active-class="duration-300"
             leave-from-class="opacity-1 translate-y-0"
             leave-to-class="opacity-0 translate-y-4"
             appear
         >
-          <div v-if="currentCategory === index + 1" class="flex flex-col pb-8">
-            <div v-for="(question, index) in category.questions" :key="question.id"
-                 :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
-              <transition
-                  leave-active-class="duration-300"
-                  leave-from-class="opacity-1 translate-y-0"
-                  leave-to-class="opacity-0 translate-y-4"
-                  appear
-              >
-                <div v-if="currentStep === index + 1"
-                     :class="['flex flex-col relative']">
-                  <transition
-                      enter-active-class="delay-300 duration-300"
-                      enter-from-class="opacity-0 translate-y-4"
-                      enter-to-class="opacity-1 translate-y-0"
-                      leave-active-class="duration-300"
-                      leave-from-class="opacity-1 translate-y-0"
-                      leave-to-class="opacity-0 translate-y-4"
-                      appear
-                  >
-                    <Heading v-if="currentStep === index + 1">
-                      <HeadingSubtitle>{{ category.name }}</HeadingSubtitle>
-                      <HeadingTitle>{{ question.question }}</HeadingTitle>
-                    </Heading>
-                  </transition>
-                  <transition
-                      enter-active-class="delay-400 duration-300"
-                      enter-from-class="opacity-0 translate-y-4"
-                      enter-to-class="opacity-1 translate-y-0"
-                      leave-active-class="duration-300"
-                      leave-from-class="opacity-1 translate-y-0"
-                      leave-to-class="opacity-0 translate-y-4"
-                      appear
-                  >
-                    <DynamicFormField
-                        v-if="currentStep === index + 1"
-                        v-model="formData[question.id]"
-                        :question="question"
-                    />
-                  </transition>
-                </div>
-              </transition>
-            </div>
+          <div v-if="currentStep === index + 1"
+               :class="['flex flex-col relative']">
+            <transition
+                enter-active-class="delay-300 duration-300"
+                enter-from-class="opacity-0 translate-y-4"
+                enter-to-class="opacity-1 translate-y-0"
+                leave-active-class="duration-300"
+                leave-from-class="opacity-1 translate-y-0"
+                leave-to-class="opacity-0 translate-y-4"
+                appear
+            >
+              <Heading v-if="currentStep === index + 1">
+                <HeadingSubtitle>{{ question.category }}</HeadingSubtitle>
+                <HeadingTitle>{{ question.question }}</HeadingTitle>
+              </Heading>
+            </transition>
+            <transition
+                enter-active-class="delay-400 duration-300"
+                enter-from-class="opacity-0 translate-y-4"
+                enter-to-class="opacity-1 translate-y-0"
+                leave-active-class="duration-300"
+                leave-from-class="opacity-1 translate-y-0"
+                leave-to-class="opacity-0 translate-y-4"
+                appear
+            >
+              <DynamicFormField
+                  v-if="currentStep === index + 1"
+                  v-model="formData[question.id]"
+                  :question="question"
+              />
+            </transition>
           </div>
         </transition>
       </div>
@@ -155,11 +149,11 @@ const generateDiet = async () => {
       <LayoutContainer>
         <div class="flex gap-4">
           <Button type="button" size="icon-xl" class="shrink-0" variant="ghost" @click="previousStep"
-                  v-if="currentStep > 1 || currentCategory > 1" aria-label="Previous step">
+                  v-if="currentStep > 1" aria-label="Previous step">
             <ArrowLeft class="size-6" aria-hidden="true"/>
           </Button>
           <Button type="submit" size="xl" class="group w-full">
-            Next step
+            {{ nextStepButtonText }}
             <ArrowRight class="size-6 ml-2 group-hover:translate-x-0.5 duration-200"/>
           </Button>
         </div>

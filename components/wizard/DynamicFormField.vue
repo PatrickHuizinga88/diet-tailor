@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Question} from "~/types/QuestionCategory";
+import type {Question} from "~/types/Question";
 
 const props = defineProps<{
   question: Question
@@ -32,6 +32,20 @@ const setShowOtherField = () => {
 const otherValue = ref('')
 const otherField = ref<HTMLInputElement | null>(null)
 const showOtherField = ref(false)
+
+const filteredOptions = computed(() => {
+  return props.question.options?.filter(option => option.value !== 'other')
+})
+
+const onChangeSelect = (event: Event) => {
+  const target = event.target as HTMLSelectElement
+  if (target.value === 'other') {
+    showOtherField.value = true
+    otherField.value?.focus()
+  } else {
+    showOtherField.value = false
+  }
+}
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -83,10 +97,11 @@ onMounted(() => {
     </div>
     <template v-else>
       <template v-if="question.options.length > 6 && !question.multiple">
-        <select v-model="modelValue"
+        <select v-model="modelValue" @change="onChangeSelect($event)"
                 class="flex h-14 w-full rounded-lg border border-input bg-background px-3 py-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
           <option hidden selected>{{ question.placeholder ?? 'Selecteer een optie' }}</option>
-          <option v-for="option in question.options" :value="option.value">{{ option.label }}</option>
+          <option v-for="option in filteredOptions" :value="option.value">{{ option.label }}</option>
+          <option v-if="question.options.some(option => option.isOther)" value="other">Other</option>
         </select>
       </template>
       <div v-else class="grid grid-cols-2 gap-4">

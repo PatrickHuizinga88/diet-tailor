@@ -1,11 +1,6 @@
-export default interface QuestionCategory {
-  id: number
-  name: string
-  questions: Question[]
-}
-
-export interface Question {
+export default interface Question {
   id: string
+  category: string
   question: string
   inputType?: 'text' | 'number' | 'date' | 'email'
   options?: QuestionOption[]

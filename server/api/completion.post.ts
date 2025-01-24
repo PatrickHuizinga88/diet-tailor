@@ -23,7 +23,13 @@ export default defineEventHandler(async (event) => {
       adventurous_food,
       favorite_cuisine,
       meals_amount,
+      time_restrictions
     } = await readBody(event)
+
+    const convertToString = (array: string[]) => {
+      if (!array.length) return undefined
+      return health_goals.join(', ')
+    }
 
     const prompt = `
     Act as a professional nutritionist and dietitian. Your task is to create a highly personalized 7-day meal plan for the user based on their preferences, goals, and restrictions. 
@@ -40,21 +46,22 @@ export default defineEventHandler(async (event) => {
     **Goals:**
     - Primary goal: ${primary_goal || 'not specified'}
     - Weight loss target: ${weight_loss_goal || 'not specified'} per week
-    - Health goals: ${health_goals || 'not specified'}
+    - Health goals: ${convertToString(health_goals) || 'not specified'}
     
     **Medical history:**
-    - Dietary restrictions: ${dietary_restrictions || 'not specified'}
-    - Medical conditions: ${medical_conditions || 'not specified'}
+    - Dietary restrictions: ${convertToString(dietary_restrictions) || 'not specified'}
+    - Medical conditions: ${convertToString(medical_conditions) || 'not specified'}
     - Medications: ${medications || 'not specified'}
     
     **Dietary Preferences:**
     - Diet type: ${diet_type || 'not specified'}
-    - Specific foods to avoid: ${food_dislike || 'not specified'}
+    - Specific foods to avoid: ${convertToString(food_dislike) || 'not specified'}
     - Adventurous eater: Likes ${adventurous_food || 'not specified'}
-    - Preferred cuisine(s): ${favorite_cuisine || 'not specified'}
+    - Preferred cuisine(s): ${convertToString(favorite_cuisine) || 'not specified'}
     
     **Meal Preferences:**
     - Number of meals per day: ${meals_amount || 'not specified'}
+    - Available time for preparation: ${time_restrictions || 'not specified'} minutes per day
     
     ### Instructions:
     1. Generate a meal plan for 7 days based on the above information.
@@ -134,6 +141,8 @@ export default defineEventHandler(async (event) => {
     
     Begin generating the meal plan below.
   `
+
+    // return prompt
 
     // return {
     //   data: {
