@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    openaiApiKey: process.env.NUXT_OPENAI_API_KEY,
+    openaiApiKey: '',
   },
 
   css: ['../assets/css/main.css'],
@@ -37,20 +37,37 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    // '@nuxtjs/supabase',
+    '@nuxtjs/supabase',
     "shadcn-nuxt",
     '@vueuse/nuxt',
+    '@nuxtjs/i18n',
+    '@nuxtjs/color-mode',
   ],
 
-  // supabase: {
-  //   redirect: false,
-  // redirectOptions: {
-  //   exclude: ['/register'],
-  // }
-  // },
+  supabase: {
+    redirectOptions: {
+      exclude: ['/', '/wizard', '/result'],
+    }
+  },
+
   shadcn: {
     prefix: '',
     componentDir: './components/ui',
+  },
+
+  i18n: {
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: false
+    },
+    defaultLocale: 'en',
+    locales: [
+      {
+        code: 'en',
+        name: 'English',
+        files: ['en/common', 'en/account', 'en/authentication', 'en/dashboard', 'en/feedback', 'en/pricing', 'en/settings']
+      },
+    ],
   },
 
   compatibilityDate: '2024-12-19',

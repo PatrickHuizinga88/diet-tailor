@@ -1,15 +1,14 @@
 <script setup lang="ts">
 defineProps<{
   label: string
-  amount: string | number
-  unit: string
+  value: string | number
 }>()
 </script>
 
 <template>
   <div class="flex items-center justify-between py-2">
     <dt class="font-medium">{{ label }}</dt>
-    <dd>{{ amount + unit }}</dd>
+    <dd>{{ value }}</dd>
   </div>
 </template>
 
