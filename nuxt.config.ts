@@ -14,8 +14,14 @@ export default defineNuxtConfig({
       meta: [
         {name: 'viewport', content: 'width=device-width, initial-scale=1'},
         {name: 'og:title', content: "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs"},
-        {name: 'description', content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"},
-        {name: 'og:description', content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"},
+        {
+          name: 'description',
+          content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
+        },
+        {
+          name: 'og:description',
+          content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
+        },
         {name: 'apple-mobile-web-app-title', content: 'DietTailor'},
       ],
       link: [
@@ -25,6 +31,11 @@ export default defineNuxtConfig({
         {rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png'},
         {rel: 'manifest', href: '/favicon/site.webmanifest'},
       ],
+      script: [
+        (process.env.NODE_ENV === 'production' ?
+            {src: 'https://cloud.umami.is/script.js', 'data-website-id': "43d25c72-944a-424f-8ba8-5710aa9a98e5", defer: true} : ''
+        )
+      ]
     },
   },
 
