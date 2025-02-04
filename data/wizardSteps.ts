@@ -36,7 +36,7 @@ const stepCategories: StepCategory[] = [
         suffix: "kg"
       },
       {
- an        id: "activity_level",
+        id: "activity_level",
         question: "What is your activity level?",
         formFieldType: "radio",
         options: [

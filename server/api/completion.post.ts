@@ -1,9 +1,14 @@
-import OpenAI from "openai";
 import exampleResponse from "~/data/exampleResponse";
+import {createOpenAI} from "@ai-sdk/openai";
+import {generateObject} from "ai";
+import {z} from "zod";
 
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
-  const openai = new OpenAI({apiKey: openaiApiKey});
+
+  const openai = createOpenAI({
+    apiKey: openaiApiKey,
+  });
 
   try {
     const {
@@ -62,75 +67,7 @@ export default defineEventHandler(async (event) => {
     3. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
     4. The meal descriptions should be detailed and appealing, considering the user's tastes and dietary needs.
     5. The amounts in the nutritionOverview must be a sum of the individual meals and snacks for that day.
-    6. Only have pure JSON as output that is parsable using the JSON.parse function.
-    7. Do not include the format of the JSON in the response.
-    8. Avoid any escape characters.
-    9. The JSON must strictly adhere to the following structure (without escape characters) for each day of the meal plan:
-    {
-      "day": "Monday",
-      "nutritionOverview": {
-        "calories": "{{daily_calories}}",
-        "protein": { "amount": "{{daily_protein}}", "unit": "g", "percentage": "{{daily_protein_percentage}}" },
-        "carbs": { "amount": "{{daily_carbs}}", "unit": "g", "percentage": "{{daily_carbs_percentage}}" },
-        "fats": { "amount": "{{daily_fats}}", "unit": "g", "percentage": "{{daily_fats_percentage}}" }
-      },
-      "meals": {
-        "breakfast": {
-          "name": "{{breakfast_name}}",
-          "description": "{{breakfast_description}}",
-          "nutritionDetails": {
-            "calories": "{{breakfast_calories}}",
-            "protein": { "amount": "{{breakfast_protein}}", "unit": "g" },
-            "carbs": { "amount": "{{breakfast_carbs}}", "unit": "g" },
-            "fats": { "amount": "{{breakfast_fats}}", "unit": "g" }
-          },
-        },
-        "lunch": {
-          "name": "{{lunch_name}}",
-          "description": "{{lunch_description}}",
-          "nutritionDetails": {
-            "calories": "{{lunch_calories}}",
-            "protein": { "amount": "{{lunch_protein}}", "unit": "g" },
-            "carbs": { "amount": "{{lunch_carbs}}", "unit": "g" },
-            "fats": { "amount": "{{lunch_fats}}", "unit": "g" }
-          },
-        },
-        "dinner": {
-          "name": "{{dinner_name}}",
-          "description": "{{dinner_description}}",
-          "nutritionDetails": {
-            "calories": "{{dinner_calories}}",
-            "protein": { "amount": "{{dinner_protein}}", "unit": "g" },
-            "carbs": { "amount": "{{dinner_carbs}}", "unit": "g" },
-            "fats": { "amount": "{{dinner_fats}}", "unit": "g" }
-          },
-        },
-        "snacks": {
-          "items": [
-            {
-              "name": "{{snack_1_name}}",
-              "description": "{{snack_1_description}}",
-              "nutritionDetails": {
-                "calories": "{{snack_1_calories}}",
-                "protein": { "amount": "{{snack_1_protein}}", "unit": "g" },
-                "carbs": { "amount": "{{snack_1_carbs}}", "unit": "g" },
-                "fats": { "amount": "{{snack_1_fats}}", "unit": "g" }
-              }
-            },
-            {
-              "name": "{{snack_2_name}}",
-              "description": "{{snack_2_description}}",
-              "nutritionDetails": {
-                "calories": "{{snack_2_calories}}",
-                "protein": { "amount": "{{snack_2_protein}}", "unit": "g" },
-                "carbs": { "amount": "{{snack_2_carbs}}", "unit": "g" },
-                "fats": { "amount": "{{snack_2_fats}}", "unit": "g" }
-              }
-            }
-          ],
-        }
-      }
-    }
+    6. The JSON must strictly adhere to the provided schema for each day of the meal plan.
     
     Begin generating the meal plan below.
   `
@@ -143,16 +80,69 @@ export default defineEventHandler(async (event) => {
     //   }
     // }
 
-    const { data: response } =  await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const mealDetails = z.object({
+      name: z.string(),
+      description: z.string(),
+      nutritionDetails: z.object({
+        calories: z.string(),
+        protein: z.object({
+          amount: z.string(),
+          unit: z.string(),
+        }),
+        carbs: z.object({
+          amount: z.string(),
+          unit: z.string(),
+        }),
+        fats: z.object({
+          amount: z.string(),
+          unit: z.string(),
+        }),
+      }),
+    })
+
+    const {object} = await generateObject({
+      model: openai("gpt-4o-mini", {
+        structuredOutputs: true,
+      }),
+      schemaName: "mealPlan",
+      schemaDescription: "A highly personalized 7-day meal plan based on user preferences, goals, and restrictions.",
+      schema: z.array(z.object({
+          day: z.string(),
+          nutritionOverview: z.object({
+            calories: z.string(),
+            protein: z.object({
+              amount: z.string(),
+              unit: z.string(),
+              percentage: z.string(),
+            }),
+            carbs: z.object({
+              amount: z.string(),
+              unit: z.string(),
+              percentage: z.string(),
+            }),
+            fats: z.object({
+              amount: z.string(),
+              unit: z.string(),
+              percentage: z.string(),
+            }),
+          }),
+          meals: z.object({
+            breakfast: mealDetails,
+            lunch: mealDetails,
+            dinner: mealDetails,
+            snacks: z.object({
+              items: z.array(mealDetails),
+            }),
+          }),
+        })
+      ).describe('List of a meal plan for each day of the week.'),
       messages: [
         {role: "system", content: "You are a nutrition expert."},
         {role: "user", content: prompt},
       ],
-      temperature: 0.7,
-    }).withResponse();
+    })
     return {
-      data: response.choices[0].message.content
+      data: object
     }
   } catch (error) {
     return {

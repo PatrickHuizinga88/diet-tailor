@@ -58,7 +58,7 @@ const generateDiet = async () => {
     body: wizardFormStore.wizardForm
   })
   if (!data) return
-  response.value = JSON.parse(data)
+  response.value = data
 }
 </script>
 

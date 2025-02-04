@@ -20,15 +20,16 @@
     "vue-router": "^4.5.0"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^1.1.9",
     "@pinia/nuxt": "^0.5.5",
     "@types/uuid": "^9.0.8",
     "@vee-validate/zod": "^4.14.7",
     "@vueuse/core": "^10.11.1",
     "@vueuse/nuxt": "^10.11.1",
+    "ai": "^4.1.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.395.0",
-    "openai": "^4.77.0",
     "pinia": "^2.3.0",
     "radix-vue": "^1.9.11",
     "tailwind-merge": "^2.5.5",

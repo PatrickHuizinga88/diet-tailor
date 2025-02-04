@@ -37,12 +37,12 @@ defineEmits(['retryResponse'])
     <Tabs default-value="Monday" class="w-full pb-4">
       <div class="overflow-hidden rounded-md mb-8">
         <TabsList class="overflow-x-auto justify-stretch w-full">
-          <TabsTrigger v-for="day in response.mealPlan" :value="day.day">
+          <TabsTrigger v-for="day in response" :value="day.day">
             {{ day.day }}
           </TabsTrigger>
         </TabsList>
       </div>
-      <TabsContent v-for="day in response.mealPlan" :value="day.day" :key="day.day">
+      <TabsContent v-for="day in response" :value="day.day" :key="day.day">
         <h3 class="h4 mb-3">{{ day.day }}'s Nutrition Overview</h3>
         <dl class="bg-muted rounded-lg text-sm divide-y divide-border px-2 mb-8">
           <div class="flex items-center justify-between py-2">
