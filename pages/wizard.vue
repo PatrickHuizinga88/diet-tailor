@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import questions from '~/data/questions'
-import {Heading, HeadingTitle, HeadingSubtitle} from "~/components/wizard/heading";
-import {ArrowRight, ArrowLeft, Loader2, RotateCcw} from "lucide-vue-next";
-// import exampleResponse from "~/data/exampleResponse";
-import MealPlan from "~/components/wizard/MealPlan.vue";
+import {Heading, HeadingTitle, HeadingSubtitle, HeadingDescription} from "~/components/wizard/heading";
+import {Loader2, RotateCcw} from "lucide-vue-next";
 import DynamicFormField from "~/components/wizard/DynamicFormField.vue";
 import {Progress} from "~/components/ui/progress";
+import StepperButtons from "~/components/StepperButtons.vue";
 
+const supabase = useSupabaseClient()
 const wizardFormStore = useWizardFormStore()
+const mealPlanStore = useMealPlanStore()
 
 const currentStep = ref(1)
 const resultsLoading = ref(false)
@@ -86,35 +87,34 @@ const generateDiet = async () => {
   })
   if (!data) return
 
-  // TODO: Set mealplan store
-
-  navigateTo('/result')
+  mealPlanStore.setMealPlan(data)
+  navigateTo('/results')
 }
 </script>
 
 <template>
   <form v-if="!resultsLoading && !showResults" @submit.prevent="handleSubmit" class="flex flex-col h-full">
     <LayoutContainer
-      class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
+        class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none max-sm:overflow-y-auto pt-[calc(2rem+var(--header-height))]">
       <Progress class="hidden sm:block h-1.5 bg-muted mb-12" :model-value="stepperValue"/>
       <div v-for="(question, index) in questions" :key="question.id"
            :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
         <transition
-          leave-active-class="duration-300"
-          leave-from-class="opacity-1 translate-y-0"
-          leave-to-class="opacity-0 translate-y-4"
-          appear
+            leave-active-class="duration-300"
+            leave-from-class="opacity-1 translate-y-0"
+            leave-to-class="opacity-0 translate-y-4"
+            appear
         >
           <div v-if="currentStep === index + 1"
                :class="['flex flex-col relative']">
             <transition
-              enter-active-class="delay-300 duration-300"
-              enter-from-class="opacity-0 translate-y-4"
-              enter-to-class="opacity-1 translate-y-0"
-              leave-active-class="duration-300"
-              leave-from-class="opacity-1 translate-y-0"
-              leave-to-class="opacity-0 translate-y-4"
-              appear
+                enter-active-class="delay-300 duration-300"
+                enter-from-class="opacity-0 translate-y-4"
+                enter-to-class="opacity-1 translate-y-0"
+                leave-active-class="duration-300"
+                leave-from-class="opacity-1 translate-y-0"
+                leave-to-class="opacity-0 translate-y-4"
+                appear
             >
               <Heading v-if="currentStep === index + 1">
                 <HeadingSubtitle>{{ question.category }}</HeadingSubtitle>
@@ -122,50 +122,43 @@ const generateDiet = async () => {
               </Heading>
             </transition>
             <transition
-              enter-active-class="delay-400 duration-300"
-              enter-from-class="opacity-0 translate-y-4"
-              enter-to-class="opacity-1 translate-y-0"
-              leave-active-class="duration-300"
-              leave-from-class="opacity-1 translate-y-0"
-              leave-to-class="opacity-0 translate-y-4"
-              appear
+                enter-active-class="delay-400 duration-300"
+                enter-from-class="opacity-0 translate-y-4"
+                enter-to-class="opacity-1 translate-y-0"
+                leave-active-class="duration-300"
+                leave-from-class="opacity-1 translate-y-0"
+                leave-to-class="opacity-0 translate-y-4"
+                appear
             >
-              <DynamicFormField
-                v-if="currentStep === index + 1"
-                v-model="formData[question.id]"
-                :question="question"
-              />
+              <div v-if="currentStep === index + 1">
+                <DynamicFormField
+                    v-model="formData[question.id]"
+                    :question="question"
+                />
+
+                <StepperButtons :current-step="currentStep" :next-step-button-text="nextStepButtonText"
+                                :stepper-value="stepperValue" :use-container="false" @previous-step="previousStep"
+                                class="hidden sm:block border-none py-0 mt-8"/>
+              </div>
             </transition>
           </div>
         </transition>
       </div>
     </LayoutContainer>
-    <div class="w-full border-t pb-4 sm:border-none sm:py-0">
-      <Progress class="sm:hidden h-1.5 bg-muted mb-4" :model-value="stepperValue"/>
-      <LayoutContainer>
-        <div class="flex gap-4">
-          <Button type="button" size="icon-xl" class="shrink-0" variant="ghost" @click="previousStep"
-                  v-if="currentStep > 1" aria-label="Previous step">
-            <ArrowLeft class="size-6" aria-hidden="true"/>
-          </Button>
-          <Button type="submit" size="xl" class="group w-full">
-            {{ nextStepButtonText }}
-            <ArrowRight class="size-6 ml-2 group-hover:translate-x-0.5 duration-200"/>
-          </Button>
-        </div>
-      </LayoutContainer>
-    </div>
+
+    <StepperButtons :current-step="currentStep" :next-step-button-text="nextStepButtonText"
+                    :stepper-value="stepperValue" :use-container="true" @previous-step="previousStep"
+                    class="block sm:hidden"/>
   </form>
 
   <LayoutContainer v-else-if="resultsLoading"
                    class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
     <div class="relative flex flex-col h-full">
       <div class="flex-1">
-        <Heading
-          heading="Your journey to healthier eating is just seconds away!"
-          subheading="Thank you for your time!"
-          class="text-center"
-        />
+        <Heading class="text-center">
+          <HeadingTitle>Your journey to healthier eating is just seconds away!</HeadingTitle>
+          <HeadingSubtitle>Thank you for your time!</HeadingSubtitle>
+        </Heading>
       </div>
       <div class="flex justify-center flex-1">
         <Loader2 class="size-12 text-primary animate-spin"/>

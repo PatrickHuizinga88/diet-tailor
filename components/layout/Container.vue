@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="container max-w-2xl">
+  <div class="container max-w-3xl">
     <slot/>
   </div>
 </template>

@@ -4,6 +4,10 @@ import NutritionDetailList from "~/components/wizard/NutritionDetailList.vue";
 import NutritionDetailItem from "~/components/wizard/NutritionDetailItem.vue";
 import {Heading, HeadingTitle, HeadingDescription} from "~/components/wizard/heading";
 
+const mealPlanStore = useMealPlanStore()
+
+const mealPlan = mealPlanStore.mealPlan
+
 const mealType = (index: string) => {
   switch (index) {
     case 'breakfast':
@@ -16,17 +20,14 @@ const mealType = (index: string) => {
       return 'Snacks'
   }
 }
-
-defineEmits(['retryResponse'])
 </script>
 
 <template>
   <LayoutContainer
     class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
-    <Heading>
-      <HeadingTitle>{{
-          response ? 'Your Personalized Meal Plan is Ready!' : 'Oops... Looks like something went wrong.'
-        }}
+    <Heading class="text-center">
+      <HeadingTitle>
+        {{ mealPlan ? 'Your Personalized Meal Plan is Ready!' : 'Oops... Looks like something went wrong.' }}
       </HeadingTitle>
       <HeadingDescription>
         Based on your preferences, goals, and lifestyle, we've created a plan tailored to help you succeed.
@@ -36,17 +37,17 @@ defineEmits(['retryResponse'])
     <Tabs default-value="Monday" class="w-full pb-4">
       <div class="overflow-hidden rounded-md mb-8">
         <TabsList class="overflow-x-auto justify-stretch w-full">
-          <TabsTrigger v-for="day in response" :value="day.day">
+          <TabsTrigger v-for="day in mealPlan" :value="day.day">
             {{ day.day }}
           </TabsTrigger>
         </TabsList>
       </div>
-      <TabsContent v-for="day in response" :value="day.day" :key="day.day">
+      <TabsContent v-for="day in mealPlan" :value="day.day" :key="day.day">
         <h3 class="h4 mb-3">{{ day.day }}'s Nutrition Overview</h3>
         <dl class="bg-muted rounded-lg text-sm divide-y divide-border px-2 mb-8">
           <div class="flex items-center justify-between py-2">
             <dt class="font-medium">Calories</dt>
-            <dd>{{ day.nutritionOverview.calories }} kcal</dd>
+            <dd>{{ day.nutritionOverview.calories }}</dd>
           </div>
           <div class="flex items-center justify-between py-2">
             <dt class="font-medium">Protein</dt>
@@ -76,7 +77,7 @@ defineEmits(['retryResponse'])
             <h3
               class="inline-flex items-center text-sm text-primary-dark font-sans font-medium bg-primary/10 rounded h-7 px-2 mb-2">
               {{ mealType(index.toString()) }}</h3>
-            <template v-if="!meal.items">
+            <template v-if="!('items' in meal)">
               <h4 class="mb-1">{{ meal.name }}</h4>
               <p class="text-sm text-muted-foreground mb-4">{{ meal.description }}</p>
               <NutritionDetailList>

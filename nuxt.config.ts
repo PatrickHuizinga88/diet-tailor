@@ -46,7 +46,7 @@ export default defineNuxtConfig({
 
   supabase: {
     redirectOptions: {
-      exclude: ['/', '/wizard', '/result'],
+      exclude: ['/', '/wizard', '/results'],
     }
   },
 

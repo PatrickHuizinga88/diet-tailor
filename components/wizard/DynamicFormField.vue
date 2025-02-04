@@ -91,7 +91,7 @@ onMounted(() => {
   <div class="flex-1">
     <div v-if="!question.options" class="flex items-center gap-4">
       <Input v-model="modelValue" :type="question.inputType" :placeholder="question.placeholder"
-             :inputmode="inputMode()"
+             :inputmode="inputMode()" class="h-14 text-sm"
              aria-labelledby="heading-title" :required="!question.optional"/>
       <p v-if="question.suffix" class="shrink-0">{{ question.suffix }}</p>
     </div>

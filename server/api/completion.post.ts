@@ -1,4 +1,4 @@
-import exampleResponse from "~/data/exampleResponse";
+import exampleResponse from "~/data/exampleResponse.json";
 import {createOpenAI} from "@ai-sdk/openai";
 import {generateObject} from "ai";
 import {z} from "zod";

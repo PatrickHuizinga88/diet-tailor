@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import {ArrowRight, CheckCircle} from 'lucide-vue-next'
 import {PasswordInput} from "./ui/password-input";
+import {toTypedSchema} from "@vee-validate/zod";
+import * as z from "zod";
+import {useForm} from "vee-validate";
 
 const supabase = useSupabaseClient()
 const {t} = useI18n()
 
-const form = reactive({
-  email: '',
-  password: '',
-  repeatedPassword: ''
-})
 const errorMessage = ref('')
 const success = ref(false)
 const resendDelay = ref(10)
@@ -24,8 +22,18 @@ const countDown = () => {
   }, 1000)
 }
 
-const signUp = async () => {
-  if (form.password !== form.repeatedPassword) {
+const formSchema = toTypedSchema(z.object({
+  email: z.string(),
+  password: z.string().min(4),
+  repeatedPassword: z.string().min(4),
+}))
+
+const form = useForm({
+  validationSchema: formSchema,
+})
+
+const onSubmit = form.handleSubmit(async (values) => {
+  if (values.password !== values.repeatedPassword) {
     errorMessage.value = t('authentication.register.passwords_dont_match')
     return
   }
@@ -36,14 +44,13 @@ const signUp = async () => {
     const {public: {baseUrl}} = useRuntimeConfig()
 
     const {id: customerId} = await $fetch<any>('/api/stripe/create-customer', {
-      query: {email: form.email}
+      query: {email: values.email}
     })
-
     if (!customerId) throw new Error('Failed to create customer')
 
     const {error} = await supabase.auth.signUp({
-      email: form.email,
-      password: form.password,
+      email: values.email,
+      password: values.password,
       options: {
         data: {
           stripe_customer_id: customerId,
@@ -51,10 +58,7 @@ const signUp = async () => {
         emailRedirectTo: `${baseUrl}/intro`
       }
     })
-
-    if (error) {
-      throw error
-    }
+    if (error) throw error
 
     success.value = true
     resendDelay.value = 10
@@ -65,47 +69,48 @@ const signUp = async () => {
   } finally {
     loading.value = false
   }
-}
+})
 </script>
 
 <template>
-  <form v-if="!success" class="space-y-6" @submit.prevent="signUp">
-    <div>
-      <Label for="email" class="block text-sm font-medium leading-6">{{ $t('common.general.email') }}</Label>
-      <Input
-        v-model="form.email"
-        id="email"
-        name="email"
-        type="email"
-        required/>
-    </div>
-
-    <div>
-      <Label for="password"
-             class="block text-sm font-medium leading-6">{{ $t('authentication.common.password') }}</Label>
-      <PasswordInput
-        v-model="form.password"
-        id="password"
-        name="password"
-        required/>
-    </div>
-
-    <div>
-      <Label for="repeated-password"
-             class="block text-sm font-medium leading-6">{{ $t('authentication.register.repeat_password') }}</Label>
-      <PasswordInput
-        v-model="form.repeatedPassword"
-        id="repeated-password"
-        name="repeated-password"
-        required/>
-    </div>
+  <div>
+    <h1 class="h2 mb-1">Register for free</h1>
+    <p class="text-muted-foreground">Gain access to many features to fine-tune your personal diet.</p>
+  </div>
+  <form v-if="!success" class="space-y-6" @submit="onSubmit">
+    <FormField v-slot="{ componentField }" name="email">
+      <FormItem>
+        <FormLabel>{{ $t('common.general.email') }}</FormLabel>
+        <FormControl>
+          <Input v-bind="componentField" type="email" required/>
+        </FormControl>
+        <FormMessage/>
+      </FormItem>
+    </FormField>
+    <FormField v-slot="{ componentField }" name="password">
+      <FormItem>
+        <FormLabel>{{ $t('authentication.common.password') }}</FormLabel>
+        <FormControl>
+          <PasswordInput v-bind="componentField" required/>
+        </FormControl>
+        <FormMessage/>
+      </FormItem>
+    </FormField>
+    <FormField v-slot="{ componentField }" name="repeated-password">
+      <FormItem>
+        <FormLabel>{{ $t('authentication.register.repeat_password') }}</FormLabel>
+        <FormControl>
+          <PasswordInput v-bind="componentField" required/>
+        </FormControl>
+        <FormMessage/>
+      </FormItem>
+    </FormField>
 
     <Button type="submit" :loading="loading" class="w-full">
       {{ $t('authentication.register.sign_up') }}
     </Button>
 
     <p v-if="errorMessage" class="text-sm text-destructive">{{ errorMessage }}</p>
-
   </form>
 
   <div v-else class="flex flex-col items-center">
@@ -113,14 +118,14 @@ const signUp = async () => {
       <CheckCircle class="size-4"/>
       <AlertTitle>{{ $t('authentication.register.sign_up_success.title') }}</AlertTitle>
       <AlertDescription>{{
-          $t('authentication.register.sign_up_success.description', {email: form.email})
+          $t('authentication.register.sign_up_success.description', {email: form.values.email})
         }}
       </AlertDescription>
     </Alert>
 
     <p class="text-sm text-muted-foreground text-center mt-4">
       {{ $t('authentication.register.received_nothing') }}
-      <Button @click="signUp" variant="link" class="h-auto p-0 text-primary" :disabled="resendDelay > 0">
+      <Button @click="onSubmit" variant="link" class="h-auto p-0 text-primary" :disabled="resendDelay > 0">
         {{ $t('authentication.register.send_again') }}
       </Button>
       <span v-if="resendDelay > 0" class="inline-block ml-1">
@@ -129,13 +134,15 @@ const signUp = async () => {
     </p>
   </div>
 
-  {{ $t('authentication.register.have_account') + ' ' }}
-  <Button variant="link" class="h-auto p-0 ml-1" as-child>
-    <NuxtLink to="/login">
-      {{ $t('authentication.common.sign_in') }}
-      <ArrowRight class="size-4" aria-hidden="true"/>
-    </NuxtLink>
-  </Button>
+  <div class="sm:mt-6 md:mt-10 text-center text-sm text-muted-foreground">
+    {{ $t('authentication.register.have_account') + ' ' }}
+    <Button variant="link" class="h-auto p-0 ml-1" as-child>
+      <NuxtLink to="/login">
+        {{ $t('authentication.common.sign_in') }}
+        <ArrowRight class="size-4" aria-hidden="true"/>
+      </NuxtLink>
+    </Button>
+  </div>
 </template>
 
 <style scoped>
