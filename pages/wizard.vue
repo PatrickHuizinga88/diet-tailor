@@ -80,14 +80,9 @@ const handleSubmit = () => {
   nextStep()
 }
 
-const generateDiet = async () => {
-  const {data} = await $fetch('/api/completion', {
-    method: 'POST',
-    body: wizardFormStore.wizardForm
-  })
-  if (!data) return
-
-  mealPlanStore.setMealPlan(data)
+const generateDiet = () => {
+  // const response = await useStreamedDays(wizardFormStore.wizardForm)
+  mealPlanStore.setMealPlan(wizardFormStore.wizardForm)
   navigateTo('/results')
 }
 </script>

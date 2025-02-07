@@ -30,12 +30,19 @@ interface MealPlanDay {
 
 export const useMealPlanStore = defineStore('mealPlanStore', {
   state: () => ({
-    // mealPlan: [] as MealPlanDay[]
-    mealPlan: exampleResponse as MealPlanDay[]
+    mealPlan: [] as MealPlanDay[]
+    // mealPlan: exampleResponse as MealPlanDay[]
   }),
   actions: {
-    setMealPlan(value: MealPlanDay[]) {
-      this.mealPlan = value
+    async setMealPlan(body: any) {
+      const response = await $fetch('/api/completion', {
+        method: 'POST',
+        body
+      })
+      if (!response) return
+
+      console.log(response)
+      // this.mealPlan = [...this.mealPlan, value]
     }
   }
 })

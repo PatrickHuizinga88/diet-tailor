@@ -20,11 +20,21 @@ const mealType = (index: string) => {
       return 'Snacks'
   }
 }
+
+const buttonClick = () => {
+  mealPlanStore.setMealPlan({
+    activity_level: "lightly_active",
+    age: 25,
+    gender: "male",
+    height: 183,
+    weight: 76
+  })
+}
 </script>
 
 <template>
   <LayoutContainer
-    class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
+      class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
     <Heading class="text-center">
       <HeadingTitle>
         {{ mealPlan ? 'Your Personalized Meal Plan is Ready!' : 'Oops... Looks like something went wrong.' }}
@@ -33,6 +43,7 @@ const mealType = (index: string) => {
         Based on your preferences, goals, and lifestyle, we've created a plan tailored to help you succeed.
       </HeadingDescription>
     </Heading>
+    <Button @click="buttonClick">button</Button>
     <h2 class="h3 text-primary-dark text-center w-full mb-6">Your Weekly Meal Plan</h2>
     <Tabs default-value="Monday" class="w-full pb-4">
       <div class="overflow-hidden rounded-md mb-8">
@@ -65,7 +76,7 @@ const mealType = (index: string) => {
         <Dialog>
           <DialogTrigger as-child>
             <Button size="lg" class="w-full mb-8">
-                Save and customize plan
+              Save and customize plan
             </Button>
           </DialogTrigger>
           <DialogContent>
@@ -75,7 +86,7 @@ const mealType = (index: string) => {
         <div class="border rounded-2xl space-y-8 p-4">
           <div v-for="(meal, index) in day.meals">
             <h3
-              class="inline-flex items-center text-sm text-primary-dark font-sans font-medium bg-primary/10 rounded h-7 px-2 mb-2">
+                class="inline-flex items-center text-sm text-primary-dark font-sans font-medium bg-primary/10 rounded h-7 px-2 mb-2">
               {{ mealType(index.toString()) }}</h3>
             <template v-if="!('items' in meal)">
               <h4 class="mb-1">{{ meal.name }}</h4>

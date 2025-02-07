@@ -46,159 +46,159 @@ const questions: Question[] = [
       {label: "More than once every day", value: "super_active"}
     ]
   },
-  {
-    id: "primary_goal",
-    category: "Health Goals",
-    question: "What is your primary goal?",
-    options: [
-      {label: "Lose weight", value: "lose_weight"},
-      {label: "Gain weight", value: "gain_weight"},
-      {label: "Maintain current weight", value: "maintain_weight"},
-      {label: "Build muscle", value: "build_muscle"},
-      {label: "Improve general health", value: "improve_health"},
-    ]
-  },
-  {
-    id: "weight_loss_goal",
-    category: "Health Goals",
-    question: "How much weight would you like to lose per week?",
-    options: [
-      {label: "0.25 kg (0.5 lbs)", value: "0.25kg"},
-      {label: "0.5 kg (1 lbs)", value: "0.5kg", description: "Recommended"},
-      {label: "1 kg (2 lbs)", value: "1kg", description: "For rapid results"}
-    ],
-    condition: "lose_weight"
-  },
-  {
-    id: "health_goals",
-    category: "Health Goals",
-    question: "Do you have specific health goals?",
-    options: [
-      {label: "Lower cholesterol", value: "lowerCholesterol"},
-      {label: "Stabilize blood sugar", value: "stabilizeBloodSugar"},
-      {label: "Improve athletic performance", value: "improvePerformance"},
-      {label: "Increase energy levels", value: "increaseEnergy"},
-      {label: "Reduce inflammation", value: "reduceInflammation"},
-      {label: "Other", value: "other", isOther: true}
-    ],
-    multiple: true
-  },
-  {
-    id: "dietary_restrictions",
-    category: "Medical History",
-    question: "Do you have any dietary restrictions?",
-    options: [
-      {label: "Gluten-free", value: "glutenFree"},
-      {label: "Lactose-free", value: "lactoseFree"},
-      {label: "Nut-free", value: "nutFree"},
-      {label: "Shellfish-free", value: "shellfishFree"},
-      {label: "Other", value: "other", isOther: true}
-    ],
-    multiple: true
-  },
-  {
-    id: "medical_conditions",
-    category: "Medical History",
-    question: "Do you have any diagnosed medical conditions that influence your diet?",
-    options: [
-      {label: "Diabetes (Type 1 or Type 2)", value: "diabetes"},
-      {label: "High cholesterol", value: "highCholesterol"},
-      {label: "Hypertension", value: "hypertension"},
-      {label: "Irritable Bowel Syndrome (IBS)", value: "ibs"},
-      {label: "Food allergies", value: "foodAllergies"},
-      {label: "Other", value: "other", isOther: true}
-    ],
-    multiple: true
-  },
-  {
-    id: "medications",
-    category: "Medical History",
-    question: "Are you taking any medications or supplements that may affect your nutritional needs?",
-    options: [
-      {label: "Yes", value: "yes"},
-      {label: "No", value: "no"}
-    ]
-  },
-  {
-    id: "diet_type",
-    category: "Food Preferences",
-    question: "What type of diet do you follow or prefer?",
-    options: [
-      {label: "Omnivore", value: "omnivore"},
-      {label: "Vegetarian", value: "vegetarian"},
-      {label: "Vegan", value: "vegan"},
-      {label: "Pescatarian", value: "pescatarian"},
-      {label: "Ketogenic", value: "ketogenic"},
-      {label: "Paleo", value: "paleo"},
-      {label: "Low-carb", value: "low-carb"},
-      {label: "High-protein", value: "high-protein"},
-      {label: "Other", value: "other", isOther: true},
-    ],
-  },
-  {
-    id: "food_dislike",
-    category: "Food Preferences",
-    question: "Are there any foods you dislike or want to avoid?",
-    options: [
-      // Make conditional based on diet type
-      {label: "Red meat", value: "red-meat"},
-      {label: "Fish", value: "fish"},
-      {label: "Eggs", value: "eggs"},
-      {label: "Sugar", value: "sugar"},
-      {label: "Poultry", value: "poultry"},
-      {label: "Dairy", value: "dairy"},
-      {label: "Soy", value: "soy"},
-      {label: "Other", value: "other", isOther: true},
-    ],
-    multiple: true
-  },
-  {
-    id: "adventurous_food",
-    category: "Food Preferences",
-    question: "How adventurous are you with food choices?",
-    options: [
-      {label: "I love trying new foods", value: "new-foods"},
-      {label: "I prefer familiar foods", value: "familiar-foods"},
-      {label: "Somewhere in between", value: "in-between"},
-    ],
-  },
-  {
-    id: "favorite_cuisine",
-    category: "Food Preferences",
-    question: "What are your favorite types of cuisine?",
-    options: [
-      {label: "Italian", value: "italian"},
-      {label: "Mexican", value: "mexican"},
-      {label: "Indian", value: "indian"},
-      {label: "Mediterranean", value: "mediterranean"},
-      {label: "Asian", description: "e.g. Chinese, Japanese, Thai", value: "asian"},
-      {label: "American", value: "american"},
-      {label: "Other", value: "other", isOther: true},
-    ],
-    multiple: true
-  },
-  {
-    id: "meals_amount",
-    category: "Practical Considerations",
-    question: "How many meals do you prefer to have each day?",
-    options: [
-      {label: "3 meals", description: "Breakfast, lunch and dinner", value: "3-meals"},
-      {label: "4 meals", description: "3 meals + 1 snack", value: "4-meals"},
-      {label: "5 meals", description: "3 meals + 2 snacks", value: "5-meals"},
-      {label: "Other", value: "other", isOther: true},
-    ]
-  },
-  {
-    id: "time_restrictions",
-    category: "Practical Considerations",
-    question: "How much time can you spend preparing meals?",
-    options: [
-      {label: "Less than 15 minutes", value: "less-than-15"},
-      {label: "15-30 minutes", value: "15-30"},
-      {label: "30-60 minutes", value: "30-60"},
-      {label: "No time limit", value: "no-time-limit"},
-    ]
-  }
+  // {
+  //   id: "primary_goal",
+  //   category: "Health Goals",
+  //   question: "What is your primary goal?",
+  //   options: [
+  //     {label: "Lose weight", value: "lose_weight"},
+  //     {label: "Gain weight", value: "gain_weight"},
+  //     {label: "Maintain current weight", value: "maintain_weight"},
+  //     {label: "Build muscle", value: "build_muscle"},
+  //     {label: "Improve general health", value: "improve_health"},
+  //   ]
+  // },
+  // {
+  //   id: "weight_loss_goal",
+  //   category: "Health Goals",
+  //   question: "How much weight would you like to lose per week?",
+  //   options: [
+  //     {label: "0.25 kg (0.5 lbs)", value: "0.25kg"},
+  //     {label: "0.5 kg (1 lbs)", value: "0.5kg", description: "Recommended"},
+  //     {label: "1 kg (2 lbs)", value: "1kg", description: "For rapid results"}
+  //   ],
+  //   condition: "lose_weight"
+  // },
+  // {
+  //   id: "health_goals",
+  //   category: "Health Goals",
+  //   question: "Do you have specific health goals?",
+  //   options: [
+  //     {label: "Lower cholesterol", value: "lowerCholesterol"},
+  //     {label: "Stabilize blood sugar", value: "stabilizeBloodSugar"},
+  //     {label: "Improve athletic performance", value: "improvePerformance"},
+  //     {label: "Increase energy levels", value: "increaseEnergy"},
+  //     {label: "Reduce inflammation", value: "reduceInflammation"},
+  //     {label: "Other", value: "other", isOther: true}
+  //   ],
+  //   multiple: true
+  // },
+  // {
+  //   id: "dietary_restrictions",
+  //   category: "Medical History",
+  //   question: "Do you have any dietary restrictions?",
+  //   options: [
+  //     {label: "Gluten-free", value: "glutenFree"},
+  //     {label: "Lactose-free", value: "lactoseFree"},
+  //     {label: "Nut-free", value: "nutFree"},
+  //     {label: "Shellfish-free", value: "shellfishFree"},
+  //     {label: "Other", value: "other", isOther: true}
+  //   ],
+  //   multiple: true
+  // },
+  // {
+  //   id: "medical_conditions",
+  //   category: "Medical History",
+  //   question: "Do you have any diagnosed medical conditions that influence your diet?",
+  //   options: [
+  //     {label: "Diabetes (Type 1 or Type 2)", value: "diabetes"},
+  //     {label: "High cholesterol", value: "highCholesterol"},
+  //     {label: "Hypertension", value: "hypertension"},
+  //     {label: "Irritable Bowel Syndrome (IBS)", value: "ibs"},
+  //     {label: "Food allergies", value: "foodAllergies"},
+  //     {label: "Other", value: "other", isOther: true}
+  //   ],
+  //   multiple: true
+  // },
+  // {
+  //   id: "medications",
+  //   category: "Medical History",
+  //   question: "Are you taking any medications or supplements that may affect your nutritional needs?",
+  //   options: [
+  //     {label: "Yes", value: "yes"},
+  //     {label: "No", value: "no"}
+  //   ]
+  // },
+  // {
+  //   id: "diet_type",
+  //   category: "Food Preferences",
+  //   question: "What type of diet do you follow or prefer?",
+  //   options: [
+  //     {label: "Omnivore", value: "omnivore"},
+  //     {label: "Vegetarian", value: "vegetarian"},
+  //     {label: "Vegan", value: "vegan"},
+  //     {label: "Pescatarian", value: "pescatarian"},
+  //     {label: "Ketogenic", value: "ketogenic"},
+  //     {label: "Paleo", value: "paleo"},
+  //     {label: "Low-carb", value: "low-carb"},
+  //     {label: "High-protein", value: "high-protein"},
+  //     {label: "Other", value: "other", isOther: true},
+  //   ],
+  // },
+  // {
+  //   id: "food_dislike",
+  //   category: "Food Preferences",
+  //   question: "Are there any foods you dislike or want to avoid?",
+  //   options: [
+  //     // Make conditional based on diet type
+  //     {label: "Red meat", value: "red-meat"},
+  //     {label: "Fish", value: "fish"},
+  //     {label: "Eggs", value: "eggs"},
+  //     {label: "Sugar", value: "sugar"},
+  //     {label: "Poultry", value: "poultry"},
+  //     {label: "Dairy", value: "dairy"},
+  //     {label: "Soy", value: "soy"},
+  //     {label: "Other", value: "other", isOther: true},
+  //   ],
+  //   multiple: true
+  // },
+  // {
+  //   id: "adventurous_food",
+  //   category: "Food Preferences",
+  //   question: "How adventurous are you with food choices?",
+  //   options: [
+  //     {label: "I love trying new foods", value: "new-foods"},
+  //     {label: "I prefer familiar foods", value: "familiar-foods"},
+  //     {label: "Somewhere in between", value: "in-between"},
+  //   ],
+  // },
+  // {
+  //   id: "favorite_cuisine",
+  //   category: "Food Preferences",
+  //   question: "What are your favorite types of cuisine?",
+  //   options: [
+  //     {label: "Italian", value: "italian"},
+  //     {label: "Mexican", value: "mexican"},
+  //     {label: "Indian", value: "indian"},
+  //     {label: "Mediterranean", value: "mediterranean"},
+  //     {label: "Asian", description: "e.g. Chinese, Japanese, Thai", value: "asian"},
+  //     {label: "American", value: "american"},
+  //     {label: "Other", value: "other", isOther: true},
+  //   ],
+  //   multiple: true
+  // },
+  // {
+  //   id: "meals_amount",
+  //   category: "Practical Considerations",
+  //   question: "How many meals do you prefer to have each day?",
+  //   options: [
+  //     {label: "3 meals", description: "Breakfast, lunch and dinner", value: "3-meals"},
+  //     {label: "4 meals", description: "3 meals + 1 snack", value: "4-meals"},
+  //     {label: "5 meals", description: "3 meals + 2 snacks", value: "5-meals"},
+  //     {label: "Other", value: "other", isOther: true},
+  //   ]
+  // },
+  // {
+  //   id: "time_restrictions",
+  //   category: "Practical Considerations",
+  //   question: "How much time can you spend preparing meals?",
+  //   options: [
+  //     {label: "Less than 15 minutes", value: "less-than-15"},
+  //     {label: "15-30 minutes", value: "15-30"},
+  //     {label: "30-60 minutes", value: "30-60"},
+  //     {label: "No time limit", value: "no-time-limit"},
+  //   ]
+  // }
 ]
 
 export default questions;

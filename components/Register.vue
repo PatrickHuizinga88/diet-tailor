@@ -25,7 +25,7 @@ const countDown = () => {
 const formSchema = toTypedSchema(z.object({
   email: z.string(),
   password: z.string().min(4),
-  repeatedPassword: z.string().min(4),
+  repeated_password: z.string().min(4),
 }))
 
 const form = useForm({
@@ -33,7 +33,7 @@ const form = useForm({
 })
 
 const onSubmit = form.handleSubmit(async (values) => {
-  if (values.password !== values.repeatedPassword) {
+  if (values.password !== values.repeated_password) {
     errorMessage.value = t('authentication.register.passwords_dont_match')
     return
   }
@@ -96,7 +96,7 @@ const onSubmit = form.handleSubmit(async (values) => {
         <FormMessage/>
       </FormItem>
     </FormField>
-    <FormField v-slot="{ componentField }" name="repeated-password">
+    <FormField v-slot="{ componentField }" name="repeated_password">
       <FormItem>
         <FormLabel>{{ $t('authentication.register.repeat_password') }}</FormLabel>
         <FormControl>
@@ -136,11 +136,9 @@ const onSubmit = form.handleSubmit(async (values) => {
 
   <div class="sm:mt-6 md:mt-10 text-center text-sm text-muted-foreground">
     {{ $t('authentication.register.have_account') + ' ' }}
-    <Button variant="link" class="h-auto p-0 ml-1" as-child>
-      <NuxtLink to="/login">
+    <Button variant="link" class="h-auto p-0 ml-1">
         {{ $t('authentication.common.sign_in') }}
         <ArrowRight class="size-4" aria-hidden="true"/>
-      </NuxtLink>
     </Button>
   </div>
 </template>

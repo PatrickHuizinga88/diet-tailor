@@ -1,7 +1,8 @@
 import exampleResponse from "~/data/exampleResponse.json";
 import {createOpenAI} from "@ai-sdk/openai";
-import {generateObject} from "ai";
+import {streamObject} from "ai";
 import {z} from "zod";
+import {Readable} from "node:stream";
 
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
@@ -97,7 +98,7 @@ export default defineEventHandler(async (event) => {
       fats: z.string(),
     })
 
-    const {object} = await generateObject({
+    const {elementStream} = streamObject({
       model: openai("gpt-4o-mini", {
         structuredOutputs: true,
       }),
@@ -126,9 +127,11 @@ export default defineEventHandler(async (event) => {
         {role: "user", content: prompt},
       ],
     })
-    return {
-      data: object,
-    }
+
+    // console.log(sendStream(event, elementStream))
+
+    // return sendStream(event, elementStream)
+
   } catch (error) {
     return {
       data: null,
