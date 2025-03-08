@@ -2,7 +2,7 @@ import exampleResponse from "~/data/exampleResponse.json";
 import {createOpenAI} from "@ai-sdk/openai";
 import {streamObject} from "ai";
 import {z} from "zod";
-import {Readable} from "node:stream";
+import {Readable, Transform} from "node:stream";
 
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
@@ -128,10 +128,23 @@ export default defineEventHandler(async (event) => {
       ],
     })
 
-    // console.log(sendStream(event, elementStream))
+    const transformStream = new Transform({
+      writableObjectMode: true,
+      transform(chunk, encoding, callback) {
+        // Ensure the chunk is an object.
+        let data;
+        try {
+          data = JSON.stringify(chunk);
+        } catch (err) {
+          return callback(err);
+        }
+        callback(null, data);
+      }
+    });
 
-    // return sendStream(event, elementStream)
+    Readable.from(elementStream).pipe(transformStream);
 
+    return sendStream(event, transformStream)
   } catch (error) {
     return {
       data: null,

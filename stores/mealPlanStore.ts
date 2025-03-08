@@ -39,9 +39,33 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
         method: 'POST',
         body
       })
-      if (!response) return
+      if (!response.ok || !response.body) {
+        throw new Error('Stream not supported or request failed');
+      }
 
-      console.log(response)
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let aggregatedData = '';
+
+      const readStream = (): Promise<void> => {
+        return reader.read().then(({done, value}) => {
+          if (done) {
+            try {
+              const parsedData = JSON.parse(aggregatedData) as MealPlanDay[];
+              this.mealPlan = parsedData;
+            } catch (error) {
+              console.error('Error parsing JSON:', error);
+            }
+            console.log(`Stream finished`);
+            return;
+          }
+          aggregatedData += decoder.decode(value, {stream: true});
+          return readStream();
+        });
+      }
+
+      await readStream();
+
       // this.mealPlan = [...this.mealPlan, value]
     }
   }
