@@ -4,8 +4,10 @@ import {PasswordInput} from "./ui/password-input";
 import {toTypedSchema} from "@vee-validate/zod";
 import * as z from "zod";
 import {useForm} from "vee-validate";
+import type {Database} from "~/types/database.types";
 
-const supabase = useSupabaseClient()
+const supabase = useSupabaseClient<Database>()
+const mealPlanStore = useMealPlanStore()
 const {t} = useI18n()
 
 const errorMessage = ref('')
@@ -23,14 +25,44 @@ const countDown = () => {
 }
 
 const formSchema = toTypedSchema(z.object({
-  email: z.string(),
-  password: z.string().min(4),
-  repeated_password: z.string().min(4),
+  email: z
+      .string({message: t('common.validations.required')})
+      .email({message: t('authentication.validations.email')}),
+  password: z
+      .string({message: t('common.validations.required')})
+      .min(8, {message: t('authentication.validations.password_length', {length: 8})}),
+  repeated_password: z
+      .string({message: t('common.validations.required')})
+      .min(8, {message: t('authentication.validations.password_length', {length: 8})}),
 }))
 
 const form = useForm({
   validationSchema: formSchema,
 })
+
+const signUp = async (email: string, password: string) => {
+  const {public: {baseUrl}} = useRuntimeConfig()
+
+  const {id: customerId} = await $fetch<any>('/api/stripe/create-customer', {
+    query: {email: email}
+  })
+  if (!customerId) throw new Error('Failed to create customer')
+
+  const {error} = await supabase.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        stripe_customer_id: customerId,
+      },
+      emailRedirectTo: `${baseUrl}/intro`
+    }
+  })
+  if (error) throw error
+
+  resendDelay.value = 10
+  countDown()
+}
 
 const onSubmit = form.handleSubmit(async (values) => {
   if (values.password !== values.repeated_password) {
@@ -41,28 +73,10 @@ const onSubmit = form.handleSubmit(async (values) => {
   try {
     loading.value = true
 
-    const {public: {baseUrl}} = useRuntimeConfig()
+    localStorage.setItem('meal-plan', JSON.stringify(mealPlanStore.mealPlan))
 
-    const {id: customerId} = await $fetch<any>('/api/stripe/create-customer', {
-      query: {email: values.email}
-    })
-    if (!customerId) throw new Error('Failed to create customer')
-
-    const {error} = await supabase.auth.signUp({
-      email: values.email,
-      password: values.password,
-      options: {
-        data: {
-          stripe_customer_id: customerId,
-        },
-        emailRedirectTo: `${baseUrl}/intro`
-      }
-    })
-    if (error) throw error
-
+    await signUp(values.email, values.password)
     success.value = true
-    resendDelay.value = 10
-    countDown()
   } catch (error) {
     errorMessage.value = t('authentication.register.sign_up_failed')
     console.error(error)
@@ -113,7 +127,7 @@ const onSubmit = form.handleSubmit(async (values) => {
     <p v-if="errorMessage" class="text-sm text-destructive">{{ errorMessage }}</p>
   </form>
 
-  <div v-else class="flex flex-col items-center">
+  <div v-if="success" class="flex flex-col items-center">
     <Alert variant="success">
       <CheckCircle class="size-4"/>
       <AlertTitle>{{ $t('authentication.register.sign_up_success.title') }}</AlertTitle>
@@ -125,7 +139,8 @@ const onSubmit = form.handleSubmit(async (values) => {
 
     <p class="text-sm text-muted-foreground text-center mt-4">
       {{ $t('authentication.register.received_nothing') }}
-      <Button @click="onSubmit" variant="link" class="h-auto p-0 text-primary" :disabled="resendDelay > 0">
+      <Button @click="signUp(form.values.email, form.values.password)" variant="link" class="h-auto p-0 text-primary"
+              :disabled="resendDelay > 0">
         {{ $t('authentication.register.send_again') }}
       </Button>
       <span v-if="resendDelay > 0" class="inline-block ml-1">
@@ -134,11 +149,11 @@ const onSubmit = form.handleSubmit(async (values) => {
     </p>
   </div>
 
-  <div class="sm:mt-6 md:mt-10 text-center text-sm text-muted-foreground">
+  <div v-if="!success" class="sm:mt-6 md:mt-10 text-center text-sm text-muted-foreground">
     {{ $t('authentication.register.have_account') + ' ' }}
     <Button variant="link" class="h-auto p-0 ml-1">
-        {{ $t('authentication.common.sign_in') }}
-        <ArrowRight class="size-4" aria-hidden="true"/>
+      {{ $t('authentication.common.sign_in') }}
+      <ArrowRight class="size-4" aria-hidden="true"/>
     </Button>
   </div>
 </template>

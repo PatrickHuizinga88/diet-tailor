@@ -3,10 +3,6 @@ import {createOpenAI} from "@ai-sdk/openai";
 import {generateObject, streamObject} from "ai";
 import {z} from "zod";
 
-interface Query {
-  daysAmount: 2 | 5 | 7
-}
-
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
   if (!openaiApiKey) throw new Error('Missing OpenAI API key');
@@ -14,7 +10,7 @@ export default defineEventHandler(async (event) => {
     apiKey: openaiApiKey,
   });
 
-  const {daysAmount} = getQuery<Query>(event)
+  const {daysAmount} = getQuery(event)
 
   const {
     age,
@@ -39,6 +35,17 @@ export default defineEventHandler(async (event) => {
   const convertToString = (array: string[]) => {
     if (!array || !array.length) return undefined
     return array.join(', ')
+  }
+
+  const daysAmountText = () => {
+    switch (daysAmount) {
+      case '2':
+        return 'Monday and Tuesday'
+      case '5':
+        return 'Monday to Friday'
+      case '7':
+        return 'Monday to Sunday'
+    }
   }
 
   const prompt = `
@@ -77,29 +84,19 @@ export default defineEventHandler(async (event) => {
     1. Generate a meal plan based on the above information.
     2. Ensure meals are balanced, nutrient-rich, and aligned with the user’s caloric goals.
     3. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
+    4. Strictly only provide a meal plan for ${daysAmountText()}.
     
     Begin generating the meal plan below.
   `
 
   const mealDetails = z.object({
     name: z.string(),
-    description: z.string().describe("A detailed and appealing meal description, considering the user's tastes and dietary needs."),
+    description: z.string().describe("A short and appealing meal description, considering the user's tastes and dietary needs."),
     calories: z.string(),
     protein: z.string(),
     carbs: z.string(),
     fats: z.string(),
   })
-
-  const daysAmountText = () => {
-    switch (daysAmount) {
-      case 2:
-        return 'Monday and Tuesday'
-      case 5:
-        return 'Monday to Friday'
-      case 7:
-        return 'Monday to Sunday'
-    }
-  }
 
   const {object} = await generateObject({
     model: openai("gpt-4o-mini", {
@@ -107,9 +104,9 @@ export default defineEventHandler(async (event) => {
     }),
     output: "array",
     schemaName: "mealPlan",
-    schemaDescription: `A highly personalized meal plan for ${daysAmountText} based on user preferences, goals, and restrictions.`,
+    schemaDescription: `A highly personalized meal plan based on user preferences, goals, and restrictions.`,
     schema: z.object({
-      day: z.string(),
+      day: z.string().describe('The day of the week for which the meal plan is generated. E.g. Monday, Tuesday, etc.'),
       nutritionOverview: z.object({
         calories: z.string(),
         protein: z.string(),
@@ -124,7 +121,7 @@ export default defineEventHandler(async (event) => {
           items: z.array(mealDetails),
         }),
       }),
-    }),
+    }).describe(`A meal plan for days ${daysAmountText()}`),
     messages: [
       {role: "system", content: "You are a nutrition expert."},
       {role: "user", content: prompt},

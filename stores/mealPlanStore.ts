@@ -1,37 +1,11 @@
 import {defineStore} from "pinia";
 import exampleResponse from "../data/exampleResponse.json";
-
-interface Meal {
-  name: string;
-  description: string;
-  calories: string;
-  protein: string;
-  carbs: string;
-  fats: string;
-}
-
-interface MealPlanDay {
-  day: string;
-  nutritionOverview: {
-    calories: string;
-    protein: string;
-    carbs: string;
-    fats: string;
-  };
-  meals: {
-    breakfast: Meal;
-    lunch: Meal;
-    dinner: Meal;
-    snacks: {
-      items: Meal[];
-    };
-  };
-}
+import type {MealPlanDay} from "~/types/MealPlanDay";
 
 export const useMealPlanStore = defineStore('mealPlanStore', {
   state: () => ({
-    mealPlan: [] as MealPlanDay[]
-    // mealPlan: exampleResponse as MealPlanDay[]
+    // mealPlan: [] as MealPlanDay[]
+    mealPlan: exampleResponse as MealPlanDay[]
   }),
   actions: {
     async setMealPlanTeaser(body: any) {

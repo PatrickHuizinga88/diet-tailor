@@ -9,7 +9,7 @@ export default {
       loading: "Loading",
       name: "Name",
       new: "New {item}",
-      notifications: "Notifications",
+      notifications: "Notification | Notifications",
       search: "Search",
       welcome: "Welcome",
 
@@ -19,27 +19,38 @@ export default {
 
     actions: {
       actions: "Actions",
-      add: "Add {item}",
-      back_to: "Back to {item}",
+      add: "Add",
+      add_item: "Add {item}",
+      back: "Back",
+      back_to_item: "Back to {item}",
       cancel: "Cancel",
       close: "Close",
-      delete: "Delete {item}",
-      edit: "Edit {item}",
-      save: "Save {item}",
+      copied: "Copied",
+      copy_item: "Copy {item}",
+      delete: "Delete",
+      delete_item: "Delete {item}",
+      edit: "Edit",
+      edit_item: "Edit {item}",
+      save: "Save",
+      save_item: "Save {item}",
+      send: "Send",
+      send_item: "Send {item}",
       skip: "Skip",
 
       delete_confirmation: "Are you sure you want to delete {item}? It will be permanently removed.",
     },
 
     validations: {
+      max_length: "This field must be at most {max} characters",
+      min_length: "This field must be at least {min} characters",
       required: "This field is required",
     },
 
-    notifications: {
+    toasts: {
       save: {
         success: {
           title: "Save successful",
-          description: "{item} was saved successfully."
+          description: "{item} saved successfully."
         },
         error: {
           title: "Save Failed",
@@ -49,7 +60,7 @@ export default {
       delete: {
         success: {
           title: "Delete successful",
-          description: "{item} was deleted successfully."
+          description: "{item} deleted successfully."
         },
         error: {
           title: "Delete Failed",
@@ -59,7 +70,7 @@ export default {
       update: {
         success: {
           title: "Update successful",
-          description: "{item} was updated successfully."
+          description: "{item} updated successfully."
         },
         error: {
           title: "Update Failed",
@@ -69,7 +80,7 @@ export default {
       retrieve: {
         success: {
           title: "Retrieve successful",
-          description: "{item} was retrieved successfully."
+          description: "{item} retrieved successfully."
         },
         error: {
           title: "Retrieve Failed",
@@ -81,5 +92,10 @@ export default {
         description: "Try again later or contact us.",
       },
     },
+
+    pagination: {
+      page: "Page",
+      of: "of",
+    }
   }
 }

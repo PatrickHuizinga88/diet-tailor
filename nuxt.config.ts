@@ -40,7 +40,11 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    public: {
+      baseUrl: 'http://localhost:3000',
+    },
     openaiApiKey: '',
+    stripeSecretKey: '',
   },
 
   css: ['../assets/css/main.css'],
@@ -49,7 +53,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/supabase',
-    "shadcn-nuxt",
+    'shadcn-nuxt',
     '@vueuse/nuxt',
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
@@ -57,6 +61,8 @@ export default defineNuxtConfig({
 
   supabase: {
     redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
       exclude: ['/', '/wizard', '/results'],
     }
   },

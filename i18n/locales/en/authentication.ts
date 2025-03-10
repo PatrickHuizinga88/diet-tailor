@@ -9,6 +9,8 @@ export default {
     },
     validations: {
       email: "This is not a valid email address",
+      incorrect_current_password: "Current password is incorrect",
+      passwords_dont_match: "Passwords don't match",
       password_length: "Password must be at least {length} characters long",
     },
     login: {
@@ -24,7 +26,6 @@ export default {
       create_new_account: "Create your new account",
       have_account: "Already have an account?",
       in_seconds: "in {seconds} seconds.",
-      passwords_dont_match: "Passwords don't match",
       received_nothing: "Didn't receive anything?",
       repeat_password: "Repeat password",
       send_again: "Send again",

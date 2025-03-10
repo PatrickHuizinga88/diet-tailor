@@ -2,53 +2,53 @@
   {
     "day": "Monday",
     "nutritionOverview": {
-      "calories": "2800 kcal",
-      "protein": "180 g",
-      "carbs": "300 g",
-      "fats": "80 g"
+      "calories": "2000 kcal",
+      "protein": "150 g",
+      "carbs": "200 g",
+      "fats": "70 g"
     },
     "meals": {
       "breakfast": {
-        "name": "Mexican Breakfast Burrito",
-        "description": "A hearty burrito filled with scrambled eggs, black beans, avocado, salsa, and cheese wrapped in a whole wheat tortilla.",
-        "calories": "600 kcal",
+        "name": "Greek Yogurt Parfait",
+        "description": "A delicious parfait made with creamy Greek yogurt, fresh berries, and a sprinkle of granola for crunch.",
+        "calories": "400 kcal",
         "protein": "30 g",
-        "carbs": "60 g",
-        "fats": "25 g"
+        "carbs": "50 g",
+        "fats": "10 g"
       },
       "lunch": {
-        "name": "Grilled Chicken Tacos",
-        "description": "Soft corn tortillas filled with grilled chicken, fresh cilantro, diced onions, and a squeeze of lime, served with a side of pico de gallo.",
-        "calories": "700 kcal",
-        "protein": "50 g",
-        "carbs": "70 g",
+        "name": "Grilled Chicken Salad",
+        "description": "A refreshing salad with grilled chicken breast, mixed greens, cherry tomatoes, cucumbers, and a light vinaigrette.",
+        "calories": "500 kcal",
+        "protein": "40 g",
+        "carbs": "30 g",
         "fats": "20 g"
       },
       "dinner": {
-        "name": "Italian Quinoa Bowl",
-        "description": "A nutritious bowl of quinoa topped with roasted vegetables, chickpeas, and a drizzle of balsamic glaze, garnished with fresh basil.",
-        "calories": "650 kcal",
+        "name": "Quinoa Stir-Fry",
+        "description": "A hearty stir-fry with quinoa, mixed vegetables, and tofu, seasoned with soy sauce and sesame oil.",
+        "calories": "600 kcal",
         "protein": "25 g",
-        "carbs": "90 g",
-        "fats": "15 g"
+        "carbs": "80 g",
+        "fats": "20 g"
       },
       "snacks": {
         "items": [
           {
-            "name": "Greek Yogurt with Honey",
-            "description": "Creamy Greek yogurt drizzled with honey and topped with mixed nuts for added crunch.",
-            "calories": "300 kcal",
-            "protein": "20 g",
-            "carbs": "30 g",
-            "fats": "10 g"
+            "name": "Almonds",
+            "description": "A handful of roasted almonds for a healthy fat and protein boost.",
+            "calories": "200 kcal",
+            "protein": "8 g",
+            "carbs": "6 g",
+            "fats": "18 g"
           },
           {
-            "name": "Protein Shake",
-            "description": "A post-workout shake made with whey protein, almond milk, and a banana for a quick energy boost.",
-            "calories": "550 kcal",
-            "protein": "55 g",
+            "name": "Apple with Peanut Butter",
+            "description": "A crisp apple sliced and served with creamy peanut butter for a satisfying snack.",
+            "calories": "300 kcal",
+            "protein": "10 g",
             "carbs": "40 g",
-            "fats": "10 g"
+            "fats": "15 g"
           }
         ]
       }
@@ -57,328 +57,53 @@
   {
     "day": "Tuesday",
     "nutritionOverview": {
-      "calories": "2700 kcal",
-      "protein": "175 g",
-      "carbs": "280 g",
-      "fats": "75 g"
+      "calories": "2000 kcal",
+      "protein": "150 g",
+      "carbs": "200 g",
+      "fats": "70 g"
     },
     "meals": {
       "breakfast": {
-        "name": "Indian Masala Omelette",
-        "description": "A spicy omelette made with eggs, tomatoes, onions, and green chilies, served with whole grain toast.",
-        "calories": "500 kcal",
-        "protein": "25 g",
-        "carbs": "40 g",
-        "fats": "30 g"
-      },
-      "lunch": {
-        "name": "Chickpea Salad",
-        "description": "A refreshing salad with chickpeas, cucumber, tomatoes, red onion, and a lemon-tahini dressing.",
-        "calories": "600 kcal",
-        "protein": "30 g",
-        "carbs": "80 g",
-        "fats": "20 g"
-      },
-      "dinner": {
-        "name": "Pasta Primavera",
-        "description": "Whole wheat pasta tossed with seasonal vegetables, olive oil, garlic, and topped with parmesan cheese.",
-        "calories": "700 kcal",
-        "protein": "25 g",
-        "carbs": "100 g",
+        "name": "Oatmeal with Banana and Nuts",
+        "description": "Warm oatmeal topped with sliced banana and a mix of nuts for a filling start to the day.",
+        "calories": "450 kcal",
+        "protein": "15 g",
+        "carbs": "70 g",
         "fats": "15 g"
       },
-      "snacks": {
-        "items": [
-          {
-            "name": "Almonds",
-            "description": "A handful of raw almonds for a healthy fat and protein boost.",
-            "calories": "200 kcal",
-            "protein": "8 g",
-            "carbs": "8 g",
-            "fats": "18 g"
-          },
-          {
-            "name": "Cottage Cheese with Pineapple",
-            "description": "Low-fat cottage cheese mixed with fresh pineapple chunks for a sweet and protein-rich snack.",
-            "calories": "300 kcal",
-            "protein": "30 g",
-            "carbs": "30 g",
-            "fats": "5 g"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "day": "Wednesday",
-    "nutritionOverview": {
-      "calories": "2900 kcal",
-      "protein": "185 g",
-      "carbs": "310 g",
-      "fats": "85 g"
-    },
-    "meals": {
-      "breakfast": {
-        "name": "Breakfast Quesadilla",
-        "description": "A delicious quesadilla filled with scrambled eggs, cheese, and spinach, served with salsa on the side.",
-        "calories": "600 kcal",
+      "lunch": {
+        "name": "Turkey and Avocado Wrap",
+        "description": "A whole grain wrap filled with turkey, avocado, lettuce, and tomato, served with a side of carrot sticks.",
+        "calories": "550 kcal",
         "protein": "35 g",
         "carbs": "50 g",
         "fats": "25 g"
-      },
-      "lunch": {
-        "name": "Lentil Curry with Rice",
-        "description": "A hearty lentil curry served with brown rice and a side of steamed broccoli.",
-        "calories": "700 kcal",
-        "protein": "40 g",
-        "carbs": "90 g",
-        "fats": "15 g"
-      },
-      "dinner": {
-        "name": "Stuffed Bell Peppers",
-        "description": "Bell peppers stuffed with ground turkey, quinoa, black beans, and topped with cheese, baked to perfection.",
-        "calories": "750 kcal",
-        "protein": "50 g",
-        "carbs": "80 g",
-        "fats": "20 g"
-      },
-      "snacks": {
-        "items": [
-          {
-            "name": "Hummus with Carrot Sticks",
-            "description": "Creamy hummus served with crunchy carrot sticks for a healthy snack.",
-            "calories": "250 kcal",
-            "protein": "8 g",
-            "carbs": "30 g",
-            "fats": "10 g"
-          },
-          {
-            "name": "Protein Bar",
-            "description": "A homemade protein bar packed with oats, nuts, and protein powder for a quick energy boost.",
-            "calories": "400 kcal",
-            "protein": "40 g",
-            "carbs": "40 g",
-            "fats": "15 g"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "day": "Thursday",
-    "nutritionOverview": {
-      "calories": "2800 kcal",
-      "protein": "180 g",
-      "carbs": "290 g",
-      "fats": "80 g"
-    },
-    "meals": {
-      "breakfast": {
-        "name": "Italian Frittata",
-        "description": "A baked frittata with eggs, spinach, tomatoes, and mozzarella cheese, served with whole grain toast.",
-        "calories": "600 kcal",
-        "protein": "35 g",
-        "carbs": "40 g",
-        "fats": "30 g"
-      },
-      "lunch": {
-        "name": "Chicken Caesar Salad",
-        "description": "Grilled chicken breast on a bed of romaine lettuce, topped with parmesan cheese, croutons, and Caesar dressing.",
-        "calories": "700 kcal",
-        "protein": "50 g",
-        "carbs": "30 g",
-        "fats": "40 g"
-      },
-      "dinner": {
-        "name": "Vegetable Stir-Fry with Tofu",
-        "description": "A colorful stir-fry of mixed vegetables and tofu, served over brown rice with a soy sauce glaze.",
-        "calories": "650 kcal",
-        "protein": "30 g",
-        "carbs": "90 g",
-        "fats": "15 g"
-      },
-      "snacks": {
-        "items": [
-          {
-            "name": "Peanut Butter Banana Toast",
-            "description": "Whole grain toast topped with peanut butter and banana slices for a quick energy boost.",
-            "calories": "300 kcal",
-            "protein": "10 g",
-            "carbs": "40 g",
-            "fats": "15 g"
-          },
-          {
-            "name": "Trail Mix",
-            "description": "A mix of nuts, seeds, and dried fruits for a healthy and satisfying snack.",
-            "calories": "400 kcal",
-            "protein": "15 g",
-            "carbs": "50 g",
-            "fats": "20 g"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "day": "Friday",
-    "nutritionOverview": {
-      "calories": "3000 kcal",
-      "protein": "190 g",
-      "carbs": "320 g",
-      "fats": "90 g"
-    },
-    "meals": {
-      "breakfast": {
-        "name": "Chilaquiles",
-        "description": "Crispy tortilla chips topped with green salsa, scrambled eggs, avocado, and cheese, served with a side of beans.",
-        "calories": "700 kcal",
-        "protein": "30 g",
-        "carbs": "80 g",
-        "fats": "35 g"
-      },
-      "lunch": {
-        "name": "Quinoa and Black Bean Bowl",
-        "description": "A nourishing bowl of quinoa, black beans, corn, diced tomatoes, and avocado, drizzled with lime dressing.",
-        "calories": "650 kcal",
-        "protein": "25 g",
-        "carbs": "90 g",
-        "fats": "20 g"
       },
       "dinner": {
         "name": "Baked Salmon with Asparagus",
-        "description": "Oven-baked salmon fillet served with roasted asparagus and a side of quinoa.",
-        "calories": "800 kcal",
-        "protein": "60 g",
-        "carbs": "50 g",
-        "fats": "35 g"
-      },
-      "snacks": {
-        "items": [
-          {
-            "name": "Protein Smoothie",
-            "description": "A smoothie made with protein powder, spinach, banana, and almond milk for a nutritious snack.",
-            "calories": "400 kcal",
-            "protein": "40 g",
-            "carbs": "40 g",
-            "fats": "10 g"
-          },
-          {
-            "name": "Rice Cakes with Almond Butter",
-            "description": "Rice cakes spread with almond butter and topped with banana slices for a crunchy snack.",
-            "calories": "300 kcal",
-            "protein": "10 g",
-            "carbs": "40 g",
-            "fats": "15 g"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "day": "Saturday",
-    "nutritionOverview": {
-      "calories": "2900 kcal",
-      "protein": "185 g",
-      "carbs": "310 g",
-      "fats": "80 g"
-    },
-    "meals": {
-      "breakfast": {
-        "name": "Savory Oatmeal with Eggs",
-        "description": "Oatmeal cooked with spinach and topped with a poached egg and sriracha for a spicy kick.",
-        "calories": "500 kcal",
-        "protein": "25 g",
-        "carbs": "60 g",
-        "fats": "15 g"
-      },
-      "lunch": {
-        "name": "Paneer Tikka Wrap",
-        "description": "Grilled paneer marinated in spices, wrapped in a whole wheat tortilla with lettuce and mint chutney.",
-        "calories": "700 kcal",
-        "protein": "40 g",
-        "carbs": "80 g",
-        "fats": "25 g"
-      },
-      "dinner": {
-        "name": "Shrimp Tacos with Mango Salsa",
-        "description": "Soft tacos filled with grilled shrimp, fresh mango salsa, and avocado, served with lime wedges.",
-        "calories": "750 kcal",
-        "protein": "50 g",
-        "carbs": "70 g",
-        "fats": "20 g"
-      },
-      "snacks": {
-        "items": [
-          {
-            "name": "Cottage Cheese with Berries",
-            "description": "Low-fat cottage cheese topped with fresh berries for a sweet and protein-rich snack.",
-            "calories": "250 kcal",
-            "protein": "25 g",
-            "carbs": "30 g",
-            "fats": "5 g"
-          },
-          {
-            "name": "Nut Butter Energy Balls",
-            "description": "Homemade energy balls made with oats, nut butter, and honey for a quick snack.",
-            "calories": "400 kcal",
-            "protein": "30 g",
-            "carbs": "40 g",
-            "fats": "15 g"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "day": "Sunday",
-    "nutritionOverview": {
-      "calories": "2800 kcal",
-      "protein": "180 g",
-      "carbs": "300 g",
-      "fats": "75 g"
-    },
-    "meals": {
-      "breakfast": {
-        "name": "Egg and Avocado Toast",
-        "description": "Whole grain toast topped with smashed avocado, poached eggs, and a sprinkle of chili flakes.",
-        "calories": "600 kcal",
-        "protein": "25 g",
-        "carbs": "50 g",
-        "fats": "35 g"
-      },
-      "lunch": {
-        "name": "Mediterranean Couscous Salad",
-        "description": "Couscous mixed with cherry tomatoes, cucumber, olives, feta cheese, and a lemon-olive oil dressing.",
+        "description": "Oven-baked salmon fillet served with roasted asparagus and a side of brown rice.",
         "calories": "650 kcal",
-        "protein": "20 g",
-        "carbs": "90 g",
-        "fats": "25 g"
-      },
-      "dinner": {
-        "name": "Chicken Biryani",
-        "description": "A fragrant rice dish made with marinated chicken, basmati rice, and aromatic spices, served with raita.",
-        "calories": "800 kcal",
-        "protein": "50 g",
-        "carbs": "100 g",
+        "protein": "45 g",
+        "carbs": "60 g",
         "fats": "30 g"
       },
       "snacks": {
         "items": [
           {
-            "name": "Dark Chocolate Almonds",
-            "description": "Almonds coated in dark chocolate for a sweet and satisfying treat.",
-            "calories": "300 kcal",
-            "protein": "8 g",
+            "name": "Hummus with Veggies",
+            "description": "Creamy hummus served with a variety of fresh vegetables for dipping.",
+            "calories": "250 kcal",
+            "protein": "10 g",
             "carbs": "30 g",
-            "fats": "20 g"
+            "fats": "10 g"
           },
           {
-            "name": "Fruit Smoothie",
-            "description": "A refreshing smoothie made with mixed fruits and yogurt for a nutritious snack.",
-            "calories": "400 kcal",
-            "protein": "25 g",
-            "carbs": "50 g",
-            "fats": "10 g"
+            "name": "Cottage Cheese with Pineapple",
+            "description": "A bowl of cottage cheese topped with sweet pineapple chunks for a refreshing snack.",
+            "calories": "300 kcal",
+            "protein": "20 g",
+            "carbs": "30 g",
+            "fats": "5 g"
           }
         ]
       }
