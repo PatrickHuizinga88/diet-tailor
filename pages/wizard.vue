@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import questions from '~/data/questions'
-import {Heading, HeadingTitle, HeadingSubtitle, HeadingDescription} from "~/components/wizard/heading";
+import {Heading, HeadingTitle, HeadingSubtitle} from "~/components/wizard/heading";
 import {Loader2, RotateCcw} from "lucide-vue-next";
 import DynamicFormField from "~/components/wizard/DynamicFormField.vue";
 import {Progress} from "~/components/ui/progress";
 import StepperButtons from "~/components/StepperButtons.vue";
 
-const supabase = useSupabaseClient()
 const wizardFormStore = useWizardFormStore()
 const mealPlanStore = useMealPlanStore()
 
@@ -39,7 +38,8 @@ const nextStep = async () => {
   if (currentStep.value === questions.length) {
     resultsLoading.value = true;
     try {
-      await generateDiet();
+      await mealPlanStore.setMealPlanTeaser(wizardFormStore.wizardForm)
+      navigateTo('/results')
     } catch (e) {
       console.error(e);
     } finally {
@@ -79,12 +79,6 @@ const handleSubmit = () => {
   }
   nextStep()
 }
-
-const generateDiet = () => {
-  // const response = await useStreamedDays(wizardFormStore.wizardForm)
-  mealPlanStore.setMealPlan(wizardFormStore.wizardForm)
-  navigateTo('/results')
-}
 </script>
 
 <template>
@@ -100,8 +94,7 @@ const generateDiet = () => {
             leave-to-class="opacity-0 translate-y-4"
             appear
         >
-          <div v-if="currentStep === index + 1"
-               :class="['flex flex-col relative']">
+          <div v-if="currentStep === index + 1" class="flex flex-col relative">
             <transition
                 enter-active-class="delay-300 duration-300"
                 enter-from-class="opacity-0 translate-y-4"
@@ -151,8 +144,8 @@ const generateDiet = () => {
     <div class="relative flex flex-col h-full">
       <div class="flex-1">
         <Heading class="text-center">
-          <HeadingTitle>Your journey to healthier eating is just seconds away!</HeadingTitle>
           <HeadingSubtitle>Thank you for your time!</HeadingSubtitle>
+          <HeadingTitle>Your journey to healthier eating is just seconds away!</HeadingTitle>
         </Heading>
       </div>
       <div class="flex justify-center flex-1">

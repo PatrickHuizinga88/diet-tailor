@@ -34,15 +34,26 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
     // mealPlan: exampleResponse as MealPlanDay[]
   }),
   actions: {
-    async setMealPlan(body: any) {
-      const response = await $fetch('/api/completion', {
+    async setMealPlanTeaser(body: any) {
+      const response = await $fetch<MealPlanDay[]>('/api/generate-plan', {
         method: 'POST',
+        query: {daysAmount: 2},
+        body
+      })
+      if (!response) throw new Error('Failed to generate meal plan')
+
+      this.mealPlan = response
+    },
+
+    async setMealPlan(body: any) {
+      const response = await $fetch<MealPlanDay[]>('/api/generate-plan', {
+        method: 'POST',
+        query: {daysAmount: 5},
         body
       })
       if (!response) return
 
-      console.log(response)
-      // this.mealPlan = [...this.mealPlan, value]
+      this.mealPlan = [...this.mealPlan, ...response]
     }
   }
 })
