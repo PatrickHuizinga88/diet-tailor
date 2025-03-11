@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ArrowRight, CheckCircle} from 'lucide-vue-next'
+import {ArrowRight, CheckCircle, Info} from 'lucide-vue-next'
 import {PasswordInput} from "./ui/password-input";
 import {toTypedSchema} from "@vee-validate/zod";
 import * as z from "zod";
@@ -7,6 +7,7 @@ import {useForm} from "vee-validate";
 import type {Database} from "~/types/database.types";
 
 const supabase = useSupabaseClient<Database>()
+const wizardFormStore = useWizardFormStore()
 const mealPlanStore = useMealPlanStore()
 const {t} = useI18n()
 
@@ -48,17 +49,25 @@ const signUp = async (email: string, password: string) => {
   })
   if (!customerId) throw new Error('Failed to create customer')
 
-  const {error} = await supabase.auth.signUp({
+  const {data, error: signUpError} = await supabase.auth.signUp({
     email: email,
     password: password,
     options: {
       data: {
         stripe_customer_id: customerId,
       },
-      emailRedirectTo: `${baseUrl}/intro`
+      emailRedirectTo: `${baseUrl}/confirm-registration`
     }
   })
-  if (error) throw error
+  if (signUpError || !data.user) throw signUpError
+
+  const {error: profileError} = await supabase.from('profiles').upsert({
+    user_id: data.user.id,
+    personal_information: wizardFormStore.wizardForm
+  }, {
+    onConflict: 'user_id'
+  })
+  if (profileError) throw profileError
 
   resendDelay.value = 10
   countDown()
@@ -87,10 +96,6 @@ const onSubmit = form.handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div>
-    <h1 class="h2 mb-1">Register for free</h1>
-    <p class="text-muted-foreground">Gain access to many features to fine-tune your personal diet.</p>
-  </div>
   <form v-if="!success" class="space-y-6" @submit="onSubmit">
     <FormField v-slot="{ componentField }" name="email">
       <FormItem>
@@ -119,6 +124,11 @@ const onSubmit = form.handleSubmit(async (values) => {
         <FormMessage/>
       </FormItem>
     </FormField>
+
+    <Alert>
+      <Info class="size-4"/>
+      <AlertDescription>{{ $t('authentication.register.terms_confirmation.description') }}</AlertDescription>
+    </Alert>
 
     <Button type="submit" :loading="loading" class="w-full">
       {{ $t('authentication.register.sign_up') }}

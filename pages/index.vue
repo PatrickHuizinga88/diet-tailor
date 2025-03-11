@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import {ArrowRight, ExternalLink} from "lucide-vue-next";
 
+const user = useSupabaseUser()
+
+if (user.value) {
+  navigateTo('/dashboard')
+}
+
 const steps = [
   {
     title: "Tell us about yourself",

@@ -22,13 +22,13 @@ export default {
     },
     register: {
       account_activated: "Account activated!",
-      continue: "Continue",
       create_new_account: "Create your new account",
       have_account: "Already have an account?",
       in_seconds: "in {seconds} seconds.",
       received_nothing: "Didn't receive anything?",
       repeat_password: "Repeat password",
       send_again: "Send again",
+      sign_in_to_get_started: "Sign in to get started",
       sign_up: "Sign up",
       sign_up_failed: "Sign up failed. Please check your email and password.",
       sign_up_success: {

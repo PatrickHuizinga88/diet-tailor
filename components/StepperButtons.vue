@@ -27,7 +27,7 @@ const emit = defineEmits(['previousStep'])
         </Button>
         <Button type="submit" size="xl" class="group w-full">
           {{ nextStepButtonText }}
-          <ArrowRight class="size-6 ml-2 group-hover:translate-x-0.5 duration-200"/>
+          <ArrowRight class="size-6 group-hover:translate-x-0.5 duration-200"/>
         </Button>
       </div>
     </component>

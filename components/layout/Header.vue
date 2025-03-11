@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 left-0 right-0 bg-background/50 backdrop-blur-md z-10">
+  <header class="sticky top-0 left-0 right-0 bg-background/50 backdrop-blur-md z-10">
     <LayoutContainer>
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <NuxtLink to="/">

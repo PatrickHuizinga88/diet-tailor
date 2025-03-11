@@ -6,6 +6,9 @@ import DynamicFormField from "~/components/wizard/DynamicFormField.vue";
 import {Progress} from "~/components/ui/progress";
 import StepperButtons from "~/components/StepperButtons.vue";
 
+definePageMeta({
+  layout: 'wizard',
+})
 const wizardFormStore = useWizardFormStore()
 const mealPlanStore = useMealPlanStore()
 
@@ -84,7 +87,7 @@ const handleSubmit = () => {
 <template>
   <form v-if="!resultsLoading && !showResults" @submit.prevent="handleSubmit" class="flex flex-col h-full">
     <LayoutContainer
-        class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none max-sm:overflow-y-auto pt-[calc(2rem+var(--header-height))]">
+        class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none max-sm:overflow-y-auto">
       <Progress class="hidden sm:block h-1.5 bg-muted mb-12" :model-value="stepperValue"/>
       <div v-for="(question, index) in questions" :key="question.id"
            :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">

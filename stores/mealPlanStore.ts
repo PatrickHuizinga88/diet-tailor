@@ -19,7 +19,7 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
       this.mealPlan = response
     },
 
-    async setMealPlan(body: any) {
+    async setRemainingMealPlan(body: any) {
       const response = await $fetch<MealPlanDay[]>('/api/generate-plan', {
         method: 'POST',
         query: {daysAmount: 5},

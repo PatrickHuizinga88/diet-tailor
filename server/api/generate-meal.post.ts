@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     apiKey: openaiApiKey,
   });
 
-  const {daysAmount} = getQuery(event)
+  const {mealType, previousMeal, reason} = getQuery(event)
 
   const {
     age,
@@ -33,17 +33,6 @@ export default defineEventHandler(async (event) => {
   const convertToString = (array: string[]) => {
     if (!array || !array.length) return undefined
     return array.join(', ')
-  }
-
-  const daysAmountText = () => {
-    switch (daysAmount) {
-      case '2':
-        return 'Monday and Tuesday'
-      case '5':
-        return 'Monday to Friday'
-      case '7':
-        return 'Monday to Sunday'
-    }
   }
 
   const prompt = `
@@ -77,13 +66,13 @@ export default defineEventHandler(async (event) => {
     - Specific health concerns: ${convertToString(health_optimizations) || 'not specified'}
     
     ### Instructions:
-    1. Generate a meal plan based on the above information.
-    2. Ensure meals are balanced, nutrient-rich, and aligned with the user’s caloric goals.
-    3. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
-    4. Feel free to reuse meals or ingredients across days for variety and convenience.
-    5. Strictly only provide a meal plan for ${daysAmountText()}.
+    1. Generate a ${mealType} meal based on the above information.
+    2. This meal will be a replacement of the previous meal: ${previousMeal}. 
+       ${reason ? "You're given the following feedback about this meal: " + reason + '.' : ''}
+    3. Ensure the meal is balanced, nutrient-rich, and aligned with the user’s caloric goals.
+    4. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
     
-    Begin generating the meal plan below.
+    Begin generating the meal below.
   `
 
   const mealDetails = z.object({
@@ -100,25 +89,9 @@ export default defineEventHandler(async (event) => {
       structuredOutputs: true,
     }),
     output: "array",
-    schemaName: "mealPlan",
-    schemaDescription: `A highly personalized meal plan based on user preferences, goals, and restrictions.`,
-    schema: z.object({
-      day: z.string().describe('The day of the week for which the meal plan is generated. E.g. Monday, Tuesday, etc.'),
-      nutritionOverview: z.object({
-        calories: z.string(),
-        protein: z.string(),
-        carbs: z.string(),
-        fats: z.string(),
-      }).describe('The amount of nutrients in the meal plan for the entire day and a sum of the individual meals and snacks for that day including the unit.'),
-      meals: z.object({
-        breakfast: mealDetails,
-        lunch: mealDetails,
-        dinner: mealDetails,
-        snacks: z.object({
-          items: z.array(mealDetails),
-        }),
-      }),
-    }).describe(`A meal plan for days ${daysAmountText()}`),
+    schemaName: "meal",
+    schemaDescription: 'A personalized meal based on user preferences, goals, and restrictions.',
+    schema: mealDetails,
     messages: [
       {role: "system", content: "You are a nutrition expert."},
       {role: "user", content: prompt},
@@ -128,17 +101,9 @@ export default defineEventHandler(async (event) => {
   if (!object) {
     createError({
       statusCode: 500,
-      statusMessage: 'Failed to generate meal plan'
+      statusMessage: 'Failed to generate meal'
     })
   }
-
-  // return {
-  //   data: {
-  //     choices: [
-  //       { message: { content: exampleResponse } }
-  //     ]
-  //   }
-  // }
 
   return object
 })

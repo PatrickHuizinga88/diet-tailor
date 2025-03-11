@@ -8,10 +8,10 @@ const toastStore = useToastStore();
 <template>
   <NuxtLoadingIndicator color="hsl(var(--primary))"/>
 
-  <div class="flex flex-col">
+  <div class="h-svh flex flex-col">
     <Header/>
 
-    <div class="flex-1 pt-8">
+    <div class="h-[calc(100svh-var(--header-height))] flex-1 pt-10">
       <slot/>
     </div>
   </div>
