@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
       case '2':
         return 'Monday and Tuesday'
       case '5':
-        return 'Monday to Friday'
+        return 'Wednesday to Sunday'
       case '7':
         return 'Monday to Sunday'
     }
@@ -80,8 +80,9 @@ export default defineEventHandler(async (event) => {
     1. Generate a meal plan based on the above information.
     2. Ensure meals are balanced, nutrient-rich, and aligned with the user’s caloric goals.
     3. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
-    4. Feel free to reuse meals or ingredients across days for variety and convenience.
+    4. Reuse meals or ingredients across days for variety and convenience.
     5. Strictly only provide a meal plan for ${daysAmountText()}.
+    6. Strictly adhere to the provided order of meals.
     
     Begin generating the meal plan below.
   `
@@ -101,7 +102,7 @@ export default defineEventHandler(async (event) => {
     }),
     output: "array",
     schemaName: "mealPlan",
-    schemaDescription: `A highly personalized meal plan based on user preferences, goals, and restrictions.`,
+    schemaDescription: 'A highly personalized meal plan based on user preferences, goals, and restrictions.',
     schema: z.object({
       day: z.string().describe('The day of the week for which the meal plan is generated. E.g. Monday, Tuesday, etc.'),
       nutritionOverview: z.object({

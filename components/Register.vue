@@ -62,10 +62,10 @@ const signUp = async (email: string, password: string) => {
   if (signUpError || !data.user) throw signUpError
 
   const {error: profileError} = await supabase.from('profiles').upsert({
-    user_id: data.user.id,
+    id: data.user.id,
     personal_information: wizardFormStore.wizardForm
   }, {
-    onConflict: 'user_id'
+    onConflict: 'id'
   })
   if (profileError) throw profileError
 
@@ -125,10 +125,12 @@ const onSubmit = form.handleSubmit(async (values) => {
       </FormItem>
     </FormField>
 
-    <Alert>
-      <Info class="size-4"/>
-      <AlertDescription>{{ $t('authentication.register.terms_confirmation.description') }}</AlertDescription>
-    </Alert>
+    <p class="text-xs text-muted-foreground">
+      {{ $t('authentication.register.terms_confirmation') }}
+      <a href="#" class="text-foreground underline">{{ $t('common.general.terms_of_service') }}</a>
+      {{ $t('common.general.and') }}
+      <a href="#" class="text-foreground underline">{{ $t('common.general.privacy_policy') }}</a>.
+    </p>
 
     <Button type="submit" :loading="loading" class="w-full">
       {{ $t('authentication.register.sign_up') }}

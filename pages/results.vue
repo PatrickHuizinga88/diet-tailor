@@ -4,7 +4,7 @@ import {Heading, HeadingTitle, HeadingDescription} from "~/components/wizard/hea
 
 <template>
   <LayoutContainer
-      class="relative flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))] pb-8">
+      class="relative flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto overflow-x-hidden pb-8">
     <Heading class="text-center">
       <HeadingTitle>
         Your Personalized Meal Plan is Ready!

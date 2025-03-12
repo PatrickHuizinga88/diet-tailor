@@ -180,9 +180,9 @@ const questions: Question[] = [
     category: "Practical Considerations",
     question: "How many meals do you prefer to have each day?",
     options: [
-      {label: "3 meals", description: "Breakfast, lunch and dinner", value: "3_meals"},
-      {label: "4 meals", description: "3 meals + 1 snack", value: "4_meals"},
-      {label: "5 meals", description: "3 meals + 2 snacks", value: "5_meals"},
+      {label: "3 meals", description: "Breakfast, lunch and dinner", value: "3_meals_0_snacks"},
+      {label: "4 meals", description: "3 meals + 1 snack", value: "3_meals_1_snacks"},
+      {label: "5 meals", description: "3 meals + 2 snacks", value: "3_meals_2_snacks"},
       {label: "Other", value: "other", isOther: true},
     ]
   },

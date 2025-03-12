@@ -8,7 +8,7 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
     mealPlan: exampleResponse as MealPlanDay[]
   }),
   actions: {
-    async setMealPlanTeaser(body: any) {
+    async generateMealPlanTeaser(body: any) {
       const response = await $fetch<MealPlanDay[]>('/api/generate-plan', {
         method: 'POST',
         query: {daysAmount: 2},
@@ -19,7 +19,7 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
       this.mealPlan = response
     },
 
-    async setRemainingMealPlan(body: any) {
+    async generateRemainingMealPlan(body: any) {
       const response = await $fetch<MealPlanDay[]>('/api/generate-plan', {
         method: 'POST',
         query: {daysAmount: 5},
@@ -28,6 +28,10 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
       if (!response) return
 
       this.mealPlan = [...this.mealPlan, ...response]
+    },
+
+    setMealPlan(mealPlan: MealPlanDay[]) {
+      this.mealPlan = mealPlan
     }
   }
 })

@@ -1,7 +1,7 @@
 export const useStreamedDays = async (body: any) => {
   const days = ref([]);
 
-  const response = await $fetch<any>("/api/completion", {
+  const response = await $fetch<any>("/api/generate-plan", {
     method: "POST",
     responseType: "stream",
     body

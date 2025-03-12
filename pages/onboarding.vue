@@ -7,7 +7,7 @@ import {Progress} from "~/components/ui/progress";
 import StepperButtons from "~/components/StepperButtons.vue";
 
 definePageMeta({
-  layout: 'wizard',
+  layout: 'onboarding',
 })
 const wizardFormStore = useWizardFormStore()
 const mealPlanStore = useMealPlanStore()
@@ -41,7 +41,7 @@ const nextStep = async () => {
   if (currentStep.value === questions.length) {
     resultsLoading.value = true;
     try {
-      await mealPlanStore.setMealPlanTeaser(wizardFormStore.wizardForm)
+      await mealPlanStore.generateMealPlanTeaser(wizardFormStore.wizardForm)
       navigateTo('/results')
     } catch (e) {
       console.error(e);
@@ -161,7 +161,7 @@ const handleSubmit = () => {
   </LayoutContainer>
 
   <LayoutContainer v-else
-                   class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
+                   class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto">
     <div class="flex justify-center">
       <Button size="lg" class="group w-full" @click="nextStep">
         <RotateCcw class="size-5 mr-2 group-hover:-rotate-[360deg] duration-500"/>

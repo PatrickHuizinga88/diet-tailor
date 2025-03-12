@@ -1,6 +1,7 @@
 export default {
   common: {
     general: {
+      and: "and",
       breadcrumbs: "Breadcrumbs",
       email: "Email",
       dashboard: "Dashboard",
@@ -10,7 +11,9 @@ export default {
       name: "Name",
       new: "New {item}",
       notifications: "Notification | Notifications",
+      privacy_policy: "Privacy Policy",
       search: "Search",
+      terms_of_service: "Terms of Service",
       welcome: "Welcome",
 
       no_records_found: "No {item} found",

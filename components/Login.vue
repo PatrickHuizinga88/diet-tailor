@@ -30,7 +30,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 
     localStorage.setItem('meal-plan', JSON.stringify(mealPlanStore.mealPlan))
 
-    const {error} = await supabase.auth.signInWithPassword({
+    const {data, error} = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password
     })
@@ -38,7 +38,11 @@ const onSubmit = form.handleSubmit(async (values) => {
       loading.value = false
       throw error
     }
-    navigateTo('/dashboard')
+    console.log(data.user?.last_sign_in_at)
+    if (!data.user?.last_sign_in_at) {
+      await navigateTo('/intro')
+    }
+    await navigateTo('/dashboard')
   } catch (error) {
     errorMessage.value = t('authentication.login.sign_in_failed')
     console.error(error)
@@ -76,7 +80,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       </FormItem>
     </FormField>
 
-    <Button type="submit" :loading="loading" class="w-full">
+    <Button size="sm" type="submit" :loading="loading" class="w-full">
       {{ $t('authentication.common.sign_in') }}
     </Button>
 

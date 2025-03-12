@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Question} from "~/types/Question";
+import type Question from "~/types/Question";
 
 const props = defineProps<{
   question: Question

@@ -35,6 +35,7 @@ export default {
         title: "Sign up successful!",
         description: "An email has been sent to {email} to activate your account.",
       },
+      terms_confirmation: "By signing up, you agree to our ",
       welcome_to: "Welcome to {appName}."
     },
     password_recovery: {

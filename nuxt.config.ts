@@ -57,13 +57,14 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
+    'dayjs-nuxt',
   ],
 
   supabase: {
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: ['/', '/wizard', '/results', '/confirm-registration'],
+      exclude: ['/', '/onboarding', '/results', '/confirm-registration'],
     }
   },
 

@@ -12,9 +12,11 @@ definePageMeta({
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
 const toastStore = useToastStore()
+const mealPlanStore = useMealPlanStore()
 const {t} = useI18n()
 
 const loading = ref(false)
+const savingMealPlan = ref(false)
 
 const formSchema = toTypedSchema(z.object({
   first_name: z.string().min(2),
@@ -42,20 +44,19 @@ const onSubmit = handleSubmit(async (values) => {
     loading.value = true
     const {error} = await supabase
         .from('profiles')
-        .upsert({
-          id: user.value?.id,
+        .update({
           first_name: values.first_name,
           last_name: values.last_name,
-        }, {
-          onConflict: 'id'
+          completed_onboarding: true,
         })
+        .eq('id', user.value?.id)
     if (error) throw error
-    await navigateTo('/dashboard')
     toastStore.createToast({
       type: 'success',
       action: 'save',
       item: t('profiles.profiles'),
     })
+    await navigateTo('/dashboard')
   } catch (error) {
     toastStore.createToast({
       type: 'destructive',
@@ -67,10 +68,28 @@ const onSubmit = handleSubmit(async (values) => {
     loading.value = false
   }
 })
+
+const skipOnboarding = async () => {
+  try {
+    loading.value = true
+    const {error} = await supabase
+        .from('profiles')
+        .update({
+          completed_onboarding: true,
+        })
+        .eq('id', user.value?.id)
+    if (error) throw error
+    await navigateTo('/dashboard')
+  } catch (error) {
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
-  <Authentication :title="$t('account.profile.welcome_to', {appName: 'DietTailor'})"
+  <Authentication :title="$t('account.profile.welcome_to', {appName: 'Diet Tailor'})"
                   :description="$t('account.profile.lets_start_with_your_profile')">
     <form @submit="onSubmit" class="space-y-6">
       <section id="profile-settings" class="space-y-6">
@@ -100,10 +119,8 @@ const onSubmit = handleSubmit(async (values) => {
         <Button type="submit" class="w-full" :loading="loading">
           {{ $t('common.actions.save') }}
         </Button>
-        <Button variant="outline" type="button" class="w-full" :loading="loading" as-child>
-          <NuxtLinkLocale to="/">
-            {{ $t('common.actions.skip') }}
-          </NuxtLinkLocale>
+        <Button @click="skipOnboarding" variant="outline" type="button" class="w-full" :loading="loading">
+          {{ $t('common.actions.skip') }}
         </Button>
       </div>
     </form>
