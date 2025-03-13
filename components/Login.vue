@@ -34,15 +34,18 @@ const onSubmit = form.handleSubmit(async (values) => {
       email: values.email,
       password: values.password
     })
-    if (error) {
-      loading.value = false
-      throw error
+    if (error) throw error
+
+    const {data: profile} = await supabase
+        .from('profiles')
+        .select('completed_setup')
+        .eq('id', data.user?.id)
+        .single()
+
+    if (profile.completed_setup) {
+      await navigateTo('/dashboard')
     }
-    console.log(data.user?.last_sign_in_at)
-    if (!data.user?.last_sign_in_at) {
-      await navigateTo('/intro')
-    }
-    await navigateTo('/dashboard')
+    await navigateTo('/intro')
   } catch (error) {
     errorMessage.value = t('authentication.login.sign_in_failed')
     console.error(error)

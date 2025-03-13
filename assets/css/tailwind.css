@@ -30,6 +30,9 @@
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 60 100% 98%;
+
+    --popover: 60 100% 98%;
+    --popover-foreground: 60 50% 4%;
  
     --ring: 150 46% 46%;
  

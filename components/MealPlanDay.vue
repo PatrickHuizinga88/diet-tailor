@@ -42,11 +42,12 @@ const mealType = (index: string) => {
       <dd>{{ mealPlan.nutritionOverview.fats }}</dd>
     </div>
   </dl>
-  <div class="border rounded-2xl space-y-8 p-4 mb-6">
-    <div v-for="(meal, index) in mealPlan.meals">
-      <h3
-          class="inline-flex items-center text-sm text-primary-dark font-sans font-medium bg-primary/10 rounded h-7 px-2 mb-2">
-        {{ mealType(index.toString()) }}</h3>
+  <div class="border rounded-2xl space-y-8 p-4">
+    <div v-for="(meal, index) in mealPlan.meals" :key="`meal-${index}`">
+      <h3 class="inline-flex items-center text-sm text-primary-dark font-sans font-medium bg-primary/10 rounded h-7 px-2 mb-2">
+        {{ mealType(index.toString()) }}
+      </h3>
+
       <template v-if="!('items' in meal)">
         <h4 class="mb-1">{{ meal.name }}</h4>
         <p class="text-sm text-muted-foreground mb-4">{{ meal.description }}</p>
@@ -57,8 +58,9 @@ const mealType = (index: string) => {
           <NutritionDetailItem label="Fats" :value="meal.fats"/>
         </NutritionDetailList>
       </template>
+
       <ul v-else class="space-y-6">
-        <li v-for="snack in meal.items">
+        <li v-for="snack in meal.items" :key="snack.name">
           <h4 class="mb-1">{{ snack.name }}</h4>
           <p class="text-sm text-muted-foreground mb-4">{{ snack.description }}</p>
           <NutritionDetailList>

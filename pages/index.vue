@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import {ArrowRight, ExternalLink} from "lucide-vue-next";
 
-const user = useSupabaseUser()
-
-if (user.value) {
-  navigateTo('/dashboard')
-}
+definePageMeta({
+  middleware: 'landing'
+})
 
 const steps = [
   {

@@ -39,7 +39,7 @@ const register = ref(true)
     </div>
     <TabsContent v-for="day in mealPlanStore. mealPlan" :value="day.day" :key="day.day">
       <MealPlanDay :mealPlan="day"/>
-      <div v-if="props.isTeaser" class="bg-primary text-primary-foreground rounded-2xl p-4">
+      <div v-if="props.isTeaser" class="bg-primary text-primary-foreground rounded-2xl p-4 mt-6">
         <h3 class="mb-4">Unlock Your Personalized Meal Plan</h3>
         <p class="sr-only">Includes the following features:</p>
         <ul class="space-y-2.5 mb-6">

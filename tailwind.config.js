@@ -59,6 +59,10 @@ export default {
           dark: "color-mix(in srgb, hsl(var(--destructive)) 80%, hsl(var(--foreground)))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        }
       },
       borderRadius: {
       	xl: "calc(var(--radius) + 4px)",

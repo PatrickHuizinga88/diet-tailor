@@ -5,7 +5,8 @@ import type {MealPlanDay} from "~/types/MealPlanDay";
 export const useMealPlanStore = defineStore('mealPlanStore', {
   state: () => ({
     // mealPlan: [] as MealPlanDay[]
-    mealPlan: exampleResponse as MealPlanDay[]
+    mealPlan: exampleResponse as MealPlanDay[],
+    isPending: false
   }),
   actions: {
     async generateMealPlanTeaser(body: any) {
@@ -20,6 +21,7 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
     },
 
     async generateRemainingMealPlan(body: any) {
+      this.isPending = true
       const response = await $fetch<MealPlanDay[]>('/api/generate-plan', {
         method: 'POST',
         query: {daysAmount: 5},
@@ -28,6 +30,7 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
       if (!response) return
 
       this.mealPlan = [...this.mealPlan, ...response]
+      this.isPending = false
     },
 
     setMealPlan(mealPlan: MealPlanDay[]) {

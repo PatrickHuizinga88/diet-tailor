@@ -143,7 +143,7 @@ const handleSubmit = () => {
   </form>
 
   <LayoutContainer v-else-if="resultsLoading"
-                   class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto pt-[calc(2rem+var(--header-height))]">
+                   class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto">
     <div class="relative flex flex-col h-full">
       <div class="flex-1">
         <Heading class="text-center">

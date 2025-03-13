@@ -16,7 +16,6 @@ const mealPlanStore = useMealPlanStore()
 const {t} = useI18n()
 
 const loading = ref(false)
-const savingMealPlan = ref(false)
 
 const formSchema = toTypedSchema(z.object({
   first_name: z.string().min(2),
@@ -47,7 +46,7 @@ const onSubmit = handleSubmit(async (values) => {
         .update({
           first_name: values.first_name,
           last_name: values.last_name,
-          completed_onboarding: true,
+          completed_setup: true,
         })
         .eq('id', user.value?.id)
     if (error) throw error
@@ -75,7 +74,7 @@ const skipOnboarding = async () => {
     const {error} = await supabase
         .from('profiles')
         .update({
-          completed_onboarding: true,
+          completed_setup: true,
         })
         .eq('id', user.value?.id)
     if (error) throw error
