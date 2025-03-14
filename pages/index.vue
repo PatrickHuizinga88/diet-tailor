@@ -2,6 +2,7 @@
 import {ArrowRight, ExternalLink} from "lucide-vue-next";
 
 definePageMeta({
+  layout: 'wizard',
   middleware: 'landing'
 })
 
@@ -29,15 +30,15 @@ const steps = [
         you.</p>
       <div class="grid sm:grid-cols-2 gap-3 w-full mt-8">
         <Button class="group w-full" size="lg" asChild>
-          <NuxtLink to="/onboarding">
+          <NuxtLink to="/wizard">
             Let's get started
             <ArrowRight class="size-5 ml-2 group-hover:translate-x-0.5 duration-200"/>
           </NuxtLink>
         </Button>
-        <Button class="group w-full" variant="outline" size="lg">
-          More about DietTailor
-          <ExternalLink class="size-5 ml-2 group-hover:scale-105 duration-200"/>
-        </Button>
+<!--        <Button class="group w-full" variant="outline" size="lg">-->
+<!--          More about DietTailor-->
+<!--          <ExternalLink class="size-5 ml-2 group-hover:scale-105 duration-200"/>-->
+<!--        </Button>-->
       </div>
     </section>
     <section id="steps" class="mb-8">

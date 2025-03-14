@@ -71,12 +71,12 @@ const mealType = (index: string) => {
           </NutritionDetailList>
         </li>
       </ul>
-      <!--          <div class="grid grid-cols-2 gap-4">-->
-      <!--            <Button size="sm" variant="outline">Tweak {{ index }}</Button>-->
-      <!--            <Button size="sm" variant="outline" asChild>-->
-      <!--              <a href="#">View recipe</a>-->
-      <!--            </Button>-->
-      <!--          </div>-->
+<!--      <div class="grid grid-cols-2 gap-4 mt-4">-->
+<!--        <Button size="sm" variant="outline">Tweak {{ index }}</Button>-->
+<!--        <Button size="sm" variant="outline" asChild>-->
+<!--          <a href="#">View recipe</a>-->
+<!--        </Button>-->
+<!--      </div>-->
     </div>
   </div>
 </template>

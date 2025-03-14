@@ -7,7 +7,7 @@ import {Progress} from "~/components/ui/progress";
 import StepperButtons from "~/components/StepperButtons.vue";
 
 definePageMeta({
-  layout: 'onboarding',
+  layout: 'wizard',
 })
 const wizardFormStore = useWizardFormStore()
 const mealPlanStore = useMealPlanStore()

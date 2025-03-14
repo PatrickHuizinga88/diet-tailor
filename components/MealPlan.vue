@@ -24,9 +24,9 @@ const register = ref(true)
 </script>
 
 <template>
-  <Tabs default-value="Monday" class="w-full">
+  <Tabs :default-value="isTeaser ? 'Monday' : $dayjs().format('dddd')" class="w-full">
     <div class="overflow-hidden rounded-md mb-8">
-      <TabsList class="overflow-x-auto justify-stretch w-full">
+      <TabsList class="max-sm:grid max-sm:grid-cols-1 overflow-x-auto justify-stretch w-full">
         <TabsTrigger v-for="day in mealPlanStore.mealPlan" :value="day.day">
           {{ day.day }}
         </TabsTrigger>

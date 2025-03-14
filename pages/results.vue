@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import {Heading, HeadingTitle, HeadingDescription} from "~/components/wizard/heading";
+
+definePageMeta({
+  layout: 'wizard',
+})
 </script>
 
 <template>
