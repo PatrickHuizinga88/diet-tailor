@@ -88,7 +88,7 @@ const skipOnboarding = async () => {
 </script>
 
 <template>
-  <Authentication :title="$t('account.profile.welcome_to', {appName: 'Diet Tailor'})"
+  <Authentication :title="$t('account.profile.welcome_to', {appName: 'DietTailor'})"
                   :description="$t('account.profile.lets_start_with_your_profile')">
     <form @submit="onSubmit" class="space-y-6">
       <section id="profile-settings" class="space-y-6">

@@ -8,6 +8,11 @@ export default defineNuxtConfig({
     }
   },
 
+  site: {
+    url: 'https://diettailor.fit',
+    name: 'DietTailor'
+  },
+
   app: {
     head: {
       title: "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs",
@@ -58,13 +63,14 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
     'dayjs-nuxt',
+    '@nuxtjs/sitemap',
   ],
 
   supabase: {
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: ['/', '/onboarding', '/results', '/confirm-registration'],
+      exclude: ['/', '/wizard', '/results', '/confirm-registration'],
     }
   },
 

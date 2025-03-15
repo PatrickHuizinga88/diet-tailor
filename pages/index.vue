@@ -28,7 +28,7 @@ const steps = [
       <h1 class="mb-3">Create Your Personalized Meal Plan in Minutes!</h1>
       <p class="text-lg text-muted-foreground">Tell us your goals and preferences, and get a meal plan tailored just for
         you.</p>
-      <div class="grid sm:grid-cols-2 gap-3 w-full mt-8">
+      <div class="grid sm:grid-cols-1 gap-3 w-full mt-8">
         <Button class="group w-full" size="lg" asChild>
           <NuxtLink to="/wizard">
             Let's get started
