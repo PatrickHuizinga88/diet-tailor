@@ -7,8 +7,7 @@ interface Meal {
   fats: string;
 }
 
-export interface MealPlanDay {
-  day: string;
+export interface MealPlan {
   nutritionOverview: {
     calories: string;
     protein: string;

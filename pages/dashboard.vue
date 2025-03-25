@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {Database} from "~/types/database.types";
 import {LoaderCircle} from 'lucide-vue-next'
-import type {MealPlanDay} from "~/types/MealPlanDay";
+import type {MealPlanDay} from "~/types/MealPlan";
 
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
@@ -47,7 +47,7 @@ const {data: mealPlan, status} = await useLazyAsyncData('meal-plan', async () =>
   watch: [loading]
 })
 
-const finishMealPlan = async () => {
+const saveMealPlan = async () => {
   try {
     const storedMealPlan = localStorage.getItem('meal-plan')
     if (!storedMealPlan) return
@@ -58,8 +58,6 @@ const finishMealPlan = async () => {
         .eq('id', user.value?.id)
         .single()
     if (!profile) throw new Error('Profile not found')
-
-    await mealPlanStore.generateRemainingMealPlan(profile.personal_information)
 
     const {error} = await supabase.from('meal_plans').upsert(
         {
@@ -80,19 +78,14 @@ const finishMealPlan = async () => {
 }
 
 onMounted(async () => {
-  await finishMealPlan()
+  await saveMealPlan()
 })
 </script>
 
 <template>
   <LayoutContainer>
     <h1 class="h3 mb-6">{{ `${greeting} ${profile?.first_name ? ' ' + profile?.first_name : ''}!`}}</h1>
-    <div v-if="loading && mealPlanStore.isPending" class="flex flex-col items-center justify-center my-32">
-      <h2>We're almost done</h2>
-      <p class="text-muted-foreground">We're now generating the meal plan for the full week.</p>
-      <LoaderCircle class="size-6 animate-spin text-primary mt-6"/>
-    </div>
-    <div v-else-if="loading || status === 'pending'">
+    <div v-if="loading || status === 'pending'">
       <Skeleton class="h-8 w-full max-w-[250px] mb-6"/>
       <Skeleton class="h-[150px] w-full mb-8"/>
       <div class="border p-4 rounded-2xl">
@@ -103,10 +96,10 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else-if="mealPlan">
-      <MealPlanDay :mealPlan="mealPlan" :isToday="true"/>
+      <MealPlan/>
     </div>
     <div v-else>
-      <p class="text-muted-foreground">No meal plan found for today.</p>
+      <p class="text-muted-foreground">No meal plan found.</p>
     </div>
   </LayoutContainer>
 </template>

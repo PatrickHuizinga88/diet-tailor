@@ -9,7 +9,7 @@ const toastStore = useToastStore();
 <template>
   <NuxtLoadingIndicator color="hsl(var(--primary))"/>
 
-  <main class="flex flex-col h-svh">
+  <main class="h-svh flex flex-col">
     <Header/>
 
     <div class="flex-1 py-8">

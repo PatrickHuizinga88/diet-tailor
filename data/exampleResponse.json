@@ -1,112 +1,54 @@
-[
-  {
-    "day": "Monday",
-    "nutritionOverview": {
-      "calories": "2000 kcal",
-      "protein": "150 g",
-      "carbs": "200 g",
-      "fats": "70 g"
-    },
-    "meals": {
-      "breakfast": {
-        "name": "Greek Yogurt Parfait",
-        "description": "A delicious parfait made with creamy Greek yogurt, fresh berries, and a sprinkle of granola for crunch.",
-        "calories": "400 kcal",
-        "protein": "30 g",
-        "carbs": "50 g",
-        "fats": "10 g"
-      },
-      "lunch": {
-        "name": "Grilled Chicken Salad",
-        "description": "A refreshing salad with grilled chicken breast, mixed greens, cherry tomatoes, cucumbers, and a light vinaigrette.",
-        "calories": "500 kcal",
-        "protein": "40 g",
-        "carbs": "30 g",
-        "fats": "20 g"
-      },
-      "dinner": {
-        "name": "Quinoa Stir-Fry",
-        "description": "A hearty stir-fry with quinoa, mixed vegetables, and tofu, seasoned with soy sauce and sesame oil.",
-        "calories": "600 kcal",
-        "protein": "25 g",
-        "carbs": "80 g",
-        "fats": "20 g"
-      },
-      "snacks": {
-        "items": [
-          {
-            "name": "Almonds",
-            "description": "A handful of roasted almonds for a healthy fat and protein boost.",
-            "calories": "200 kcal",
-            "protein": "8 g",
-            "carbs": "6 g",
-            "fats": "18 g"
-          },
-          {
-            "name": "Apple with Peanut Butter",
-            "description": "A crisp apple sliced and served with creamy peanut butter for a satisfying snack.",
-            "calories": "300 kcal",
-            "protein": "10 g",
-            "carbs": "40 g",
-            "fats": "15 g"
-          }
-        ]
-      }
-    }
+{
+  "nutritionOverview": {
+    "calories": "2000 kcal",
+    "protein": "150 g",
+    "carbs": "200 g",
+    "fats": "70 g"
   },
-  {
-    "day": "Tuesday",
-    "nutritionOverview": {
-      "calories": "2000 kcal",
-      "protein": "150 g",
-      "carbs": "200 g",
-      "fats": "70 g"
+  "meals": {
+    "breakfast": {
+      "name": "Greek Yogurt Parfait",
+      "description": "A delicious parfait made with creamy Greek yogurt, fresh berries, and a sprinkle of granola for crunch.",
+      "calories": "400 kcal",
+      "protein": "30 g",
+      "carbs": "50 g",
+      "fats": "10 g"
     },
-    "meals": {
-      "breakfast": {
-        "name": "Oatmeal with Banana and Nuts",
-        "description": "Warm oatmeal topped with sliced banana and a mix of nuts for a filling start to the day.",
-        "calories": "450 kcal",
-        "protein": "15 g",
-        "carbs": "70 g",
-        "fats": "15 g"
-      },
-      "lunch": {
-        "name": "Turkey and Avocado Wrap",
-        "description": "A whole grain wrap filled with turkey, avocado, lettuce, and tomato, served with a side of carrot sticks.",
-        "calories": "550 kcal",
-        "protein": "35 g",
-        "carbs": "50 g",
-        "fats": "25 g"
-      },
-      "dinner": {
-        "name": "Baked Salmon with Asparagus",
-        "description": "Oven-baked salmon fillet served with roasted asparagus and a side of brown rice.",
-        "calories": "650 kcal",
-        "protein": "45 g",
-        "carbs": "60 g",
-        "fats": "30 g"
-      },
-      "snacks": {
-        "items": [
-          {
-            "name": "Hummus with Veggies",
-            "description": "Creamy hummus served with a variety of fresh vegetables for dipping.",
-            "calories": "250 kcal",
-            "protein": "10 g",
-            "carbs": "30 g",
-            "fats": "10 g"
-          },
-          {
-            "name": "Cottage Cheese with Pineapple",
-            "description": "A bowl of cottage cheese topped with sweet pineapple chunks for a refreshing snack.",
-            "calories": "300 kcal",
-            "protein": "20 g",
-            "carbs": "30 g",
-            "fats": "5 g"
-          }
-        ]
-      }
+    "lunch": {
+      "name": "Grilled Chicken Salad",
+      "description": "A refreshing salad with grilled chicken breast, mixed greens, cherry tomatoes, cucumbers, and a light vinaigrette.",
+      "calories": "500 kcal",
+      "protein": "40 g",
+      "carbs": "30 g",
+      "fats": "20 g"
+    },
+    "dinner": {
+      "name": "Quinoa Stir-Fry",
+      "description": "A hearty stir-fry with quinoa, mixed vegetables, and tofu, seasoned with soy sauce and sesame oil.",
+      "calories": "600 kcal",
+      "protein": "25 g",
+      "carbs": "80 g",
+      "fats": "20 g"
+    },
+    "snacks": {
+      "items": [
+        {
+          "name": "Almonds",
+          "description": "A handful of roasted almonds for a healthy fat and protein boost.",
+          "calories": "200 kcal",
+          "protein": "8 g",
+          "carbs": "6 g",
+          "fats": "18 g"
+        },
+        {
+          "name": "Apple with Peanut Butter",
+          "description": "A crisp apple sliced and served with creamy peanut butter for a satisfying snack.",
+          "calories": "300 kcal",
+          "protein": "10 g",
+          "carbs": "40 g",
+          "fats": "15 g"
+        }
+      ]
     }
   }
-]
+}

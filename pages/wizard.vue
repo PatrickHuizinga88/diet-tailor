@@ -41,7 +41,7 @@ const nextStep = async () => {
   if (currentStep.value === questions.length) {
     resultsLoading.value = true;
     try {
-      await mealPlanStore.generateMealPlanTeaser(wizardFormStore.wizardForm)
+      await mealPlanStore.generateMealPlan(wizardFormStore.wizardForm)
       navigateTo('/results')
     } catch (e) {
       console.error(e);

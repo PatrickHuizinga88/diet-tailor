@@ -21,11 +21,11 @@ export default defineNuxtConfig({
         {name: 'og:title', content: "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs"},
         {
           name: 'description',
-          content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
+          content: "Create a daily meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
         },
         {
           name: 'og:description',
-          content: "Create a weekly meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
+          content: "Create a daily meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
         },
         {name: 'apple-mobile-web-app-title', content: 'DietTailor'},
       ],
