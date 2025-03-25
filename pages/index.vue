@@ -32,12 +32,12 @@ const steps = [
         <Button class="group w-full" size="lg" asChild>
           <NuxtLink to="/wizard">
             Let's get started
-            <ArrowRight class="size-5 ml-2 group-hover:translate-x-0.5 duration-200"/>
+            <ArrowRight class="size-5 group-hover:translate-x-0.5 duration-200"/>
           </NuxtLink>
         </Button>
 <!--        <Button class="group w-full" variant="outline" size="lg">-->
 <!--          More about DietTailor-->
-<!--          <ExternalLink class="size-5 ml-2 group-hover:scale-105 duration-200"/>-->
+<!--          <ExternalLink class="size-5 group-hover:scale-105 duration-200"/>-->
 <!--        </Button>-->
       </div>
     </section>
