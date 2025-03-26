@@ -4,8 +4,8 @@ import type {MealPlan} from "~/types/MealPlan";
 
 export const useMealPlanStore = defineStore('mealPlanStore', {
   state: () => ({
-    // mealPlan: [] as MealPlanDay[]
-    mealPlan: exampleResponse as MealPlan,
+    mealPlan: undefined as MealPlan | undefined,
+    // mealPlan: exampleResponse as MealPlan,
     isPending: false
   }),
   actions: {

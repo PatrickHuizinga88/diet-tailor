@@ -15,11 +15,7 @@ export interface MealPlan {
     fats: string;
   };
   meals: {
-    breakfast: Meal;
-    lunch: Meal;
-    dinner: Meal;
-    snacks: {
-      items: Meal[];
-    };
+    type: string;
+    items: Meal[]
   };
 }

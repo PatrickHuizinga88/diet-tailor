@@ -12,7 +12,6 @@ definePageMeta({
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
 const toastStore = useToastStore()
-const mealPlanStore = useMealPlanStore()
 const {t} = useI18n()
 
 const loading = ref(false)
@@ -53,14 +52,14 @@ const onSubmit = handleSubmit(async (values) => {
     toastStore.createToast({
       type: 'success',
       action: 'save',
-      item: t('profiles.profiles'),
+      item: t('profile.profile'),
     })
     await navigateTo('/dashboard')
   } catch (error) {
     toastStore.createToast({
       type: 'destructive',
       action: 'save',
-      item: t('profiles.profiles'),
+      item: t('profile.profile'),
     })
     console.error(error)
   } finally {
@@ -93,7 +92,7 @@ const skipOnboarding = async () => {
     <form @submit="onSubmit" class="space-y-6">
       <section id="profile-settings" class="space-y-6">
         <div class="grid grid-cols-2 gap-4">
-          <FormField v-slot="{ componentField }" name="first_name">
+          <FormField v-slot="{ componentField }" name="first_name" :validate-on-model-update="false">
             <FormItem>
               <FormLabel>{{ $t('account.profile.first_name') }}</FormLabel>
               <FormControl>

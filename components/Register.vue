@@ -95,7 +95,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 
 <template>
   <form v-if="!success" class="space-y-6" @submit="onSubmit">
-    <FormField v-slot="{ componentField }" name="email">
+    <FormField v-slot="{ componentField }" name="email" :validate-on-model-update="false">
       <FormItem>
         <FormLabel>{{ $t('common.general.email') }}</FormLabel>
         <FormControl>
@@ -104,7 +104,7 @@ const onSubmit = form.handleSubmit(async (values) => {
         <FormMessage/>
       </FormItem>
     </FormField>
-    <FormField v-slot="{ componentField }" name="password">
+    <FormField v-slot="{ componentField }" name="password" :validate-on-model-update="false">
       <FormItem>
         <FormLabel>{{ $t('authentication.common.password') }}</FormLabel>
         <FormControl>
@@ -113,7 +113,7 @@ const onSubmit = form.handleSubmit(async (values) => {
         <FormMessage/>
       </FormItem>
     </FormField>
-    <FormField v-slot="{ componentField }" name="repeated_password">
+    <FormField v-slot="{ componentField }" name="repeated_password" :validate-on-model-update="false">
       <FormItem>
         <FormLabel>{{ $t('authentication.register.repeat_password') }}</FormLabel>
         <FormControl>
@@ -159,7 +159,7 @@ const onSubmit = form.handleSubmit(async (values) => {
     </p>
   </div>
 
-  <div v-if="!success" class="sm:mt-6 md:mt-10 text-center text-sm text-muted-foreground">
+  <div v-if="!success" class="mt-6 md:mt-10 text-center text-sm text-muted-foreground">
     {{ $t('authentication.register.have_account') + ' ' }}
     <Button variant="link" class="h-auto p-0 ml-1">
       {{ $t('authentication.common.sign_in') }}

@@ -68,6 +68,7 @@ export default defineEventHandler(async (event) => {
     2. Ensure meals are balanced, nutrient-rich, and aligned with the user’s caloric goals.
     3. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
     4. Reuse meals or ingredients for variety and convenience.
+    5. Always generate 1 meal for meals with type Breakfast, Lunch and Dinner.
     
     Begin generating the meal plan below.
   `
@@ -93,16 +94,14 @@ export default defineEventHandler(async (event) => {
         protein: z.string(),
         carbs: z.string(),
         fats: z.string(),
-      }).describe('The amount of nutrients in the meal plan for the entire day and a sum of the individual meals and snacks for that day including the unit.'),
-      meals: z.object({
-        breakfast: mealDetails,
-        lunch: mealDetails,
-        dinner: mealDetails,
-        snacks: z.object({
+      }).describe('The recommended daily amount of nutrients. This must be the sum of the individual meals. Include the unit (e.g. "g", "kcal".'),
+      meals: z.array(
+        z.object({
+          type: z.enum(['Breakfast', 'Lunch', 'Dinner', 'Snacks']),
           items: z.array(mealDetails),
-        }),
-      }),
-    }).describe('A meal plan'),
+        })
+      ).describe('Generate meals in the following order: Breakfast, Lunch, Dinner and Snacks (if applicable).'),
+    }),
     messages: [
       {role: "system", content: "You are a nutrition expert."},
       {role: "user", content: prompt},

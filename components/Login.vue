@@ -28,8 +28,6 @@ const onSubmit = form.handleSubmit(async (values) => {
   try {
     loading.value = true
 
-    localStorage.setItem('meal-plan', JSON.stringify(mealPlanStore.mealPlan))
-
     const {data, error} = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password
@@ -49,13 +47,15 @@ const onSubmit = form.handleSubmit(async (values) => {
   } catch (error) {
     errorMessage.value = t('authentication.login.sign_in_failed')
     console.error(error)
+  } finally {
+    loading.value = false
   }
 })
 </script>
 
 <template>
   <form class="space-y-6" @submit="onSubmit">
-    <FormField v-slot="{ componentField }" name="email">
+    <FormField v-slot="{ componentField }" name="email" :validate-on-model-update="false">
       <FormItem>
         <FormLabel>{{ $t('common.general.email') }}</FormLabel>
         <FormControl>
@@ -64,18 +64,18 @@ const onSubmit = form.handleSubmit(async (values) => {
         <FormMessage/>
       </FormItem>
     </FormField>
-    <FormField v-slot="{ componentField }" name="password">
+    <FormField v-slot="{ componentField }" name="password" :validate-on-model-update="false">
       <FormItem>
-        <div class="flex items-center justify-between">
+<!--        <div class="flex items-center justify-between">-->
           <FormLabel>
             {{ $t('authentication.common.password') }}
           </FormLabel>
-          <Button type="button" variant="link" size="sm" class="h-auto p-0" as-child>
-            <NuxtLinkLocale to="password-recovery">
-              {{ $t('authentication.login.forgot_password') }}
-            </NuxtLinkLocale>
-          </Button>
-        </div>
+<!--          <Button type="button" variant="link" size="sm" class="h-auto p-0" as-child>-->
+<!--            <NuxtLinkLocale to="password-recovery">-->
+<!--              {{ $t('authentication.login.forgot_password') }}-->
+<!--            </NuxtLinkLocale>-->
+<!--          </Button>-->
+<!--        </div>-->
         <FormControl>
           <PasswordInput v-bind="componentField"/>
         </FormControl>
@@ -83,20 +83,20 @@ const onSubmit = form.handleSubmit(async (values) => {
       </FormItem>
     </FormField>
 
-    <Button size="sm" type="submit" :loading="loading" class="w-full">
+    <Button type="submit" :loading="loading" class="w-full">
       {{ $t('authentication.common.sign_in') }}
     </Button>
 
     <p v-if="errorMessage" class="text-sm text-destructive">{{ errorMessage }}</p>
   </form>
 
-  <div class="sm:mt-6 md:mt-10 text-center text-sm text-muted-foreground">
+  <div class="mt-6 md:mt-10 text-center text-sm text-muted-foreground">
     {{ $t('authentication.login.no_account') }}
     <Button variant="link" size="sm" class="h-auto p-0 ml-1" as-child>
-      <NuxtLinkLocale to="register">
+      <NuxtLink to="/register">
         {{ $t('authentication.login.register_now') }}
         <ArrowRight aria-hidden="true"/>
-      </NuxtLinkLocale>
+      </NuxtLink>
     </Button>
   </div>
 </template>

@@ -1,48 +1,64 @@
 {
   "nutritionOverview": {
-    "calories": "2000 kcal",
-    "protein": "150 g",
-    "carbs": "200 g",
+    "calories": "2800 kcal",
+    "protein": "180 g",
+    "carbs": "350 g",
     "fats": "70 g"
   },
-  "meals": {
-    "breakfast": {
-      "name": "Greek Yogurt Parfait",
-      "description": "A delicious parfait made with creamy Greek yogurt, fresh berries, and a sprinkle of granola for crunch.",
-      "calories": "400 kcal",
-      "protein": "30 g",
-      "carbs": "50 g",
-      "fats": "10 g"
-    },
-    "lunch": {
-      "name": "Grilled Chicken Salad",
-      "description": "A refreshing salad with grilled chicken breast, mixed greens, cherry tomatoes, cucumbers, and a light vinaigrette.",
-      "calories": "500 kcal",
-      "protein": "40 g",
-      "carbs": "30 g",
-      "fats": "20 g"
-    },
-    "dinner": {
-      "name": "Quinoa Stir-Fry",
-      "description": "A hearty stir-fry with quinoa, mixed vegetables, and tofu, seasoned with soy sauce and sesame oil.",
-      "calories": "600 kcal",
-      "protein": "25 g",
-      "carbs": "80 g",
-      "fats": "20 g"
-    },
-    "snacks": {
+  "meals": [
+    {
+      "type": "Breakfast",
       "items": [
         {
-          "name": "Almonds",
-          "description": "A handful of roasted almonds for a healthy fat and protein boost.",
-          "calories": "200 kcal",
-          "protein": "8 g",
-          "carbs": "6 g",
-          "fats": "18 g"
+          "name": "Protein-Packed Veggie Omelette",
+          "description": "A fluffy omelette filled with spinach, tomatoes, and bell peppers, topped with feta cheese for a delicious start to your day.",
+          "calories": "400 kcal",
+          "protein": "30 g",
+          "carbs": "20 g",
+          "fats": "25 g"
+        }
+      ]
+    },
+    {
+      "type": "Lunch",
+      "items": [
+        {
+          "name": "Chicken Fajita Bowl",
+          "description": "Grilled chicken breast served over brown rice with sautéed bell peppers, onions, and a sprinkle of lime juice, topped with avocado slices.",
+          "calories": "700 kcal",
+          "protein": "50 g",
+          "carbs": "80 g",
+          "fats": "20 g"
+        }
+      ]
+    },
+    {
+      "type": "Dinner",
+      "items": [
+        {
+          "name": "Spaghetti with Turkey Meatballs",
+          "description": "Whole wheat spaghetti served with homemade turkey meatballs in a rich marinara sauce, garnished with fresh basil and parmesan cheese.",
+          "calories": "800 kcal",
+          "protein": "60 g",
+          "carbs": "90 g",
+          "fats": "25 g"
+        }
+      ]
+    },
+    {
+      "type": "Snacks",
+      "items": [
+        {
+          "name": "Greek Yogurt with Honey and Nuts",
+          "description": "Creamy Greek yogurt drizzled with honey and topped with a mix of almonds and walnuts for a satisfying snack.",
+          "calories": "300 kcal",
+          "protein": "20 g",
+          "carbs": "30 g",
+          "fats": "15 g"
         },
         {
-          "name": "Apple with Peanut Butter",
-          "description": "A crisp apple sliced and served with creamy peanut butter for a satisfying snack.",
+          "name": "Hummus and Veggie Sticks",
+          "description": "A colorful platter of carrot, cucumber, and bell pepper sticks served with a side of creamy hummus for dipping.",
           "calories": "300 kcal",
           "protein": "10 g",
           "carbs": "40 g",
@@ -50,5 +66,5 @@
         }
       ]
     }
-  }
+  ]
 }

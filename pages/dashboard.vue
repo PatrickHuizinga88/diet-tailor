@@ -61,7 +61,7 @@ const saveMealPlan = async () => {
     const {error} = await supabase.from('meal_plans').upsert(
         {
           user_id: user.value?.id,
-          meal_plan: mealPlanStore.mealPlan
+          meal_plan: JSON.parse(storedMealPlan)
         }, {
           onConflict: 'user_id'
         }
@@ -94,12 +94,7 @@ onMounted(async () => {
         <Skeleton class="h-4 w-[100px]"/>
       </div>
     </div>
-    <div v-else-if="mealPlan">
-      <MealPlan/>
-    </div>
-    <div v-else>
-      <p class="text-muted-foreground">No meal plan found.</p>
-    </div>
+    <MealPlan v-else/>
   </LayoutContainer>
 </template>
 

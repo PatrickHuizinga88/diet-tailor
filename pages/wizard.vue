@@ -44,7 +44,7 @@ const nextStep = async () => {
     resultsLoading.value = true;
     try {
       await mealPlanStore.generateMealPlan(wizardFormStore.wizardForm)
-      navigateTo('/results')
+      await navigateTo('/results')
     } catch (e) {
       console.error(e);
     } finally {
@@ -156,7 +156,7 @@ const handleSubmit = () => {
       <div class="flex justify-center flex-1">
         <Loader2 class="size-12 text-primary animate-spin"/>
       </div>
-      <p class="text-lg text-center text-muted-foreground">
+      <p class="text-lg text-center text-muted-foreground mb-6">
         We’re analyzing your preferences and goals to create a meal plan tailored just for you. This may take a moment.
       </p>
     </div>
