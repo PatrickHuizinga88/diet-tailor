@@ -13,7 +13,7 @@ const logOut = async () => {
 </script>
 
 <template>
-  <header class="sticky top-0 left-0 right-0 bg-background/50 backdrop-blur-md z-20">
+  <header>
     <LayoutContainer>
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <div class="flex items-center">

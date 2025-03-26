@@ -11,7 +11,7 @@ const toastStore = useToastStore();
   <div class="h-svh flex flex-col">
     <Header/>
 
-    <div class="flex-1 py-8">
+    <div class="flex-1 pt-8">
       <slot/>
     </div>
   </div>

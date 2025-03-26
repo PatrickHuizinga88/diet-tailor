@@ -61,11 +61,9 @@ const signUp = async (email: string, password: string) => {
   })
   if (signUpError || !data.user) throw signUpError
 
-  const {error: profileError} = await supabase.from('profiles').upsert({
+  const {error: profileError} = await supabase.from('profiles').insert({
     id: data.user.id,
     personal_information: wizardFormStore.wizardForm
-  }, {
-    onConflict: 'id'
   })
   if (profileError) throw profileError
 

@@ -11,8 +11,7 @@ const register = ref(true)
 </script>
 
 <template>
-  <LayoutContainer
-      class="relative flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto overflow-x-hidden">
+  <LayoutContainer class="mb-8">
     <Heading class="text-center">
       <HeadingTitle>
         Your Personalized Meal Plan is Ready!

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {ArrowRight, ExternalLink} from "lucide-vue-next";
+import {ArrowRight} from "lucide-vue-next";
 
 definePageMeta({
   layout: 'wizard',
-  middleware: 'landing'
+  middleware: 'auth'
 })
 
 const steps = [
@@ -29,7 +29,7 @@ const steps = [
       <p class="text-lg text-muted-foreground">Tell us your goals and preferences, and get a meal plan tailored just for
         you.</p>
       <div class="grid sm:grid-cols-1 gap-3 w-full mt-8">
-        <Button class="group w-full" size="lg" asChild>
+        <Button class="group w-full" size="xl" asChild>
           <NuxtLink to="/wizard">
             Let's get started
             <ArrowRight class="size-5 group-hover:translate-x-0.5 duration-200"/>

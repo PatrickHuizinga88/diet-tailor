@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type {Database} from "~/types/database.types";
-import {LoaderCircle} from 'lucide-vue-next'
-import type {MealPlanDay} from "~/types/MealPlan";
 
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
@@ -32,13 +30,14 @@ const {data: profile} = await useAsyncData('profile', async () => {
 
 const {data: mealPlan, status} = await useLazyAsyncData('meal-plan', async () => {
   try {
-    const {data} = await supabase.from('meal_plans')
+    const {data, error} = await supabase.from('meal_plans')
         .select('meal_plan')
         .eq('user_id', user.value?.id)
         .single()
-    if (!data) return
+    if (error) throw error
     mealPlanStore.setMealPlan(data?.meal_plan)
-    return data.meal_plan.find((day: MealPlanDay) => day.day === dayjs().format('dddd'))
+
+    return data
   } catch (error) {
     console.error(error)
   }

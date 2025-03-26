@@ -8,7 +8,9 @@ import StepperButtons from "~/components/StepperButtons.vue";
 
 definePageMeta({
   layout: 'wizard',
+  middleware: 'auth'
 })
+
 const wizardFormStore = useWizardFormStore()
 const mealPlanStore = useMealPlanStore()
 

@@ -16,7 +16,7 @@ const toastStore = useToastStore();
       <slot/>
     </div>
 
-    <NavBar class="md:hidden sticky bottom-0"/>
+<!--    <NavBar class="md:hidden sticky bottom-0"/>-->
   </main>
 
   <Toaster :toasts="toastStore.toasts"/>
