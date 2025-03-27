@@ -42,6 +42,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 
     if (profile.completed_setup) {
       await navigateTo('/dashboard')
+      return
     }
     await navigateTo('/intro')
   } catch (error) {
