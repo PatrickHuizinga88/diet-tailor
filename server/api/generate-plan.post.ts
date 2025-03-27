@@ -1,7 +1,8 @@
 import exampleResponse from "~/data/exampleResponse.json";
 import {createOpenAI} from "@ai-sdk/openai";
-import {generateObject, streamObject} from "ai";
+import {generateObject} from "ai";
 import {z} from "zod";
+import { v4 as uuidv4 } from 'uuid';
 
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
@@ -74,6 +75,7 @@ export default defineEventHandler(async (event) => {
   `
 
   const mealDetails = z.object({
+    id: z.string().describe('Leave as an empty string'),
     name: z.string(),
     description: z.string().describe("A short and appealing meal description, considering the user's tastes and dietary needs."),
     calories: z.string(),
@@ -115,13 +117,9 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // return {
-  //   data: {
-  //     choices: [
-  //       { message: { content: exampleResponse } }
-  //     ]
-  //   }
-  // }
-
-  return object
+  return object.meals.map(meal => {
+    meal.items.map(item => {
+      item.id = uuidv4()
+    })
+  })
 })

@@ -1,4 +1,5 @@
-interface Meal {
+export interface Meal {
+  id: string,
   name: string;
   description: string;
   calories: string;
@@ -17,5 +18,5 @@ export interface MealPlan {
   meals: {
     type: string;
     items: Meal[]
-  };
+  }[];
 }

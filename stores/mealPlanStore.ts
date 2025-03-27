@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import exampleResponse from "../data/exampleResponse.json";
-import type {MealPlan} from "~/types/MealPlan";
+import type {Meal, MealPlan} from "~/types/MealPlan";
 
 export const useMealPlanStore = defineStore('mealPlanStore', {
   state: () => ({
@@ -21,6 +21,15 @@ export const useMealPlanStore = defineStore('mealPlanStore', {
 
     setMealPlan(mealPlan: MealPlan) {
       this.mealPlan = mealPlan
+    },
+
+    setMeal(mealId: string, newMeal: Meal) {
+      if (!this.mealPlan) return;
+      this.mealPlan.meals.forEach(meal => {
+        meal.items = meal.items.map(item =>
+          item.id === mealId ? newMeal : item
+        );
+      });
     }
   }
 })

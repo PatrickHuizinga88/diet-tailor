@@ -94,6 +94,8 @@ export default {
         title: "Something went wrong",
         description: "Try again later or contact us.",
       },
+
+      close_toast: "Close notification",
     },
 
     pagination: {

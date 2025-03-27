@@ -12,8 +12,8 @@ const isOpen = ref(false)
         <div class="bg-border h-px w-full" aria-hidden="true"></div>
       </dl>
     </CollapsibleContent>
-    <CollapsibleTrigger class="w-full flex items-center justify-center h-9 text-sm font-medium px-2">
-      View nutrition details
+    <CollapsibleTrigger class="w-full flex items-center justify-center h-10 text-sm font-medium px-2">
+      Nutrition details
       <Plus v-if="!isOpen" class="size-5 ml-1"/>
       <Minus v-else class="size-5 ml-1"/>
     </CollapsibleTrigger>

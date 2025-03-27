@@ -1,7 +1,8 @@
 import exampleResponse from "~/data/exampleResponse.json";
 import {createOpenAI} from "@ai-sdk/openai";
-import {generateObject, streamObject} from "ai";
+import {generateObject} from "ai";
 import {z} from "zod";
+import { v4 as uuidv4 } from 'uuid';
 
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
@@ -9,8 +10,6 @@ export default defineEventHandler(async (event) => {
   const openai = createOpenAI({
     apiKey: openaiApiKey,
   });
-
-  const {mealType, previousMeal, reason} = getQuery(event)
 
   const {
     age,
@@ -27,7 +26,10 @@ export default defineEventHandler(async (event) => {
     food_dislike,
     time_restrictions,
     meals_amount,
-    health_optimizations
+    health_optimizations,
+    mealType,
+    currentMeal,
+    reason
   } = await readBody(event)
 
   const convertToString = (array: string[]) => {
@@ -67,7 +69,7 @@ export default defineEventHandler(async (event) => {
     
     ### Instructions:
     1. Generate a ${mealType} meal based on the above information.
-    2. This meal will be a replacement of the previous meal: ${previousMeal}. 
+    2. This meal will be a replacement of the previous meal: ${currentMeal}. 
        ${reason ? "You're given the following feedback about this meal: " + reason + '.' : ''}
     3. Ensure the meal is balanced, nutrient-rich, and aligned with the user’s caloric goals.
     4. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
@@ -76,8 +78,9 @@ export default defineEventHandler(async (event) => {
   `
 
   const mealDetails = z.object({
+    id: z.string().describe('Leave as an empty string'),
     name: z.string(),
-    description: z.string().describe("A short and appealing meal description, considering the user's tastes and dietary needs."),
+    description: z.string().describe("An appealing meal description, considering the user's tastes and dietary needs. Maximum 180 characters."),
     calories: z.string(),
     protein: z.string(),
     carbs: z.string(),
@@ -88,7 +91,6 @@ export default defineEventHandler(async (event) => {
     model: openai("gpt-4o-mini", {
       structuredOutputs: true,
     }),
-    output: "array",
     schemaName: "meal",
     schemaDescription: 'A personalized meal based on user preferences, goals, and restrictions.',
     schema: mealDetails,
@@ -104,6 +106,8 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Failed to generate meal'
     })
   }
+
+  object.id = uuidv4()
 
   return object
 })

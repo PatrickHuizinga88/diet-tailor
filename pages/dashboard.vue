@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {Database} from "~/types/database.types";
+import {v4 as uuidv4} from 'uuid'
 
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()

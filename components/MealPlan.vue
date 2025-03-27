@@ -2,12 +2,23 @@
 import NutritionDetailItem from "~/components/wizard/NutritionDetailItem.vue";
 import NutritionDetailList from "~/components/wizard/NutritionDetailList.vue";
 import {Lock} from "lucide-vue-next";
+import ChangeMealDialog from "~/components/ChangeMealDialog.vue";
 
 const props = defineProps<{
   isTeaser?: boolean
 }>()
 
 const mealPlanStore = useMealPlanStore()
+
+const currentMeal = ref<string | undefined>(undefined)
+const currentMealItem = ref(undefined)
+const changeMealDialog = useTemplateRef('change-meal-dialog')
+
+const openChangeMealDialog = (mealType: string, item: any) => {
+  currentMeal.value = mealType
+  currentMealItem.value = item
+  changeMealDialog.value?.openDialog()
+}
 
 const emit = defineEmits(['clickPremiumFeature'])
 </script>
@@ -49,25 +60,21 @@ const emit = defineEmits(['clickPremiumFeature'])
               <NutritionDetailItem label="Carbs" :value="item.carbs"/>
               <NutritionDetailItem label="Fats" :value="item.fats"/>
             </NutritionDetailList>
-            <div class="grid grid-cols-2 gap-4 mt-4">
-              <Button @click="emit('clickPremiumFeature')" size="sm" variant="outline">
+            <div class="grid grid-cols-1 gap-4 mt-4">
+              <Button @click="props.isTeaser ? emit('clickPremiumFeature') : openChangeMealDialog(meal.type, item)" size="sm" variant="outline">
                 Change {{ meal.type }}
                 <Lock v-if="props.isTeaser" class="size-3"/>
               </Button>
-              <Button @click="emit('clickPremiumFeature')" size="sm" variant="outline" :as-child="!props.isTeaser">
-                <a v-if="!props.isTeaser" href="#">
-                  View recipe
-                </a>
-                <template v-else>
-                  View recipe
-                  <Lock v-if="props.isTeaser" class="size-3"/>
-                </template>
-              </Button>
+              <!--              <Button @click="emit('clickPremiumFeature')" size="sm" variant="outline" :as-child="!props.isTeaser">-->
+              <!--                View recipe-->
+              <!--                <Lock v-if="props.isTeaser" class="size-3"/>-->
+              <!--              </Button>-->
             </div>
           </li>
         </ul>
       </div>
     </div>
+    <ChangeMealDialog ref="change-meal-dialog" :mealType="currentMeal" :item="currentMealItem"/>
   </template>
   <p v-else class="block text-center text-muted-foreground">
     No meal plan available.

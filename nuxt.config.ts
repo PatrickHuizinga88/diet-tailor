@@ -89,7 +89,7 @@ export default defineNuxtConfig({
       {
         code: 'en',
         name: 'English',
-        files: ['en/common', 'en/404', 'en/account', 'en/authentication', 'en/dashboard', 'en/feedback', 'en/pricing', 'en/settings']
+        files: ['en/common.ts', 'en/404.ts', 'en/account.ts', 'en/authentication.ts', 'en/dashboard.ts', 'en/feedback.ts', 'en/pricing.ts', 'en/profile.ts', 'en/settings.ts']
       },
     ],
   },

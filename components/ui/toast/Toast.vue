@@ -33,7 +33,7 @@ const typeClass = computed(() => {
           <p class="text-sm font-medium">{{ title }}</p>
           <p v-if="description" class="mt-1 text-sm text-muted-foreground">{{ description }}</p>
         </div>
-        <Button variant="ghost" @click="show = false" :aria-label="$t('common.toasts.close_notification')" class="opacity-0 absolute right-2 top-2 p-1 h-auto text-muted-foreground group-hover:opacity-100">
+        <Button variant="ghost" @click="show = false" :aria-label="$t('common.toasts.close_toast')" class="opacity-0 absolute right-2 top-2 p-1 h-auto text-muted-foreground group-hover:opacity-100">
           <X class="size-4" aria-hidden="true" />
         </Button>
       </div>

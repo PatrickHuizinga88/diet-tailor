@@ -101,7 +101,7 @@ const skipOnboarding = async () => {
               <FormMessage/>
             </FormItem>
           </FormField>
-          <FormField v-slot="{ componentField }" name="last_name">
+          <FormField v-slot="{ componentField }" name="last_name" :validate-on-model-update="false">
             <FormItem>
               <FormLabel>{{ $t('account.profile.last_name') }}</FormLabel>
               <FormControl>
