@@ -3,6 +3,15 @@ import Header from "~/components/layout/Header.vue";
 import {Toaster} from "~/components/ui/toast";
 
 const toastStore = useToastStore();
+
+onMounted(() => {
+  if (process.env.NODE_ENV === 'production') {
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+      event.returnValue = true;
+    });
+  }
+})
 </script>
 
 <template>
@@ -16,6 +25,6 @@ const toastStore = useToastStore();
     </div>
   </div>
 
-  <Toaster :toasts="toastStore.toasts" />
+  <Toaster :toasts="toastStore.toasts"/>
 
 </template>

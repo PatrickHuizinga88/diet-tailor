@@ -3,7 +3,7 @@ import { type VariantProps, cva } from 'class-variance-authority'
 export { default as Button } from './Button.vue'
 
 export const buttonVariants = cva(
-  'inline-flex gap-2 items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex gap-2 items-center justify-center whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -18,15 +18,13 @@ export const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-12 px-4 py-2 text-sm',
-        xs: 'h-8 rounded px-2 text-sm',
-        sm: 'h-10 rounded-md px-3 text-sm',
-        lg: 'h-12 rounded-md px-5 text-base',
-        xl: 'h-14 rounded-md px-6 text-base',
-        icon: 'h-10 w-10',
-        'icon-sm': 'h-9 w-9',
-        'icon-lg': 'h-12 w-12',
-        'icon-xl': 'h-14 w-14',
+        default: 'h-12 rounded-md px-5 text-sm [&>svg]:size-5',
+        xs: 'h-8 rounded px-2.5 text-sm [&>svg]:size-4',
+        sm: 'h-10 rounded-md px-4 text-sm [&>svg]:size-5',
+        lg: 'h-14 rounded-md px-6 text-base [&>svg]:size-6',
+        icon: 'h-12 w-12 rounded-md [&>svg]:size-5',
+        'icon-sm': 'h-10 w-10 rounded-md [&>svg]:size-5',
+        'icon-lg': 'h-14 w-14 rounded-md [&>svg]:size-6',
       },
     },
     defaultVariants: {

@@ -165,7 +165,7 @@ const handleSubmit = () => {
   <LayoutContainer v-else
                    class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none overflow-y-auto">
     <div class="flex justify-center">
-      <Button size="lg" class="group w-full" @click="nextStep">
+      <Button class="group w-full" @click="nextStep">
         <RotateCcw class="size-5 mr-2 group-hover:-rotate-[360deg] duration-500"/>
         Let's try again
       </Button>

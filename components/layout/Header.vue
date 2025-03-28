@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {Database} from "~/types/database.types";
-import {User, LogOut} from 'lucide-vue-next'
+import {User, LogOut, Settings} from 'lucide-vue-next'
 import {DropdownMenu} from "~/components/ui/dropdown-menu";
 
 const supabase = useSupabaseClient<Database>()
@@ -48,17 +48,17 @@ const logOut = async () => {
         </div>
         <DropdownMenu v-if="user">
           <DropdownMenuTrigger as-child>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon-sm">
               <User class="size-5"/>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent :align-offset="10">
-<!--            <DropdownMenuItem as-child>-->
-<!--              <NuxtLink to="/profile">-->
-<!--                <User class="size-4"/>-->
-<!--                My profile-->
-<!--              </NuxtLink>-->
-<!--            </DropdownMenuItem>-->
+            <DropdownMenuItem as-child>
+              <NuxtLink to="/account">
+                <Settings class="size-4"/>
+                My account
+              </NuxtLink>
+            </DropdownMenuItem>
             <DropdownMenuItem @click="logOut">
               <LogOut class="size-4"/>
               Sign out

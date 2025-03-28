@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ArrowRight, CheckCircle, Info} from 'lucide-vue-next'
+import {CheckCircle} from 'lucide-vue-next'
 import {PasswordInput} from "./ui/password-input";
 import {toTypedSchema} from "@vee-validate/zod";
 import * as z from "zod";
@@ -13,7 +13,7 @@ const {t} = useI18n()
 
 const errorMessage = ref('')
 const success = ref(false)
-const resendDelay = ref(10)
+const resendDelay = ref(15)
 const loading = ref(false)
 
 const countDown = () => {
@@ -91,6 +91,8 @@ const onSubmit = form.handleSubmit(async (values) => {
     loading.value = false
   }
 })
+
+defineExpose({success})
 </script>
 
 <template>
@@ -130,7 +132,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       <a href="#" class="text-foreground underline">{{ $t('common.general.privacy_policy') }}</a>.
     </p>
 
-    <Button type="submit" :loading="loading" class="w-full">
+    <Button type="submit" size="sm" :loading="loading" class="w-full">
       {{ $t('authentication.register.sign_up') }}
     </Button>
 
@@ -157,14 +159,6 @@ const onSubmit = form.handleSubmit(async (values) => {
           {{ $t('authentication.register.in_seconds', {seconds: resendDelay}) }}
         </span>
     </p>
-  </div>
-
-  <div v-if="!success" class="mt-6 md:mt-10 text-center text-sm text-muted-foreground">
-    {{ $t('authentication.register.have_account') + ' ' }}
-    <Button variant="link" class="h-auto p-0 ml-1">
-      {{ $t('authentication.common.sign_in') }}
-      <ArrowRight class="size-4" aria-hidden="true"/>
-    </Button>
   </div>
 </template>
 

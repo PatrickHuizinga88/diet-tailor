@@ -83,7 +83,7 @@ onMounted(async () => {
 
 <template>
   <LayoutContainer>
-    <h1 class="h3 mb-6">{{ `${greeting} ${profile?.first_name ? ' ' + profile?.first_name : ''}!`}}</h1>
+    <h1 class="h3 mb-6">{{ `${greeting}${profile?.first_name ? ' ' + profile?.first_name : ''}!`}}</h1>
     <div v-if="loading || status === 'pending'">
       <Skeleton class="h-8 w-full max-w-[250px] mb-6"/>
       <Skeleton class="h-[150px] w-full mb-8"/>

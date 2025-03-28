@@ -7,7 +7,6 @@ definePageMeta({
 })
 
 const open = ref(false)
-const register = ref(true)
 </script>
 
 <template>
@@ -48,26 +47,17 @@ const register = ref(true)
         </DialogTrigger>
         <DialogContent>
           <div>
-            <h1 class="h2 mb-1">
-              {{ register ? 'Register for free' : 'Sign in to your account' }}
-            </h1>
-            <p class="text-muted-foreground">
-              {{
-                register ?
-                    'Gain access to many features to fine-tune your personal diet.' :
-                    "Welcome back! Let's save your new meal plan."
-              }}
-            </p>
+            <h1 class="h2 mb-1">Sign up for free</h1>
+            <p class="text-muted-foreground">Gain access to many features to fine-tune your personal diet.</p>
           </div>
-          <Register v-if="register"/>
-          <Login v-else/>
+          <Register/>
         </DialogContent>
       </Dialog>
     </div>
 <!--    <div class="fixed bottom-6 sm:px-4 w-[calc(100vw-2rem)] sm:w-full max-w-3xl">-->
 <!--      <Dialog>-->
 <!--        <DialogTrigger as-child>-->
-<!--          <Button size="xl" class="w-full shadow-[0_0_50px_-8px] shadow-primary/75">-->
+<!--          <Button size="lg" class="w-full shadow-[0_0_50px_-8px] shadow-primary/75">-->
 <!--            Save and customize plan-->
 <!--            <ArrowRight/>-->
 <!--          </Button>-->

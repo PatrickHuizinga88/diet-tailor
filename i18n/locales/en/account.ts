@@ -41,7 +41,7 @@ export default {
 
     profile: {
       profile: "Profile | Profiles",
-      profile_information: "Profile information",
+      profile_information: "Profile Information",
 
       lets_start_with_your_profile: "Let's start by creating your profile.",
       welcome_to: "Welcome to {appName}!",

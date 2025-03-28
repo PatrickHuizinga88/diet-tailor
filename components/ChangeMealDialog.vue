@@ -73,10 +73,10 @@ defineExpose({ openDialog })
         <DialogTitle>Change {{ props.mealType }}</DialogTitle>
         <DialogDescription></DialogDescription>
       </DialogHeader>
-      <div>
+      <div v-if="props.item && props.mealType">
         <div class="bg-muted rounded-lg p-4 mb-6">
           <h3 class="text-sm mb-0.5">Current meal</h3>
-          {{ item.name }}
+          {{ props.item.name }}
         </div>
         <form id="change-meal-form" @submit.prevent="changeMeal(props.item.id, props.mealType, `${props.item.name} - ${props.item.description}`)" class="space-y-6">
           <fieldset class="space-y-1.5">
@@ -108,6 +108,9 @@ defineExpose({ openDialog })
             <Textarea id="reason" v-model="changeReason"/>
           </div>
         </form>
+      </div>
+      <div v-else>
+        <p>Something went wrong.</p>
       </div>
       <DialogFooter>
         <Button @click="open = false" size="sm" variant="outline">
