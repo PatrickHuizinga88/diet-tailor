@@ -59,7 +59,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       action: 'update',
       item: t('authentication.common.password'),
     })
-    await navigateTo('/login')
+    await navigateTo('/sign-in')
   } catch (error) {
     toastStore.createToast({
       type: 'destructive',

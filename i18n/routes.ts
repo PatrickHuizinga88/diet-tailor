@@ -1,10 +1,10 @@
 export default {
   login: {
-    en: '/login',
+    en: '/sign-in',
     nl: '/inloggen',
   },
-  register: {
-    en: '/register',
+  'sign-up': {
+    en: '/sign-up',
     nl: '/registreren',
   },
   'password-recovery': {

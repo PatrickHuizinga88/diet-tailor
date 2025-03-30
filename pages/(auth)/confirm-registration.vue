@@ -13,7 +13,7 @@ definePageMeta({
     <h1 class="text-3xl font-semibold text-center mb-2">{{ $t('authentication.register.account_activated') }}</h1>
     <p class="text-muted-foreground text-center">{{ $t('authentication.register.welcome_to', {appName: 'Diet Tailor'}) }}</p>
     <Button class="w-full mt-6" as-child>
-      <NuxtLink to="/login">
+      <NuxtLink to="/(auth)/sign-in">
         {{ $t('authentication.register.sign_in_to_get_started') }}
       </NuxtLink>
     </Button>

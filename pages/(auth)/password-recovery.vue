@@ -74,10 +74,10 @@ const onSubmit = form.handleSubmit(async (values) => {
 
     <template #footer>
       <Button variant="link" size="sm" class="p-0" as-child>
-        <NuxtLinkLocale to="login">
+        <NuxtLink to="/sign-in">
           <ArrowLeft aria-hidden="true"/>
           {{ $t('authentication.password_recovery.back_to_sign_in') }}
-        </NuxtLinkLocale>
+        </NuxtLink>
       </Button>
     </template>
   </Authentication>

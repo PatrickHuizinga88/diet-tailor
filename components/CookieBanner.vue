@@ -20,11 +20,10 @@ import {Switch} from "~/components/ui/switch";
         We use cookies to improve your experience on our website. By clicking "Accept", you agree to our use of cookies.
       </p>
       <div class="grid grid-cols-2 gap-2">
-        <Button size="sm">Accept</Button>
         <Button variant="outline" size="sm">Decline</Button>
         <Dialog>
           <DialogTrigger as-child>
-            <Button variant="outline" size="sm" class="col-span-2">Manage preferences</Button>
+            <Button variant="outline" size="sm">Manage preferences</Button>
           </DialogTrigger>
           <DialogContent class="max-w-xl">
             <DialogHeader>
@@ -32,9 +31,11 @@ import {Switch} from "~/components/ui/switch";
                 Manage cookie preferences
               </DialogTitle>
             </DialogHeader>
-            <p class="mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            <p class="mb-6">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
               labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.</p>
+              aliquip ex ea commodo consequat.
+            </p>
             <Accordion type="single" collapsible>
               <AccordionItem value="necessary">
                 <AccordionTrigger>
@@ -60,6 +61,7 @@ import {Switch} from "~/components/ui/switch";
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        <Button size="sm" class="col-span-2">Accept</Button>
       </div>
     </div>
   </transition>
