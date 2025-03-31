@@ -1,16 +1,16 @@
 <script setup lang="ts">
-const appName = 'DietTailor'
-const supportEmail = 'support@diettailor,fit'
+import {APP_NAME, SUPPORT_EMAIL} from '~/constants'
+
 const lastUpdated = '30-03-2025'
 </script>
 
 <template>
   <div class="container max-w-3xl mx-auto">
-    <h1 class="text-4xl mb-4">{{ appName }} Privacy Policy</h1>
+    <h1 class="text-4xl mb-4">{{ APP_NAME }} Privacy Policy</h1>
     <p><strong>Last Updated: {{ lastUpdated }}</strong></p>
     <p>
-      Welcome to {{ appName }}. This Privacy Policy explains how we collect, use, store, and share your information when you
-      use our personalized nutrition planning platform (the "Service"). By using {{ appName }}, you agree to the
+      Welcome to {{ APP_NAME }}. This Privacy Policy explains how we collect, use, store, and share your information when you
+      use our personalized nutrition planning platform (the "Service"). By using {{ APP_NAME }}, you agree to the
       collection and use of your data in accordance with this policy.
     </p>
     <hr/>
@@ -25,7 +25,7 @@ const lastUpdated = '30-03-2025'
     </ul>
     <h2 class="text-3xl mt-6 mb-2">2. Cookies & Tracking</h2>
     <p>
-      We use cookies and similar tracking technologies to enhance your experience on {{ appName }}. These tools help us
+      We use cookies and similar tracking technologies to enhance your experience on {{ APP_NAME }}. These tools help us
       understand user interactions and improve our service. By signing up to our platform, you consent to the use of
       cookies as described in this policy.
     </p>
@@ -46,7 +46,7 @@ const lastUpdated = '30-03-2025'
     <p>We ensure that these third parties adhere to strict data protection standards.</p>
     <h2 class="text-3xl mt-6 mb-2">5. User Rights (GDPR Compliance)</h2>
     <p>
-      As a user of {{ appName }}, you have the following rights regarding your personal data:
+      As a user of {{ APP_NAME }}, you have the following rights regarding your personal data:
     </p>
     <ul>
       <li><strong>Access:</strong> You can request a copy of your data by contacting us.</li>
@@ -60,7 +60,7 @@ const lastUpdated = '30-03-2025'
     <p>
       If you have any questions, concerns, or requests regarding your personal data or this Privacy Policy, please reach
       out to us at
-      <a :href="`mailto:${supportEmail}`">{{ supportEmail }}</a>.
+      <a :href="`mailto:${SUPPORT_EMAIL}`">{{ SUPPORT_EMAIL }}</a>.
     </p>
     <h2 class="text-3xl mt-6 mb-2">7. Changes to This Privacy Policy</h2>
     <p>
@@ -68,7 +68,7 @@ const lastUpdated = '30-03-2025'
       Updated" date. Continued use of our Service constitutes acceptance of the updated Privacy Policy.
     </p>
     <hr/>
-    <p>Thank you for trusting {{ appName }} with your personal information!</p>
+    <p>Thank you for trusting {{ APP_NAME }} with your personal information!</p>
   </div>
 </template>
 

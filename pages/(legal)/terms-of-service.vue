@@ -1,22 +1,22 @@
 <script setup lang="ts">
-const appName = 'DietTailor'
-const supportEmail = 'support@diettailor.fit'
-const lastUpdated = '03-28-2025'
+import {APP_NAME, SUPPORT_EMAIL} from '~/constants'
+
+const lastUpdated = '28-03-2025'
 </script>
 
 <template>
   <div class="container max-w-3xl mx-auto">
-    <h1 class="text-4xl mb-4">{{ appName }} Terms of Service</h1>
+    <h1 class="text-4xl mb-4">{{ APP_NAME }} Terms of Service</h1>
     <p><strong>Last Updated: {{lastUpdated}}</strong></p>
     <p>
-      Welcome to {{ appName }}! These Terms of Service ("Terms") govern your access to and use of {{ appName }} ("Service"),
-      operated by Patrick Huizinga ("we," "us," "our"). By using {{ appName }}, you agree to
+      Welcome to {{ APP_NAME }}! These Terms of Service ("Terms") govern your access to and use of {{ APP_NAME }} ("Service"),
+      operated by Patrick Huizinga ("we," "us," "our"). By using {{ APP_NAME }}, you agree to
       these Terms. If you do not agree, please do not use the Service.
     </p>
     <hr/>
     <h2 class="text-3xl mt-6 mb-2">1. Introduction</h2>
     <p>
-      {{ appName }} is a personalized nutrition planning platform that helps users create meal plans based on their dietary
+      {{ APP_NAME }} is a personalized nutrition planning platform that helps users create meal plans based on their dietary
       preferences and goals. The Service is available worldwide and can be accessed by all ages. Some features require
       account registration.
     </p>
@@ -27,7 +27,7 @@ const lastUpdated = '03-28-2025'
       <li>We reserve the right to suspend or terminate accounts for violations of these Terms.</li>
     </ul>
     <h2 class="text-3xl mt-6 mb-2">3. Services & Subscriptions</h2>
-    <p>{{ appName }} offers both free and paid subscription plans.</p>
+    <p>{{ APP_NAME }} offers both free and paid subscription plans.</p>
     <ul>
       <li><strong>Free Plan</strong>: Limited access to features.</li>
       <li><strong>Paid Plan</strong>: Additional features unlocked through a subscription.</li>
@@ -46,7 +46,7 @@ const lastUpdated = '03-28-2025'
     </ul>
     <h2 class="text-3xl mt-6 mb-2">5. Disclaimers & Liability</h2>
     <ul>
-      <li><strong>No Medical Advice</strong>: {{ appName }} does not provide medical or dietary advice. Consult a
+      <li><strong>No Medical Advice</strong>: {{ APP_NAME }} does not provide medical or dietary advice. Consult a
         professional before making health-related decisions.
       </li>
       <li><strong>No Guarantees</strong>: We do not guarantee the accuracy or effectiveness of meal plans.</li>
@@ -55,7 +55,7 @@ const lastUpdated = '03-28-2025'
       </li>
     </ul>
     <h2 class="text-3xl mt-6 mb-2">6. Privacy & Data Handling</h2>
-    <p>Your use of {{ appName }} is subject to our <strong>Privacy Policy</strong>, which explains how we collect and handle
+    <p>Your use of {{ APP_NAME }} is subject to our <strong>Privacy Policy</strong>, which explains how we collect and handle
       your data.</p>
     <h2 class="text-3xl mt-6 mb-2">7. Termination & Changes</h2>
     <ul>
@@ -72,9 +72,9 @@ const lastUpdated = '03-28-2025'
     <hr/>
     <p>
       If you have any questions, please contact us at
-      <a :href="`mailto:${supportEmail}`">{{ supportEmail }}</a>.
+      <a :href="`mailto:${SUPPORT_EMAIL}`">{{ SUPPORT_EMAIL }}</a>.
     </p>
-    <p><strong>Thank you for using {{ appName }}!</strong></p>
+    <p><strong>Thank you for using {{ APP_NAME }}!</strong></p>
   </div>
 </template>
 

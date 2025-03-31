@@ -1,67 +1,131 @@
 <script setup lang="ts">
-
 import {Switch} from "~/components/ui/switch";
+import {ChevronsUpDown, Info} from "lucide-vue-next";
+
+const {public: {baseUrl}} = useRuntimeConfig()
+
+const showBanner = ref(false)
+
+const necessaryCookies = ref(true)
+const functionalCookies = ref(false)
+
+const accept = () => {
+  showBanner.value = false
+  console.log("All cookies accepted")
+}
+
+const decline = () => {
+  showBanner.value = false
+  console.log("All cookies declined")
+}
+
+const savePreferences = () => {
+  showBanner.value = false
+  console.log('Preferences saved:', {
+    necessary: necessaryCookies.value,
+    functional: functionalCookies.value,
+  })
+}
+
+onMounted(() => {
+  // Check if the user has already accepted or declined cookies
+  showBanner.value = true
+})
 </script>
 
 <template>
   <transition
-    enter-active-class="transition duration-300 ease-out"
-    enter-from-class="transform opacity-0 scale-95"
-    enter-to-class="transform opacity-100 scale-100"
-    leave-active-class="transition duration-200 ease-in"
-    leave-from-class="transform opacity-100 scale-100"
-    leave-to-class="transform opacity-0 scale-95"
-    apprear
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="transform opacity-0 scale-95"
+      enter-to-class="transform opacity-100 scale-100"
+      leave-active-class="transition duration-100 ease-in"
+      leave-from-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
   >
-    <div
-      class="fixed bottom-4 left-4 right-4 sm:right-auto sm:w-full sm:max-w-sm bg-background rounded-xl shadow-[0_0_50px_-12px_#0004] p-4">
-      <h1 class="text-2xl mb-2">We use cookies 🍪</h1>
+    <div v-if="showBanner"
+        class="fixed bottom-4 left-4 right-4 sm:right-auto sm:w-full sm:max-w-sm bg-background rounded-xl shadow-[0_0_50px_-8px_#0004] p-4">
+      <h1 class="text-xl mb-2">{{ $t('legal.cookie_consent.title') }}</h1>
       <p class="text-sm text-muted-foreground mb-4">
-        We use cookies to improve your experience on our website. By clicking "Accept", you agree to our use of cookies.
+        {{ $t('legal.cookie_consent.description') }}
       </p>
-      <div class="grid grid-cols-2 gap-2">
-        <Button variant="outline" size="sm">Decline</Button>
+      <div class="flex gap-2 w-full">
+        <Button @click="accept" size="xs">{{ $t('legal.cookie_consent.accept') }}</Button>
+        <Button @click="decline" variant="outline" size="xs">{{ $t('legal.cookie_consent.decline') }}</Button>
         <Dialog>
           <DialogTrigger as-child>
-            <Button variant="outline" size="sm">Manage preferences</Button>
+            <Button variant="ghost" size="xs" class="ml-auto">{{ $t('legal.cookie_consent.manage_preferences') }}</Button>
           </DialogTrigger>
-          <DialogContent class="max-w-xl">
-            <DialogHeader>
+          <DialogContent class="max-w-xl grid-rows-[auto_minmax(0,1fr)_auto] p-0 h-[90dvh] sm:h-auto">
+            <DialogHeader class="p-6 pb-0">
               <DialogTitle>
-                Manage cookie preferences
+                {{ $t('legal.cookie_consent.preferences_dialog.title') }}
               </DialogTitle>
+              <DialogDescription>
+                {{ $t('legal.cookie_consent.preferences_dialog.description') }}
+              </DialogDescription>
             </DialogHeader>
-            <p class="mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
-            </p>
-            <Accordion type="single" collapsible>
-              <AccordionItem value="necessary">
-                <AccordionTrigger>
-                  <h2 id="necassary-cookies-label" class="text-lg">Necessary cookies</h2>
-                  <Switch id="necessary-cookies" aria-labelledby="necassary-cookies-label"/>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <p class="text-sm text-muted-foreground mb-4">These cookies are necessary for the website to function
-                    and cannot be switched off in our systems. They are usually only set in response to actions made by
-                    you which amount to a request for services, such as setting your privacy preferences, logging in or
-                    filling in forms. You can set your browser to block or alert you about these cookies, but some parts
-                    of the site will not then work. These cookies do not store any personally identifiable
-                    information.</p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <DialogFooter>
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full">
-                <Button variant="outline" size="sm" class="w-full">Decline all</Button>
-                <Button variant="outline" size="sm" class="w-full">Accept all</Button>
-                <Button size="sm" class="col-span-2 sm:col-span-1 w-full">Save preferences</Button>
+            <div class="space-y-2 overflow-y-auto px-6 py-4">
+              <Collapsible class="bg-muted/50 rounded-lg -mx-2">
+                <div class="flex justify-between items-center pr-4 pl-2 py-2">
+                  <CollapsibleTrigger class="group flex items-center w-full" tabindex="-1">
+                    <Button variant="ghost" size="icon-xs" class="mr-2 group-hover:bg-muted" :aria-label="$t('legal.cookie_consent.preferences_dialog.necessary.toggle_details')">
+                      <ChevronsUpDown/>
+                    </Button>
+                    <h2 id="necessary-cookies-label" class="text-lg">
+                      {{ $t('legal.cookie_consent.preferences_dialog.necessary.title') }}
+                    </h2>
+                  </CollapsibleTrigger>
+                  <Switch v-model="necessaryCookies" id="necessary-cookies" aria-labelledby="necessary-cookies-label"
+                          disabled/>
+                </div>
+                <CollapsibleContent class="p-4 pt-2">
+                  <p class="text-sm text-muted-foreground">
+                    {{ $t('legal.cookie_consent.preferences_dialog.necessary.description') }}
+                  </p>
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible class="bg-muted/50 rounded-lg -mx-2">
+                <div class="flex justify-between items-center pr-4 pl-2 py-3">
+                  <CollapsibleTrigger class="group flex items-center w-full" tabindex="-1">
+                    <Button variant="ghost" size="icon-xs" class="mr-2 group-hover:bg-muted" :aria-label="$t('legal.cookie_consent.preferences_dialog.functional.toggle_details')">
+                      <ChevronsUpDown/>
+                    </Button>
+                    <h2 id="functional-cookies-label" class="text-lg">
+                      {{ $t('legal.cookie_consent.preferences_dialog.functional.title') }}
+                    </h2>
+                  </CollapsibleTrigger>
+                  <Switch v-model="functionalCookies" id="functional-cookies" aria-labelledby="functional-cookies-label"/>
+                </div>
+                <CollapsibleContent class="p-4 pt-2">
+                  <p class="text-sm text-muted-foreground">
+                    {{ $t('legal.cookie_consent.preferences_dialog.functional.description') }}
+                  </p>
+                </CollapsibleContent>
+              </Collapsible>
+              <Alert class="!mt-8">
+                <Info class="size-4"/>
+                <AlertTitle>{{ $t('legal.cookie_consent.preferences_dialog.more_information.title') }}</AlertTitle>
+                <AlertDescription class="text-muted-foreground">
+                  {{ $t('legal.cookie_consent.preferences_dialog.more_information.description') }}
+                  <a :href="`${baseUrl}/privacy-policy`" target="_blank" class="underline">{{ $t('legal.privacy_policy.privacy_policy') }}</a>.
+                </AlertDescription>
+              </Alert>
+            </div>
+            <DialogFooter class="p-6 pt-0">
+              <div class="grid sm:grid-cols-3 gap-2 w-full">
+                <Button @click="accept" variant="outline" size="sm" class="w-full">
+                  {{ $t('legal.cookie_consent.preferences_dialog.accept_all') }}
+                </Button>
+                <Button @click="decline" variant="outline" size="sm" class="w-full">
+                  {{ $t('legal.cookie_consent.preferences_dialog.decline_all') }}
+                </Button>
+                <Button @click="savePreferences" size="sm" class="w-full">
+                  {{ $t('legal.cookie_consent.preferences_dialog.save_preferences') }}
+                </Button>
               </div>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        <Button size="sm" class="col-span-2">Accept</Button>
       </div>
     </div>
   </transition>
