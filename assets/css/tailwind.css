@@ -4,20 +4,20 @@
  
 @layer base {
   :root {
-    --background: 60 100% 98%;
+    --background: 80 100% 98%;
     --foreground: 150 50% 4%;
  
-    --border: 60 5% 80%;
-    --input: 60 5% 80%;
+    --border: 80 5% 80%;
+    --input: 80 5% 80%;
  
-    --primary: 150 46% 46%;
+    --primary: 160 80% 20%;
     --primary-foreground: 60 100% 98%;
  
-    --secondary: 34 91% 75%;
+    --secondary: 70 90% 50%;
     --secondary-foreground: 60 71% 4%;
 
-    --muted: 60 15% 90%;
-    --muted-foreground: 60 3% 43%;
+    --muted: 80 15% 90%;
+    --muted-foreground: 80 3% 43%;
 
     --info: 240 100% 50.2%;
     --info-foreground: 0 0% 98%;
@@ -29,10 +29,10 @@
     --warning-foreground: 0 0% 98%;
 
     --destructive: 0 72% 51%;
-    --destructive-foreground: 60 100% 98%;
+    --destructive-foreground: 80 100% 98%;
 
-    --popover: 60 100% 98%;
-    --popover-foreground: 60 50% 4%;
+    --popover: 80 100% 98%;
+    --popover-foreground: 80 50% 4%;
  
     --ring: 150 46% 46%;
  

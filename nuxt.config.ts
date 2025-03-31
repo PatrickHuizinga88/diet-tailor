@@ -1,16 +1,12 @@
+import { APP_NAME } from "~/constants";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: {enabled: true},
 
-  vite: {
-    optimizeDeps: {
-      exclude: ['vee-validate']
-    }
-  },
-
   site: {
-    url: 'https://diettailor.fit',
-    name: 'DietTailor'
+    url: process.env.NUXT_PUBLIC_BASE_URL,
+    name: 'DietTailor',
   },
 
   app: {
@@ -88,16 +84,13 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    strategy: 'no_prefix',
-    detectBrowserLanguage: {
-      useCookie: false
-    },
+    strategy: 'prefix_except_default',
     defaultLocale: 'en',
     locales: [
       {
         code: 'en',
         name: 'English',
-        files: ['en/common.ts', 'en/404.ts', 'en/account.ts', 'en/authentication.ts', 'en/dashboard.ts', 'en/feedback.ts', 'en/pricing.ts', 'en/profile.ts', 'en/settings.ts']
+        files: ['en/common.ts', 'en/404.ts', 'en/account.ts', 'en/authentication.ts', 'en/dashboard.ts', 'en/feedback.ts', 'en/legal.ts', 'en/pricing.ts', 'en/profile.ts', 'en/settings.ts']
       },
     ],
   },
