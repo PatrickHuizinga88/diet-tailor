@@ -1,61 +1,81 @@
 <script setup lang="ts">
-import {ArrowRight} from "lucide-vue-next";
+import {ArrowDown} from "lucide-vue-next";
+import stepOneImage from "../assets/images/how-it-works/step-1.webp";
+import stepTwoImage from "../assets/images/how-it-works/step-2.webp";
 
 definePageMeta({
-  layout: 'wizard',
   middleware: 'auth'
 })
 
 const steps = [
   {
+    image: stepOneImage,
     title: "Tell us about yourself",
-    description: "Tell us about your goals, preferences, and dietary restrictions."
+    description: "Tell us about your dietary needs, goals, and favorite foods so we can customize your plan."
   },
   {
-    title: "Get your meal plan",
-    description: "Get a personalized meal plan tailored just for you."
+    image: stepTwoImage,
+    title: "Get Your Personalized Plan",
+    description: "Receive a fully personalized weekly meal plan, generated instantly by AI."
   },
   {
-    title: "Start eating",
-    description: "Start eating healthy and reach your goals."
+    image: '',
+    title: "Enjoy & Adjust",
+    description: "Easily swap meals, explore new recipes, and fine-tune your plan anytime."
   }
 ]
 </script>
 
 <template>
-  <LayoutContainer>
-    <section id="hero" class="text-center mb-12">
-      <h1 class="mb-3">Create Your Personalized Meal Plan in Minutes!</h1>
-      <p class="text-lg text-muted-foreground">Tell us your goals and preferences, and get a meal plan tailored just for
-        you.</p>
-      <div class="grid sm:grid-cols-1 gap-3 w-full mt-8">
-        <Button class="group w-full" size="lg" asChild>
+  <div class="container">
+    <section id="hero" class="flex flex-col items-center max-w-3xl text-center mx-auto mb-24 sm:mb-40 mt-8">
+      <h1 class="mb-8">Personalized Meal Plans, Tailored to <span
+          class="bg-clip-text text-transparent bg-gradient-to-br from-primary via-primary to-secondary">Your</span>
+        Preferences</h1>
+      <p class="text-lg">Get a customized daily meal plan based on your dietary needs, preferences, and health goals.
+        effortless and accurate. All within <strong>minutes</strong>!</p>
+      <div class="w-full sm:w-auto flex flex-col items-stretch sm:flex-row gap-2 sm:gap-4 mt-10">
+        <Button class="group" as-child>
           <NuxtLink to="/wizard">
-            Let's get started
-            <ArrowRight class="size-5 group-hover:translate-x-0.5 duration-200"/>
+            Create your meal plan
           </NuxtLink>
         </Button>
-<!--        <Button class="group w-full" variant="outline" size="lg">-->
-<!--          More about DietTailor-->
-<!--          <ExternalLink class="size-5 group-hover:scale-105 duration-200"/>-->
-<!--        </Button>-->
+        <Button variant="ghost" class="group sm:-mr-[30px]" as-child>
+          <NuxtLink to="#steps">
+            See how it works
+            <ArrowDown
+                class="hidden sm:block opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 duration-150"
+                aria-hidden="true"/>
+          </NuxtLink>
+        </Button>
       </div>
     </section>
-    <section id="steps" class="mb-8">
-      <h2 class="h3 text-center text-primary-dark mb-4">How It Works</h2>
-      <ol class="space-y-2">
-        <li v-for="(step, index) in steps" class="bg-muted rounded-lg p-4 flex">
-          <div class="flex items-center justify-center shrink-0 h4 text-primary-dark bg-background rounded size-8 mr-4">
-            {{ index + 1 }}
-          </div>
-          <div>
-            <h3 class="h4 mb-1">{{ step.title }}</h3>
-            <p>
-              {{ step.description }}
-            </p>
-          </div>
-        </li>
-      </ol>
+    <section id="steps" class="mb-16 sm:mb-32">
+      <div class="flex flex-col items-center mb-8 sm:mb-16">
+        <div class="text-primary font-medium mb-4">How it works</div>
+        <h2 class="text-center mb-4">A Meal Plan Within Minutes</h2>
+        <p class="text-center text-muted-foreground">Get you personalized meal planning in just three simple steps.</p>
+      </div>
+      <div class="relative">
+        <div class="md:hidden absolute left-1/2 inset-y-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-50"></div>
+        <div class="hidden md:block absolute top-1/2 inset-x-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-50"></div>
+        <ol class="relative grid md:grid-cols-3 gap-4">
+          <li v-for="(step, index) in steps" class="flex flex-col bg-background border rounded-2xl pt-4 pr-5 pb-5 pl-4">
+<!--            <img :src="step.image" alt="Answer some questions so we get to know you" class="h-48 md:h-56 rounded-xl mb-5 object-cover object-top">-->
+            <div class="flex">
+              <div class="flex items-center justify-center shrink-0 h4 text-primary font-semibold bg-secondary/50 rounded size-8 mr-4">
+                {{ index + 1 }}
+              </div>
+              <div>
+                <h3 class="h4 mb-1">{{ step.title }}</h3>
+                <p class="text-sm text-muted-foreground">
+                  {{ step.description }}
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
     </section>
-  </LayoutContainer>
+  </div>
 </template>

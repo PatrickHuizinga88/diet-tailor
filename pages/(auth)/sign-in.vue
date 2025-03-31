@@ -76,7 +76,7 @@ const onSubmit = form.handleSubmit(async (values) => {
               {{ $t('authentication.common.password') }}
             </FormLabel>
             <Button type="button" variant="link" size="sm" class="h-auto p-0" as-child>
-              <NuxtLink to="/password-recovery">
+              <NuxtLink to="/(auth)/password-recovery">
                 {{ $t('authentication.login.forgot_password') }}
               </NuxtLink>
             </Button>
@@ -98,8 +98,8 @@ const onSubmit = form.handleSubmit(async (values) => {
     <template #footer>
       {{ $t('authentication.login.no_account') }}
       <Button variant="link" size="sm" class="h-auto p-0 ml-1" as-child>
-        <NuxtLink to="/register">
-          {{ $t('authentication.login.register_now') }}
+        <NuxtLink to="/sign-up">
+          {{ $t('authentication.login.sign_up_now') }}
           <ArrowRight aria-hidden="true"/>
         </NuxtLink>
       </Button>

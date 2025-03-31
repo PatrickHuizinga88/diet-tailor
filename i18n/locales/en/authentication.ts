@@ -16,7 +16,7 @@ export default {
     login: {
       forgot_password: "Forgot password?",
       no_account: "Don't have an account?",
-      register_now: "Register now",
+      sign_up_now: "Sign up now",
       sign_in_failed: "Sign in failed. Please check your email and password.",
       sign_in_to_account: "Sign in to your account",
     },
