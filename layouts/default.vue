@@ -21,4 +21,6 @@ const toastStore = useToastStore();
 
   <Toaster :toasts="toastStore.toasts"/>
 
+  <LazyCookieBanner/>
+
 </template>

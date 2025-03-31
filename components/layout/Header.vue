@@ -8,7 +8,7 @@ const user = useSupabaseUser()
 
 const logOut = async () => {
   await supabase.auth.signOut()
-  navigateTo('/login')
+  navigateTo('/sign-in')
 }
 </script>
 
@@ -66,7 +66,7 @@ const logOut = async () => {
           </DropdownMenuContent>
         </DropdownMenu>
         <Button v-else variant="outline" size="sm" as-child>
-          <NuxtLink to="/login">
+          <NuxtLink to="/(auth)/sign-in">
             Login
           </NuxtLink>
         </Button>
