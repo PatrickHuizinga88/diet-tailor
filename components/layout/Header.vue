@@ -3,6 +3,10 @@ import type {Database} from "~/types/database.types";
 import {User, LogOut, Settings} from 'lucide-vue-next'
 import {DropdownMenu} from "~/components/ui/dropdown-menu";
 
+const props = defineProps<{
+  wide?: boolean
+}>()
+
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
 
@@ -10,11 +14,13 @@ const logOut = async () => {
   await supabase.auth.signOut()
   navigateTo('/sign-in')
 }
+
+const layoutContainer = resolveComponent('layout-container')
 </script>
 
 <template>
   <header>
-    <LayoutContainer>
+    <component :is="props.wide ? 'div' : layoutContainer" :class="{'container': props.wide}">
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <div class="flex items-center">
           <NuxtLink to="/">
@@ -71,6 +77,6 @@ const logOut = async () => {
           </NuxtLink>
         </Button>
       </nav>
-    </LayoutContainer>
+    </component>
   </header>
 </template>

@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import {APP_NAME, SUPPORT_EMAIL} from '~/constants'
+import {ArrowLeft} from "lucide-vue-next";
 
 const lastUpdated = '30-03-2025'
 </script>
 
 <template>
   <div class="container max-w-3xl mx-auto">
+    <Button @click="$router.back()" variant="ghost" size="sm" class="-ml-4 mb-6">
+      <ArrowLeft/>
+      Go back
+    </Button>
     <h1 class="text-4xl mb-4">{{ APP_NAME }} Privacy Policy</h1>
     <p><strong>Last Updated: {{ lastUpdated }}</strong></p>
     <p>

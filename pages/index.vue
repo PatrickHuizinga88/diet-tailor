@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import {ArrowDown} from "lucide-vue-next";
+import {ArrowDown, ArrowRight, Bot, Clock, PencilLine, PencilRuler, Utensils} from "lucide-vue-next";
 import stepOneImage from "../assets/images/how-it-works/step-1.webp";
 import stepTwoImage from "../assets/images/how-it-works/step-2.webp";
+import stepThreeImage from "../assets/images/how-it-works/step-3.webp";
 
 definePageMeta({
+  layout: 'landing',
   middleware: 'auth'
 })
 
@@ -19,9 +21,37 @@ const steps = [
     description: "Receive a fully personalized weekly meal plan, generated instantly by AI."
   },
   {
-    image: '',
+    image: stepThreeImage,
     title: "Enjoy & Adjust",
     description: "Easily swap meals, explore new recipes, and fine-tune your plan anytime."
+  }
+]
+
+const features = [
+  {
+    title: "Truly Personalized",
+    description: "Your plan adapts to your exact dietary needs, ensuring every meal is perfect for you.",
+    icon: PencilRuler
+  },
+  {
+    title: "Smart AI-Powered Plans",
+    description: "Our AI generates meal plans with expert precision, considering your preferences and goals.",
+    icon: Bot
+  },
+  {
+    title: "Easily Adjustable",
+    description: "Swap meals and tweak your plan anytime. Flexibility is key to consistency.",
+    icon: PencilLine
+  },
+  {
+    title: "Diverse & Delicious",
+    description: "Get exciting meal suggestions with easy-to-follow recipes. Eating healthy should never be boring!",
+    icon: Utensils
+  },
+  {
+    title: "Saves You Time",
+    description: "No more meal planning stress. We take care of it so you can focus on enjoying your food.",
+    icon: Clock
   }
 ]
 </script>
@@ -33,7 +63,7 @@ const steps = [
           class="bg-clip-text text-transparent bg-gradient-to-br from-primary via-primary to-secondary">Your</span>
         Preferences</h1>
       <p class="text-lg">Get a customized daily meal plan based on your dietary needs, preferences, and health goals.
-        effortless and accurate. All within <strong>minutes</strong>!</p>
+        Effortless and accurate. All within <strong>minutes</strong>!</p>
       <div class="w-full sm:w-auto flex flex-col items-stretch sm:flex-row gap-2 sm:gap-4 mt-10">
         <Button class="group" as-child>
           <NuxtLink to="/wizard">
@@ -50,20 +80,24 @@ const steps = [
         </Button>
       </div>
     </section>
-    <section id="steps" class="mb-16 sm:mb-32">
-      <div class="flex flex-col items-center mb-8 sm:mb-16">
-        <div class="text-primary font-medium mb-4">How it works</div>
-        <h2 class="text-center mb-4">A Meal Plan Within Minutes</h2>
-        <p class="text-center text-muted-foreground">Get you personalized meal planning in just three simple steps.</p>
+    <section id="steps" class="mb-16 sm:mb-40">
+      <div class="flex flex-col sm:flex-row justify-between items-end gap-4 sm:gap-8 mb-8 sm:mb-16">
+        <div class="sm:max-w-xl">
+          <div class="text-primary font-semibold mb-2">How It Works</div>
+          <h1 class="h2">Your Personalized Meal Plan Within Minutes</h1>
+        </div>
+        <p class="text-muted-foreground sm:max-w-lg">With DietTailor, you'll get you personalized meal planning in just
+          three simple steps.</p>
       </div>
       <div class="relative">
-        <div class="md:hidden absolute left-1/2 inset-y-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-50"></div>
-        <div class="hidden md:block absolute top-1/2 inset-x-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-50"></div>
-        <ol class="relative grid md:grid-cols-3 gap-4">
-          <li v-for="(step, index) in steps" class="flex flex-col bg-background border rounded-2xl pt-4 pr-5 pb-5 pl-4">
-<!--            <img :src="step.image" alt="Answer some questions so we get to know you" class="h-48 md:h-56 rounded-xl mb-5 object-cover object-top">-->
+        <ol class="relative grid md:grid-cols-3 justify-center gap-4">
+          <li v-for="(step, index) in steps"
+              class="flex flex-col bg-background border rounded-2xl max-w-sm sm:max-w-none pt-4 pr-5 pb-5 pl-4">
+            <img :src="step.image" alt="Answer some questions so we get to know you"
+                 class="h-48 md:h-56 rounded-xl mb-5 object-cover object-top">
             <div class="flex">
-              <div class="flex items-center justify-center shrink-0 h4 text-primary font-semibold bg-secondary/50 rounded size-8 mr-4">
+              <div
+                  class="flex items-center justify-center shrink-0 h4 text-primary font-semibold bg-secondary/50 rounded-md size-8 mr-4">
                 {{ index + 1 }}
               </div>
               <div>
@@ -77,5 +111,72 @@ const steps = [
         </ol>
       </div>
     </section>
+    <section id="features" class="mb-16 sm:mb-40">
+      <div class="flex flex-col items-center max-w-md text-center mx-auto mb-8 sm:mb-16">
+        <div class="text-primary font-semibold mb-2">Why DietTailor?</div>
+        <h1 class="h2 mb-4">Smart, flexible and 100% personalized</h1>
+      </div>
+      <div class="relative">
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-primary to-secondary blur-[128px] w-3/4 h-1/2 rounded-full rotate-6 opacity-40 -z-10"></div>
+        <ul class="flex flex-wrap justify-center gap-4">
+          <li v-for="feature in features"
+              class="flex flex-row sm:flex-col sm:items-center bg-background/60 backdrop-blur-xl border text-left sm:text-center rounded-xl p-4 sm:p-6 w-full md:max-w-sm">
+            <div class="grid place-items-center shrink-0 size-9 bg-secondary/50 rounded-md mr-4 sm:mr-0 sm:mb-4">
+              <component :is="feature.icon" class="size-6 text-primary"/>
+            </div>
+            <div>
+              <h3 class="h4 mb-1 mt-1 sm:mt-0">{{ feature.title }}</h3>
+              <p class="text-sm text-muted-foreground">
+                {{ feature.description }}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section id="cta" class="mb-16 sm:mb-40">
+      <div
+          class="flex flex-col sm:flex-row justify-between items-center sm:items-end bg-gradient-to-r from-secondary/60 to-lime-500/60 text-secondary-foreground rounded-3xl p-6 sm:p-8 md:p-10 sm:pb-0 md:pb-0">
+        <div class="max-w-md md:max-w-xl mb-6 sm:mb-10">
+          <h1 class="sm:h2 md:h1 mb-4">Get Your Personalized Plan</h1>
+          <p class="font-medium">Start today and enjoy meals tailored to your taste, goals, and lifestyle. Effortless,
+            healthy, and delicious!</p>
+          <Button class="group mt-8" as-child>
+            <NuxtLink to="/wizard">
+              Create your meal plan
+              <ArrowRight class="group-hover:translate-x-0.5 duration-150"/>
+            </NuxtLink>
+          </Button>
+        </div>
+        <img src="../assets/images/cta-illustration.svg" alt=""
+             class="order-first sm:order-last h-64 md:h-80 lg:mr-16 xl:mr-24 mb-8 sm:mb-0 -mt-12 sm:mt-auto"/>
+      </div>
+    </section>
   </div>
+  <footer class="bg-muted/50 py-12 sm:py-8">
+    <div class="container">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between">
+        <div>
+          <img src="../assets/images/logo.svg" alt="DietTailor" class="h-8 mb-4"/>
+          <div class="text-sm text-muted-foreground">Copyright ©{{ $dayjs().format('YYYY') }} DietTailor</div>
+        </div>
+        <Separator class="my-6"/>
+        <nav>
+          <ul class="flex gap-8">
+            <li>
+              <NuxtLink to="/privacy-policy" class="text-sm text-muted-foreground hover:underline duration-150">
+                Privacy Policy
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/terms-of-service" class="text-sm text-muted-foreground hover:underline duration-150">
+                Terms of Service
+              </NuxtLink>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
 </template>
