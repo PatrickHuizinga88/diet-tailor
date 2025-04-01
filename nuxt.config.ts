@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     },
     openaiApiKey: '',
     stripeSecretKey: '',
+    resendApiKey: '',
   },
 
   css: ['../assets/css/main.css'],
@@ -60,6 +61,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     'dayjs-nuxt',
     '@nuxtjs/sitemap',
+    'motion-v/nuxt'
   ],
 
   supabase: {
@@ -69,6 +71,7 @@ export default defineNuxtConfig({
       exclude: [
         '/',
         '/confirm-registration',
+        '/contact',
         '/password-recovery',
         '/privacy-policy',
         '/results',
@@ -92,7 +95,7 @@ export default defineNuxtConfig({
       {
         code: 'en',
         name: 'English',
-        files: ['en/common.ts', 'en/404.ts', 'en/account.ts', 'en/authentication.ts', 'en/dashboard.ts', 'en/feedback.ts', 'en/legal.ts', 'en/pricing.ts', 'en/profile.ts', 'en/settings.ts']
+        files: ['en/common.ts', 'en/404.ts', 'en/account.ts', 'en/authentication.ts', 'en/contact.ts', 'en/dashboard.ts', 'en/feedback.ts', 'en/legal.ts', 'en/pricing.ts', 'en/profile.ts', 'en/settings.ts']
       },
     ],
   },
