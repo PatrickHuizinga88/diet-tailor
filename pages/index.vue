@@ -29,28 +29,23 @@ const steps = [
 
 const features = [
   {
-    title: "Truly Personalized",
-    description: "Your plan adapts to your exact dietary needs, ensuring every meal is perfect for you.",
+    title: "Truly Personalized & AI-Powered",
+    description: "Your meal plan adapts perfectly to your dietary needs, goals, and preferences with expert AI precision.",
     icon: PencilRuler
   },
   {
-    title: "Smart AI-Powered Plans",
-    description: "Our AI generates meal plans with expert precision, considering your preferences and goals.",
-    icon: Bot
-  },
-  {
-    title: "Easily Adjustable",
-    description: "Swap meals and tweak your plan anytime. Flexibility is key to consistency.",
+    title: "Flexible & Easy to Adjust",
+    description: "Swap meals and tweak your plan anytime, designed for your lifestyle and consistency.",
     icon: PencilLine
   },
   {
-    title: "Diverse & Delicious",
-    description: "Get exciting meal suggestions with easy-to-follow recipes. Eating healthy should never be boring!",
+    title: "Delicious & Diverse Recipes",
+    description: "Enjoy a variety of exciting, easy-to-follow meals that make healthy eating enjoyable.",
     icon: Utensils
   },
   {
-    title: "Saves You Time",
-    description: "No more meal planning stress. We take care of it so you can focus on enjoying your food.",
+    title: "Time-Saving & Stress-Free",
+    description: "No more meal planning hassle. We take care of it so you can focus on enjoying your food.",
     icon: Clock
   }
 ]
@@ -58,19 +53,39 @@ const features = [
 
 <template>
   <div class="container">
-    <section id="hero" class="flex flex-col items-center max-w-3xl text-center mx-auto min-h-[60svh] pt-8">
-      <h1 class="mb-8">Personalized Meal Plans, Tailored to <span
-          class="bg-clip-text text-transparent bg-gradient-to-br from-primary via-primary to-secondary">Your</span>
-        Preferences</h1>
-      <p class="text-lg">Get a customized daily meal plan based on your dietary needs, preferences, and health goals.
-        Effortless and accurate. All within <strong>minutes</strong>!</p>
-      <div class="w-full sm:w-auto flex flex-col items-stretch sm:flex-row gap-2 sm:gap-4 mt-10">
-        <Button class="group shadow-[0_0_32px_-8px_hsl(var(--secondary)/50%)]" as-child>
+    <section id="hero" class="flex flex-col items-center text-center mx-auto pt-0 sm:pt-8 pb-14 md:pb-20 lg:pb-24">
+      <div class="max-w-3xl">
+        <motion.h1
+            :transition="{duration: .4}"
+            :initial="{opacity: 0, translateY: 6}" :whileInView="{ opacity: 1, translateY: 0 }"
+            :inViewOptions="{ once: true }"
+            class="mb-8">
+          Personalized Meal Plans, Tailored to
+          <span class="bg-clip-text text-transparent bg-gradient-to-br from-primary via-primary to-secondary">
+            Your
+          </span>
+          Preferences
+        </motion.h1>
+        <motion.p
+            :transition="{duration: .4, delay: .1}"
+            :initial="{opacity: 0, translateY: 6}" :whileInView="{ opacity: 1, translateY: 0 }"
+            :inViewOptions="{ once: true }"
+            class="text-lg leading-loose">
+          Get a customized daily meal plan based on your dietary needs, preferences, and health goals.
+          Effortless and accurate!
+        </motion.p>
+      </div>
+      <motion.div
+          :transition="{duration: .4, delay: .2}"
+          :initial="{opacity: 0, translateY: 6}" :whileInView="{ opacity: 1, translateY: 0 }"
+          :inViewOptions="{ once: true }"
+          class="w-full sm:w-auto flex flex-col items-stretch sm:flex-row gap-3 sm:gap-4 mt-12">
+        <Button size="lg" class="group shadow-[0_0_32px_-8px_hsl(var(--secondary)/50%)]" as-child>
           <NuxtLink to="/wizard">
             Create your meal plan
           </NuxtLink>
         </Button>
-        <Button variant="ghost" class="group sm:-mr-[30px]" as-child>
+        <Button size="lg" variant="ghost" class="group sm:-mr-[30px]" as-child>
           <NuxtLink to="#steps">
             See how it works
             <ArrowDown
@@ -78,7 +93,16 @@ const features = [
                 aria-hidden="true"/>
           </NuxtLink>
         </Button>
-      </div>
+      </motion.div>
+      <motion.div
+        :transition="{duration: .5, delay: .7}" :initial="{opacity: 0, scale: .95}" :whileInView="{ opacity: 1, scale: 1 }" :inViewOptions="{ once: true }"
+          class="relative rounded-2xl bg-white overflow-hidden shadow-2xl p-2 mt-12 sm:mt-24">
+        <img src="../assets/images/woman-cooking.webp" class="h-[320px] sm:h-[500px] object-cover rounded-xl"/>
+        <div class="absolute inset-2 bg-gradient-to-b from-primary to-secondary-dark rounded-xl opacity-40"></div>
+        <div class="absolute">
+
+        </div>
+      </motion.div>
     </section>
     <section id="steps" class="py-14 md:py-20 lg:py-24">
       <div class="flex flex-col sm:flex-row justify-between items-end gap-4 sm:gap-8 mb-8 sm:mb-16">
@@ -102,7 +126,7 @@ const features = [
                 {{ index + 1 }}
               </div>
               <div>
-                <h3 class="h4 mb-1">{{ step.title }}</h3>
+                <h2 class="h4 mb-1">{{ step.title }}</h2>
                 <p class="text-sm text-muted-foreground">
                   {{ step.description }}
                 </p>
@@ -117,19 +141,21 @@ const features = [
         <div class="text-primary font-semibold mb-2">Why DietTailor?</div>
         <h1 class="h2 mb-4">Smart, flexible and 100% personalized</h1>
       </div>
-      <div class="relative">
+      <div class="relative max-w-5xl mx-auto">
         <div
             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-primary to-secondary blur-[128px] w-3/4 h-1/2 rounded-full rotate-6 opacity-40 -z-10"></div>
-        <ul class="flex flex-wrap justify-center gap-4">
+        <ul class="grid sm:grid-cols-2 gap-4">
           <motion.li
               v-for="(feature, index) in features" :transition="{ ease: 'linear',duration: .25, delay: (index + 1) * .1 }"
               :initial="{opacity: 0, scale: .98}" :whileInView="{ opacity: 1, scale: 1 }"  :inViewOptions="{ once: true }"
-              class="flex flex-row sm:flex-col sm:items-center bg-background/60 backdrop-blur-xl border text-left sm:text-center rounded-xl p-4 sm:p-6 w-full md:max-w-sm">
-            <div class="grid place-items-center shrink-0 size-9 bg-secondary/50 rounded-md mr-4 sm:mr-0 sm:mb-4">
-              <component :is="feature.icon" class="size-6 text-primary"/>
+              class="flex flex-row sm:flex-col items-start bg-background/60 backdrop-blur-xl border text-left rounded-xl p-4 sm:p-6 w-full">
+            <div class="p-1 sm:p-1.5 bg-secondary/25 rounded-xl mr-4 sm:mr-0 sm:mb-4">
+              <div class="grid place-items-center shrink-0 size-9 sm:size-10 bg-secondary/40 rounded-lg">
+                <component :is="feature.icon" class="size-6 sm:size-7 text-primary"/>
+              </div>
             </div>
             <div>
-              <h3 class="h4 mb-1 mt-1 sm:mt-0">{{ feature.title }}</h3>
+              <h2 class="h4 mb-1 mt-2 sm:mt-0">{{ feature.title }}</h2>
               <p class="text-sm text-muted-foreground">
                 {{ feature.description }}
               </p>
@@ -145,7 +171,7 @@ const features = [
           <h1 class="sm:h2 md:h1 mb-4">Get Your Personalized Plan</h1>
           <p class="font-medium">Start today and enjoy meals tailored to your taste, goals, and lifestyle. Effortless,
             healthy, and delicious!</p>
-          <Button class="group mt-8" as-child>
+          <Button size="lg" class="group w-full sm:w-auto mt-8" as-child>
             <NuxtLink to="/wizard">
               Create your meal plan
               <ArrowRight class="group-hover:translate-x-0.5 duration-150"/>

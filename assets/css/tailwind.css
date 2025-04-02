@@ -34,7 +34,7 @@
     --popover: 80 100% 98%;
     --popover-foreground: 80 50% 4%;
  
-    --ring: 150 46% 46%;
+    --ring: var(--primary);
  
     --radius: 0.5rem;
   }

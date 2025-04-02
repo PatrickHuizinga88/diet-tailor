@@ -54,7 +54,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
   <div class="container">
-    <div class="grid md:grid-cols-2 items-start gap-12">
+    <div class="grid md:grid-cols-2 items-start gap-12 min-h-[75svh] pb-14 md:pb-20 lg:pb-24">
       <section id="heading">
         <div class="max-w-lg">
           <div class="font-medium text-primary mb-2">Contact</div>
@@ -64,7 +64,7 @@ const onSubmit = handleSubmit(async (values) => {
         </div>
       </section>
       <section id="contact-form">
-        <form v-if="!success" @submit="onSubmit" class="space-y-6">
+        <form v-if="!success" @submit="onSubmit" class="border rounded-2xl shadow-xl p-6 space-y-6">
           <FormField v-slot="{ componentField}" name="email" :validate-on-model-update="false">
             <FormItem>
               <FormLabel>{{ $t('common.general.email') }}</FormLabel>

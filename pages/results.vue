@@ -4,6 +4,7 @@ import {ArrowRight, CheckCircle} from "lucide-vue-next";
 
 definePageMeta({
   layout: 'wizard',
+  middleware: 'auth'
 })
 
 const open = ref(false)

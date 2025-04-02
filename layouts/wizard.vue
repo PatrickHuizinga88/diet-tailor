@@ -2,6 +2,10 @@
 import Header from "~/components/layout/Header.vue";
 import {Toaster} from "~/components/ui/toast";
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const toastStore = useToastStore();
 
 onMounted(() => {

@@ -19,8 +19,8 @@ const toastStore = useToastStore();
         <div class="flex items-center gap-6 sm:gap-10">
           <NuxtLink to="/contact" class="text-sm font-medium" active-class="text-primary">Contact</NuxtLink>
           <Button variant="outline" size="sm" as-child>
-            <NuxtLink :to="user ? 'Dashboard' : '/sign-in'">
-              {{ $t('authentication.common.sign_in') }}
+            <NuxtLink :to="user ? '/dashboard' : '/sign-in'">
+              {{ user ? 'Dashboard' : $t('authentication.common.sign_in') }}
             </NuxtLink>
           </Button>
         </div>
@@ -28,7 +28,7 @@ const toastStore = useToastStore();
     </div>
   </header>
 
-  <main class="flex-1 pt-12 pb-24">
+  <main class="flex-1 py-12">
     <slot/>
   </main>
 

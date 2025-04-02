@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {Meal} from "~/types/MealPlan";
 import type {Database} from "~/types/database.types";
+import {TriangleAlert} from "lucide-vue-next";
 
 const props = defineProps<{
   mealType?: string,
@@ -16,6 +17,20 @@ const open = ref(false)
 const loadingNewMeal = ref(false)
 const changeMealType = ref('')
 const changeReason = ref('')
+
+const {data: generatedMeals} = await useAsyncData('userActionsCount', async () => {
+  try {
+    const {count} = await supabase.from('user_actions')
+        .select('', {count: 'exact'})
+        .eq('user_id', user.value?.id)
+        .eq('action_type', 'generate_meal')
+        .gte('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+    console.log(count)
+    return count
+  } catch (error) {
+    console.error(error)
+  }
+})
 
 const changeMeal = async (mealId: string, mealType: string, currentMeal: string) => {
   try {
@@ -38,8 +53,19 @@ const changeMeal = async (mealId: string, mealType: string, currentMeal: string)
         reason
       }
     })
+    if (!response) throw new Error('Failed to generate meal')
+
+    const {error: userActionError} = await supabase.from('user_actions')
+        .insert({
+          user_id: user.value?.id,
+          action_type: 'generate_meal'
+        })
+        .eq('user_id', user.value?.id)
+    if (userActionError) throw userActionError
 
     mealPlanStore.setMeal(mealId, response)
+
+    // Update the meal plan in the store
 
     toastStore.createToast({
       type: 'success',
@@ -74,6 +100,15 @@ defineExpose({ openDialog })
         <DialogDescription></DialogDescription>
       </DialogHeader>
       <div v-if="props.item && props.mealType">
+<!--        <Alert v-if="generatedMeals && generatedMeals >= 5" variant="warning">-->
+        <Alert variant="warning" class="mb-6">
+          <TriangleAlert/>
+          <AlertTitle>Limit reached</AlertTitle>
+          <AlertDescription>
+            You have reached the limit of 5 meal generations in the last 7 days. Upgrade to our premium plan or wait
+            until the next week to generate more meals.
+          </AlertDescription>
+        </Alert>
         <div class="bg-muted rounded-lg p-4 mb-6">
           <h3 class="text-sm mb-0.5">Current meal</h3>
           {{ props.item.name }}
@@ -87,7 +122,7 @@ defineExpose({ openDialog })
                        name="change-meal-options"
                        class="peer absolute opacity-0 -z-10 inset-0 pointer-events-none" required/>
                 <label for="new-meal"
-                       class="flex flex-col rounded-lg border p-4 h-full cursor-pointer transition-[background-color] duration-200 hover:bg-muted peer-focus-visible:bg-muted peer-checked:border-primary peer-checked:outline peer-checked:outline-2 peer-checked:outline-primary peer-checked:text-primary-dark">
+                       class="flex flex-col rounded-lg border px-4 py-3 h-full text-sm cursor-pointer transition-[background-color] duration-200 hover:bg-muted peer-focus-visible:bg-muted peer-checked:border-primary peer-checked:outline peer-checked:outline-2 peer-checked:outline-primary peer-checked:text-primary-dark">
                   <span class="font-medium">The entire meal</span>
                 </label>
               </div>
@@ -97,7 +132,7 @@ defineExpose({ openDialog })
                        name="change-meal-options"
                        class="peer absolute opacity-0 -z-10 inset-0 pointer-events-none" required/>
                 <label for="change-ingredients"
-                       class="flex flex-col rounded-lg border p-4 h-full cursor-pointer transition-[background-color] duration-200 hover:bg-muted peer-focus-visible:bg-muted peer-checked:border-primary peer-checked:outline peer-checked:outline-2 peer-checked:outline-primary peer-checked:text-primary-dark">
+                       class="flex flex-col rounded-lg border px-4 py-3 h-full text-sm cursor-pointer transition-[background-color] duration-200 hover:bg-muted peer-focus-visible:bg-muted peer-checked:border-primary peer-checked:outline peer-checked:outline-2 peer-checked:outline-primary peer-checked:text-primary-dark">
                   <span class="font-medium">Only a part of the meal</span>
                 </label>
               </div>
@@ -116,7 +151,7 @@ defineExpose({ openDialog })
         <Button @click="open = false" size="sm" variant="outline">
           Cancel
         </Button>
-        <Button form="change-meal-form" size="sm" :loading="loadingNewMeal">
+        <Button form="change-meal-form" size="sm" :loading="loadingNewMeal" :disabled="generatedMeals && generatedMeals >= 5">
           Generate my new meal
         </Button>
       </DialogFooter>

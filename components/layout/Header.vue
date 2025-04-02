@@ -12,19 +12,18 @@ const user = useSupabaseUser()
 
 const logOut = async () => {
   await supabase.auth.signOut()
-  navigateTo('/sign-in')
+  navigateTo('/')
 }
 
-const layoutContainer = resolveComponent('layout-container')
 </script>
 
 <template>
   <header>
-    <component :is="props.wide ? 'div' : layoutContainer" :class="{'container': props.wide}">
+    <LayoutContainer>
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <div class="flex items-center">
-          <NuxtLink to="/">
-            <img src="@/assets/images/logo.svg" alt="Logo" class="h-7">
+          <NuxtLink to="/dashboard">
+            <img src="@/assets/images/logo.svg" alt="DietTailor" class="h-7">
           </NuxtLink>
         </div>
         <DropdownMenu v-if="user">
@@ -52,6 +51,6 @@ const layoutContainer = resolveComponent('layout-container')
           </NuxtLink>
         </Button>
       </nav>
-    </component>
+    </LayoutContainer>
   </header>
 </template>
