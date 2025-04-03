@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type {Meal} from "~/types/MealPlan";
 import type {Database} from "~/types/database.types";
-import {TriangleAlert} from "lucide-vue-next";
+import {TriangleAlert, Info} from "lucide-vue-next";
+import {Popover} from "~/components/ui/popover";
 
 const props = defineProps<{
   mealType?: string,
@@ -18,14 +19,13 @@ const loadingNewMeal = ref(false)
 const changeMealType = ref('')
 const changeReason = ref('')
 
-const {data: generatedMeals} = await useAsyncData('userActionsCount', async () => {
+const {data: generatedMeals, refresh: refreshUserActionsCount} = await useAsyncData('userActionsCount', async () => {
   try {
     const {count} = await supabase.from('user_actions')
         .select('', {count: 'exact'})
         .eq('user_id', user.value?.id)
         .eq('action_type', 'generate_meal')
         .gte('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
-    console.log(count)
     return count
   } catch (error) {
     console.error(error)
@@ -65,7 +65,14 @@ const changeMeal = async (mealId: string, mealType: string, currentMeal: string)
 
     mealPlanStore.setMeal(mealId, response)
 
-    // Update the meal plan in the store
+    const {error: mealPlanError} = await supabase.from('meal_plans')
+        .update({
+          meal_plan: mealPlanStore.mealPlan
+        })
+        .eq('user_id', user.value?.id)
+    if (mealPlanError) throw mealPlanError
+
+    await refreshUserActionsCount()
 
     toastStore.createToast({
       type: 'success',
@@ -82,6 +89,8 @@ const changeMeal = async (mealId: string, mealType: string, currentMeal: string)
   } finally {
     loadingNewMeal.value = false
     open.value = false
+    changeMealType.value = ''
+    changeReason.value = ''
   }
 }
 
@@ -89,7 +98,7 @@ const openDialog = () => {
   open.value = true
 }
 
-defineExpose({ openDialog })
+defineExpose({openDialog})
 </script>
 
 <template>
@@ -100,12 +109,13 @@ defineExpose({ openDialog })
         <DialogDescription></DialogDescription>
       </DialogHeader>
       <div v-if="props.item && props.mealType">
-<!--        <Alert v-if="generatedMeals && generatedMeals >= 5" variant="warning">-->
-        <Alert variant="warning" class="mb-6">
-          <TriangleAlert/>
+        <Alert v-if="generatedMeals && generatedMeals >= 5" variant="warning" class="mb-6">
+          <TriangleAlert class="size-4"/>
           <AlertTitle>Limit reached</AlertTitle>
           <AlertDescription>
-            You have reached the limit of 5 meal generations in the last 7 days. Upgrade to our premium plan or wait
+            You have reached the limit of 5 meal generations in the last 7 days.
+            <NuxtLink to="/pricing" class="underline">Upgrade to our premium plan</NuxtLink>
+            or wait
             until the next week to generate more meals.
           </AlertDescription>
         </Alert>
@@ -113,7 +123,9 @@ defineExpose({ openDialog })
           <h3 class="text-sm mb-0.5">Current meal</h3>
           {{ props.item.name }}
         </div>
-        <form id="change-meal-form" @submit.prevent="changeMeal(props.item.id, props.mealType, `${props.item.name} - ${props.item.description}`)" class="space-y-6">
+        <form id="change-meal-form"
+              @submit.prevent="changeMeal(props.item.id, props.mealType, `${props.item.name} - ${props.item.description}`)"
+              class="space-y-6">
           <fieldset class="space-y-1.5">
             <legend class="font-medium">What would you like to change?</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -151,9 +163,26 @@ defineExpose({ openDialog })
         <Button @click="open = false" size="sm" variant="outline">
           Cancel
         </Button>
-        <Button form="change-meal-form" size="sm" :loading="loadingNewMeal" :disabled="generatedMeals && generatedMeals >= 5">
-          Generate my new meal
-        </Button>
+        <div class="flex flex-col">
+          <Button form="change-meal-form" size="sm" :loading="loadingNewMeal"
+                  :disabled="generatedMeals && generatedMeals >= 5" class="w-full">
+            Generate my new meal
+          </Button>
+          <div class="flex items-center sm:justify-end text-muted-foreground order-first sm:order-last mb-3 sm:mb-0 sm:mt-1 sm:-mr-1">
+            <p class="text-sm">
+              Weekly changes left: {{ generatedMeals ? 5 - generatedMeals : 0 }}
+            </p>
+            <Popover>
+              <PopoverTrigger class="p-1 ml-1">
+                <Info class="size-4"/>
+              </PopoverTrigger>
+              <PopoverContent side="top" :side-offset="2" class="text-sm text-center text-muted-foreground max-w-xs">
+                Our free plan provides you with 5 meal generations per week. If you need more, consider upgrading to our
+                premium plan.
+              </PopoverContent>
+            </Popover>
+          </div>
+        </div>
       </DialogFooter>
     </DialogContent>
   </Dialog>

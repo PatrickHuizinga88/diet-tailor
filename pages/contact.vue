@@ -64,7 +64,7 @@ const onSubmit = handleSubmit(async (values) => {
         </div>
       </section>
       <section id="contact-form">
-        <form v-if="!success" @submit="onSubmit" class="border rounded-2xl shadow-xl p-6 space-y-6">
+        <form v-if="!success" @submit="onSubmit" class="sm:border sm:rounded-2xl sm:shadow-xl sm:p-6 space-y-6">
           <FormField v-slot="{ componentField}" name="email" :validate-on-model-update="false">
             <FormItem>
               <FormLabel>{{ $t('common.general.email') }}</FormLabel>

@@ -96,7 +96,7 @@ export default defineEventHandler(async (event) => {
         protein: z.string(),
         carbs: z.string(),
         fats: z.string(),
-      }).describe('The recommended daily amount of nutrients. This must be the sum of the individual meals. Include the unit (e.g. "g", "kcal".'),
+      }).describe('The recommended daily amount of nutrients. This must be the sum of the individual meals. Include the unit (e.g. " g", " kcal").'),
       meals: z.array(
         z.object({
           type: z.enum(['Breakfast', 'Lunch', 'Dinner', 'Snacks']),

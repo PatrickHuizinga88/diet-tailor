@@ -3,6 +3,7 @@ import {createOpenAI} from "@ai-sdk/openai";
 import {generateObject} from "ai";
 import {z} from "zod";
 import { v4 as uuidv4 } from 'uuid';
+import {serverSupabaseClient, serverSupabaseUser} from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
   const {openaiApiKey} = useRuntimeConfig()
@@ -10,6 +11,9 @@ export default defineEventHandler(async (event) => {
   const openai = createOpenAI({
     apiKey: openaiApiKey,
   });
+
+  const client = await serverSupabaseClient(event)
+  const user = await serverSupabaseUser(event)
 
   const {
     age,
@@ -73,6 +77,7 @@ export default defineEventHandler(async (event) => {
        ${reason ? "You're given the following feedback about this meal: " + reason + '.' : ''}
     3. Ensure the meal is balanced, nutrient-rich, and aligned with the user’s caloric goals.
     4. Include a mix of diverse ingredients and cuisines to match preferences, while avoiding restrictions and allergens.
+    5. Include the unit for each nutritional value (e.g. " g", " kcal").
     
     Begin generating the meal below.
   `
@@ -86,6 +91,26 @@ export default defineEventHandler(async (event) => {
     carbs: z.string(),
     fats: z.string(),
   })
+
+  if (!user) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: 'Unauthorized'
+    })
+  }
+
+  const {count} = await client.from('user_actions')
+    .select('', {count: 'exact'})
+    .eq('user_id', user.id)
+    .eq('action_type', 'generate_meal')
+    .gte('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+
+  if (count && count >= 5) {
+    throw createError({
+      statusCode: 405,
+      statusMessage: 'Reached weekly limit'
+    })
+  }
 
   const {object} = await generateObject({
     model: openai("gpt-4o-mini", {
@@ -101,7 +126,7 @@ export default defineEventHandler(async (event) => {
   })
 
   if (!object) {
-    createError({
+    throw createError({
       statusCode: 500,
       statusMessage: 'Failed to generate meal'
     })

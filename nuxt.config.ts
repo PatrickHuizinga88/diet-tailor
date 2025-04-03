@@ -98,6 +98,9 @@ export default defineNuxtConfig({
         files: ['en/common.ts', 'en/404.ts', 'en/account.ts', 'en/authentication.ts', 'en/contact.ts', 'en/dashboard.ts', 'en/feedback.ts', 'en/legal.ts', 'en/pricing.ts', 'en/profile.ts', 'en/settings.ts']
       },
     ],
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
   },
 
   compatibilityDate: '2024-12-19',

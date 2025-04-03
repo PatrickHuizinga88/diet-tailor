@@ -76,7 +76,7 @@ const onSubmit = form.handleSubmit(async (values) => {
               {{ $t('authentication.common.password') }}
             </FormLabel>
             <Button type="button" variant="link" size="sm" class="h-auto p-0" as-child>
-              <NuxtLink to="/(auth)/password-recovery">
+              <NuxtLink to="/password-recovery">
                 {{ $t('authentication.login.forgot_password') }}
               </NuxtLink>
             </Button>
