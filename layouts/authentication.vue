@@ -11,7 +11,7 @@ const toastStore = useToastStore()
 
 <template>
   <div class="min-h-svh flex flex-col">
-    <img src="~/assets/images/logo.svg" alt="Logo" class="mx-auto h-7 w-auto mt-8">
+    <img src="/logo.svg" alt="Logo" class="mx-auto h-7 w-auto mt-8">
 
     <div class="flex-1 flex flex-col justify-center py-12">
 
@@ -53,7 +53,7 @@ const toastStore = useToastStore()
         </div>
       </transition>
 
-      <img src="../assets/images/logo.svg" alt="" aria-hidden="true" class="fixed left-1/2 -translate-x-1/2 bottom-0 translate-y-3/4 w-screen max-w-2xl aspect-square opacity-[4%] -z-10"/>
+      <img src="/logo.svg" alt="" aria-hidden="true" class="fixed left-1/2 -translate-x-1/2 bottom-0 translate-y-3/4 w-screen max-w-2xl aspect-square opacity-[4%] -z-10"/>
     </div>
   </div>
 

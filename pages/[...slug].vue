@@ -13,12 +13,12 @@ definePageMeta({
           <div class="-mt-10">
             <h1 class="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">{{ $t('404.page_not_found.title') }}</h1>
             <p class="mt-4 text-pretty text-lg font-medium text-muted-foreground">{{ $t('404.page_not_found.description') }}</p>
-            <div class="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-x-6 gap-y-4">
+            <div class="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 sm:gap-6">
               <Button as-child>
                 <NuxtLink to="/">{{ $t('404.back_to_home') }}</NuxtLink>
               </Button>
               <Button variant="outline" as-child>
-                <NuxtLink to="/support">{{ $t('404.contact_us') }}</NuxtLink>
+                <NuxtLink to="/contact">{{ $t('404.contact_us') }}</NuxtLink>
               </Button>
             </div>
           </div>

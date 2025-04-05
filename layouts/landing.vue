@@ -13,7 +13,7 @@ const toastStore = useToastStore();
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <div class="flex items-center">
           <NuxtLink to="/">
-            <img src="@/assets/images/logo.svg" alt="Logo" class="h-7">
+            <img src="/logo.svg" alt="Logo" class="h-7">
           </NuxtLink>
         </div>
         <div class="flex items-center gap-6 sm:gap-10">
@@ -36,7 +36,7 @@ const toastStore = useToastStore();
     <div class="container">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between">
         <div>
-          <img src="../assets/images/logo.svg" alt="DietTailor" class="h-8 mb-4"/>
+          <img src="/logo.svg" alt="DietTailor" class="h-8 mb-4"/>
           <div class="text-sm text-muted-foreground">Copyright ©{{ $dayjs().format('YYYY') }} DietTailor</div>
         </div>
         <Separator class="sm:hidden my-6"/>

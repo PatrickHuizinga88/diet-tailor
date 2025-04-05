@@ -3,10 +3,6 @@ import type {Database} from "~/types/database.types";
 import {User, LogOut, Settings} from 'lucide-vue-next'
 import {DropdownMenu} from "~/components/ui/dropdown-menu";
 
-const props = defineProps<{
-  wide?: boolean
-}>()
-
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
 
@@ -23,7 +19,7 @@ const logOut = async () => {
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <div class="flex items-center">
           <NuxtLink to="/dashboard">
-            <img src="@/assets/images/logo.svg" alt="DietTailor" class="h-7">
+            <img src="/logo.svg" alt="DietTailor" class="h-7">
           </NuxtLink>
         </div>
         <DropdownMenu v-if="user">

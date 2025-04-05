@@ -15,7 +15,7 @@ const registerForm = useTemplateRef('register-form')
     <template v-if="!registerForm?.success" #footer>
       {{ $t('authentication.register.have_account') + ' ' }}
       <Button variant="link" class="h-auto p-0 ml-1" as-child>
-        <NuxtLink to="/(auth)/sign-in">
+        <NuxtLink to="/sign-in">
           {{ $t('authentication.common.sign_in') }}
           <ArrowRight class="size-4" aria-hidden="true"/>
         </NuxtLink>
