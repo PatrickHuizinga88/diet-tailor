@@ -1,4 +1,5 @@
 import { APP_NAME } from "~/constants";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -49,10 +50,13 @@ export default defineNuxtConfig({
     resendApiKey: '',
   },
 
-  css: ['../assets/css/main.css'],
+  css: ['../assets/css/tailwind.css'],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   modules: [
-    '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/supabase',
     'shadcn-nuxt',
