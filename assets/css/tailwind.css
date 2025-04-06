@@ -60,18 +60,24 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-primary: var(--primary);
+    --color-primary-dark: color-mix(in srgb, var(--primary) 80%, var(--foreground));
     --color-primary-foreground: var(--primary-foreground);
     --color-secondary: var(--secondary);
+    --color-secondary-dark: color-mix(in srgb, var(--secondary) 80%, var(--foreground));
     --color-secondary-foreground: var(--secondary-foreground);
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
     --color-info: var(--info);
+    --color-info-dark: color-mix(in srgb, var(--info) 80%, var(--foreground));
     --color-info-foreground: var(--info-foreground);
     --color-success: var(--success);
+    --color-success-dark: color-mix(in srgb, var(--success) 80%, var(--foreground));
     --color-success-foreground: var(--success-foreground);
     --color-warning: var(--warning);
+    --color-warning-dark: color-mix(in srgb, var(--warning) 80%, var(--foreground));
     --color-warning-foreground: var(--warning-foreground);
     --color-destructive: var(--destructive);
+    --color-destructive-dark: color-mix(in srgb, var(--destructive) 80%, var(--foreground));
     --color-destructive-foreground: var(--destructive-foreground);
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
@@ -81,6 +87,33 @@
 @theme {
     --font-sans: 'Inter', 'sans-serif';
     --font-serif: 'Lora', 'serif';
+
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --animate-accordion-down: accordion-down 0.2s ease-out;
+    --animate-accordion-up: accordion-up 0.2s ease-out;
+    --animate-collapsible-down: collapsible-down 0.2s ease-in-out;
+    --animate-collapsible-up: collapsible-up 0.2s ease-in-out;
+
+    @keyframes accordion-down {
+        from { height: 0; }
+        to { height: var(--reka-accordion-content-height); }
+    }
+    @keyframes accordion-up {
+        from { height: var(--reka-accordion-content-height); }
+        to { height: 0; }
+    }
+    @keyframes collapsible-down {
+        from { height: 0; }
+        to { height: var(--reka-collapsible-content-height); }
+    }
+    @keyframes collapsible-up {
+        from { height: var(--reka-collapsible-content-height); }
+        to { height: 0; }
+    }
 }
 
 @utility container {
