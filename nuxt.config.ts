@@ -1,7 +1,8 @@
-import { APP_NAME } from "~/constants";
 import tailwindcss from "@tailwindcss/vite";
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
+const title = "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs";
+const description = "Create a daily meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!";
+
 export default defineNuxtConfig({
   devtools: {enabled: true},
 
@@ -12,19 +13,21 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs",
+      title: title,
       meta: [
         {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-        {name: 'og:title', content: "DietTailor – Personalized Meal Plans Tailored to Your Preferences and Needs"},
-        {
-          name: 'description',
-          content: "Create a daily meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
-        },
-        {
-          name: 'og:description',
-          content: "Create a daily meal plan that's perfectly tailored to your dietary preferences and lifestyle goals. DietTailor adapts to your needs, from health goals to personal tastes. Start your journey today!"
-        },
+        {name: 'og:title', content: title},
+        {name: 'description', content: description},
+        {name: 'og:description', content: description},
+        {name: 'og:image', content: '/logo.svg'},
+        {name: 'og:type', content: 'website'},
+        {name: 'twitter:card', content: 'summary_large_image'},
+        {name: 'twitter:title', content: title},
+        {name: 'twitter:description', content: description},
+        {name: 'twitter:image', content: '/logo.svg'},
         {name: 'apple-mobile-web-app-title', content: 'DietTailor'},
+        {name: 'theme-color', content: '#0d7351'},
+        {name: 'robots', content: 'index, follow'},
       ],
       link: [
         {rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon/favicon-96x96.png'},
@@ -32,6 +35,7 @@ export default defineNuxtConfig({
         {rel: 'shortcut icon', href: '/favicon/favicon.ico'},
         {rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png'},
         {rel: 'manifest', href: '/favicon/site.webmanifest'},
+        {rel: 'sitemap', href: '/sitemap_index.xml'},
       ],
       script: [
         (process.env.NODE_ENV === 'production' ?
@@ -71,7 +75,6 @@ export default defineNuxtConfig({
   supabase: {
     redirectOptions: {
       login: '/sign-in',
-      callback: '/confirm',
       exclude: [
         '/',
         '/confirm-registration',
