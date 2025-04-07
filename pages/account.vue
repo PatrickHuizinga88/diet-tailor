@@ -76,7 +76,7 @@ const navigateToStripeDashboard = async () => {
               <Pricing class="overflow-y-auto p-6 pb-2"/>
               <DialogFooter class="p-6 pt-0">
                 <DialogClose as-child>
-                  <Button variant="outline">
+                  <Button size="sm" variant="outline">
                     {{ $t('common.actions.close') }}
                   </Button>
                 </DialogClose>

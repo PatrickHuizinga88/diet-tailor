@@ -25,7 +25,7 @@ const plans = [
     highlighted: false,
   },
   {
-    lookupKey: 'premium_monthly',
+    lookupKey: 'premium',
     name: 'Premium plan',
     description: 'Get the most out of your meal plan with more flexibility.',
     pricing: '6',
@@ -96,7 +96,7 @@ const checkout = async (lookupKey?: string) => {
         </span>
       </div>
       <Separator class="w-full my-6"/>
-      <h3 class="text-sm text-muted-foreground mb-3">{{ plan.featuresTitle }}</h3>
+      <h3 class="text-sm text-muted-foreground font-sans mb-3">{{ plan.featuresTitle }}</h3>
       <ul class="space-y-3 text-sm">
         <li v-for="feature in plan.features" class="flex items-center font-medium">
           <CheckCircle class="size-4 mr-2 shrink-0"/>
