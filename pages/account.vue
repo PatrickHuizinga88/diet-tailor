@@ -1,37 +1,37 @@
 <script setup lang="ts">
-// import {ExternalLink} from "lucide-vue-next";
+import {ExternalLink} from "lucide-vue-next";
 import type {Database} from "~/types/database.types";
 
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
-// const toastStore = useToastStore()
+const toastStore = useToastStore()
 
 const {data: profile} = await useAsyncData('accountProfile', async () => {
   const {data} = await supabase.from('profiles').select('first_name,last_name,plan').filter('id', 'eq', user.value?.id).single()
   return data
 })
 
-// const navigateToStripeDashboard = async () => {
-//   try {
-//     const url = await $fetch('/api/stripe/create-portal-session', {
-//       method: 'POST',
-//       query: {
-//         stripeCustomerId: user.value?.user_metadata.stripe_customer_id
-//       }
-//     })
-//     if (!url) throw new Error('Failed to create portal session')
-//
-//     await navigateTo(url, {
-//       external: true,
-//     })
-//   } catch (error) {
-//     toastStore.createToast({
-//       type: 'destructive',
-//       isError: true,
-//     })
-//     console.error(error)
-//   }
-// }
+const navigateToStripeDashboard = async () => {
+  try {
+    const url = await $fetch('/api/stripe/create-portal-session', {
+      method: 'POST',
+      query: {
+        stripeCustomerId: user.value?.user_metadata.stripe_customer_id
+      }
+    })
+    if (!url) throw new Error('Failed to create portal session')
+
+    await navigateTo(url, {
+      external: true,
+    })
+  } catch (error) {
+    toastStore.createToast({
+      type: 'destructive',
+      isError: true,
+    })
+    console.error(error)
+  }
+}
 </script>
 
 <template>
@@ -53,43 +53,43 @@ const {data: profile} = await useAsyncData('accountProfile', async () => {
       <FormAccount v-if="user" :email="user.email"/>
     </section>
 
-<!--    <Separator class="w-full my-12"/>-->
+    <Separator class="w-full my-12"/>
 
-<!--    <section id="billing">-->
-<!--      <h2 class="h3 mb-4">{{ $t('account.billing.billing') }}</h2>-->
-<!--      <div class="grid sm:grid-cols-2 gap-6">-->
-<!--        <div class="space-y-1.5">-->
-<!--          <Label id="plan-label" as="span">{{ $t('account.billing.current_plan') }}</Label>-->
-<!--          <span class="block text-lg font-semibold text-primary" aria-describedby="plan-label">{{ $t(`pricing.plans.${profile.plan}`) }}</span>-->
-<!--        </div>-->
-<!--        <div class="space-y-3">-->
-<!--          <Dialog>-->
-<!--            <DialogTrigger as-child>-->
-<!--              <Button variant="outline" size="sm" class="w-full">-->
-<!--                {{ $t('account.billing.view_plans') }}-->
-<!--              </Button>-->
-<!--            </DialogTrigger>-->
-<!--            <DialogContent class="grid-rows-[auto_minmax(0,1fr)_auto] max-h-[90dvh] max-w-3xl p-0">-->
-<!--              <DialogHeader class="p-6 pb-0">-->
-<!--                <DialogTitle>{{ $t('account.billing.view_plans') }}</DialogTitle>-->
-<!--              </DialogHeader>-->
-<!--              <Pricing class="overflow-y-auto p-6 pb-2"/>-->
-<!--              <DialogFooter class="p-6 pt-0">-->
-<!--                <DialogClose as-child>-->
-<!--                  <Button variant="outline">-->
-<!--                    {{ $t('common.actions.close') }}-->
-<!--                  </Button>-->
-<!--                </DialogClose>-->
-<!--              </DialogFooter>-->
-<!--            </DialogContent>-->
-<!--          </Dialog>-->
-<!--          <Button v-if="profile.plan !== 'free'" variant="outline" size="sm" @click="navigateToStripeDashboard()" class="w-full">-->
-<!--            {{ $t('account.billing.manage_subscription') }}-->
-<!--            <ExternalLink/>-->
-<!--          </Button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section>-->
+    <section id="billing">
+      <h2 class="h3 mb-4">{{ $t('account.billing.billing') }}</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="space-y-1.5">
+          <Label id="plan-label" as="span">{{ $t('account.billing.current_plan') }}</Label>
+          <span class="block text-lg font-semibold text-primary" aria-describedby="plan-label">{{ $t(`pricing.plans.${profile.plan}`) }}</span>
+        </div>
+        <div class="space-y-3">
+          <Dialog>
+            <DialogTrigger as-child>
+              <Button variant="outline" size="sm" class="w-full">
+                {{ $t('account.billing.view_plans') }}
+              </Button>
+            </DialogTrigger>
+            <DialogContent class="grid-rows-[auto_minmax(0,1fr)_auto] max-h-[90dvh] max-w-3xl p-0">
+              <DialogHeader class="p-6 pb-0">
+                <DialogTitle>{{ $t('account.billing.view_plans') }}</DialogTitle>
+              </DialogHeader>
+              <Pricing class="overflow-y-auto p-6 pb-2"/>
+              <DialogFooter class="p-6 pt-0">
+                <DialogClose as-child>
+                  <Button size="sm" variant="outline">
+                    {{ $t('common.actions.close') }}
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+          <Button v-if="profile.plan !== 'free'" variant="outline" size="sm" @click="navigateToStripeDashboard()" class="w-full">
+            {{ $t('account.billing.manage_subscription') }}
+            <ExternalLink/>
+          </Button>
+        </div>
+      </div>
+    </section>
 
     <Separator class="w-full my-12"/>
 

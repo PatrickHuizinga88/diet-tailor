@@ -2,7 +2,7 @@ import exampleResponse from "~/data/exampleResponse.json";
 import {createOpenAI} from "@ai-sdk/openai";
 import {generateObject} from "ai";
 import {z} from "zod";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {serverSupabaseClient, serverSupabaseUser} from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
@@ -99,13 +99,19 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const {data: profile} = await client.from('profiles')
+    .select('plan')
+    .eq('id', user.id)
+    .single()
+
   const {count} = await client.from('user_actions')
     .select('', {count: 'exact'})
     .eq('user_id', user.id)
     .eq('action_type', 'generate_meal')
     .gte('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
 
-  if (count && count >= 5) {
+  const maxGenerations = profile?.plan === 'free' ? 5 : 50;
+  if (count && count >= maxGenerations) {
     throw createError({
       statusCode: 405,
       statusMessage: 'Reached weekly limit'

@@ -14,10 +14,14 @@ const currentMeal = ref<string | undefined>(undefined)
 const currentMealItem = ref(undefined)
 const changeMealDialog = useTemplateRef('change-meal-dialog')
 
-const openChangeMealDialog = (mealType: string, item: any) => {
+const openChangeMealDialog = async (mealType: string, item: any) => {
   currentMeal.value = mealType
   currentMealItem.value = item
-  changeMealDialog.value?.openDialog()
+
+  await nextTick()
+  if (changeMealDialog.value) {
+    changeMealDialog.value.open = true
+  }
 }
 
 const emit = defineEmits(['clickPremiumFeature'])
@@ -60,7 +64,7 @@ const emit = defineEmits(['clickPremiumFeature'])
               <NutritionDetailItem label="Carbs" :value="item.carbs"/>
               <NutritionDetailItem label="Fats" :value="item.fats"/>
             </NutritionDetailList>
-            <div class="grid grid-cols-1 gap-4 mt-4">
+            <div class="grid grid-cols-1 gap-4 mt-2">
               <Button @click="props.isTeaser ? emit('clickPremiumFeature') : openChangeMealDialog(meal.type, item)" size="sm" variant="outline">
                 Change {{ meal.type }}
                 <Lock v-if="props.isTeaser" class="size-3"/>

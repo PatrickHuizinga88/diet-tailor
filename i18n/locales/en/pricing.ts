@@ -11,6 +11,11 @@ export default {
     upgrade: "Upgrade",
     upgrade_now: "Upgrade now",
 
+    plans: {
+      free: "Free",
+      premium: "Premium",
+    },
+
     upgrade_confirmation: {
       title: {
         success: "Purchase successful",

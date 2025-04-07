@@ -130,7 +130,7 @@ const onPasswordSubmit = async (values: any) => {
             :validation-schema="formSchemaEmail">
         <Dialog v-model:open="emailDialogOpen">
           <DialogTrigger as-child>
-            <Button variant="outline" size="xs" class="w-full mt-4">
+            <Button variant="outline" size="sm" class="w-full mt-4">
               {{ capitalizeSentence($t('common.actions.edit_item', {item: $t('common.general.email')})) }}
             </Button>
           </DialogTrigger>
@@ -167,7 +167,7 @@ const onPasswordSubmit = async (values: any) => {
             :validation-schema="formSchemaPassword">
         <Dialog v-model:open="passwordDialogOpen">
           <DialogTrigger as-child>
-            <Button variant="outline" size="xs" class="w-full mt-4">
+            <Button variant="outline" size="sm" class="w-full mt-4">
               {{ capitalizeSentence($t('common.actions.edit_item', {item: $t('authentication.common.password')}))}}
             </Button>
           </DialogTrigger>
