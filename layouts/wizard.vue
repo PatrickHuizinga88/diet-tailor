@@ -31,6 +31,4 @@ onMounted(() => {
 
   <Toaster :toasts="toastStore.toasts"/>
 
-  <LazyCookieBanner/>
-
 </template>

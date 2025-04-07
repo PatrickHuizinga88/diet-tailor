@@ -10,7 +10,6 @@ const logOut = async () => {
   await supabase.auth.signOut()
   navigateTo('/')
 }
-
 </script>
 
 <template>
@@ -18,7 +17,7 @@ const logOut = async () => {
     <LayoutContainer>
       <nav class="h-[var(--header-height)] flex justify-between items-center">
         <div class="flex items-center">
-          <NuxtLink to="/dashboard">
+          <NuxtLink :to="user ? '/dashboard' : '/'">
             <img src="/logo.svg" alt="DietTailor" class="h-7">
           </NuxtLink>
         </div>
@@ -42,8 +41,8 @@ const logOut = async () => {
           </DropdownMenuContent>
         </DropdownMenu>
         <Button v-else variant="outline" size="sm" as-child>
-          <NuxtLink to="/sign-in">
-            {{ $t('authentication.common.sign_in') }}
+          <NuxtLink :to="user ? '/dashboard' : '/sign-in'">
+            {{ user ? 'Dashboard' : $t('authentication.common.sign_in') }}
           </NuxtLink>
         </Button>
       </nav>

@@ -94,36 +94,17 @@ const handleSubmit = () => {
       <div v-for="(question, index) in questions" :key="question.id"
            :class="['flex flex-col relative', {'order-last': currentStep === index + 1}]">
         <transition
-            leave-active-class="duration-300"
+            leave-active-class="transition-all duration-300"
             leave-from-class="opacity-1 translate-y-0"
             leave-to-class="opacity-0 translate-y-4"
             appear
         >
-          <div v-if="currentStep === index + 1" class="flex flex-col relative">
-            <transition
-                enter-active-class="delay-300 duration-300"
-                enter-from-class="opacity-0 translate-y-4"
-                enter-to-class="opacity-1 translate-y-0"
-                leave-active-class="duration-300"
-                leave-from-class="opacity-1 translate-y-0"
-                leave-to-class="opacity-0 translate-y-4"
-                appear
-            >
-              <Heading v-if="currentStep === index + 1">
+          <div v-if="currentStep === index + 1" class="flex flex-col relative starting:opacity-0 starting:translate-y-4 transition-all duration-300">
+              <Heading v-if="currentStep === index + 1" class="starting:opacity-0 starting:translate-y-4 transition-all duration-300 delay-300">
                 <HeadingSubtitle>{{ question.category }}</HeadingSubtitle>
                 <HeadingTitle>{{ question.question }}</HeadingTitle>
               </Heading>
-            </transition>
-            <transition
-                enter-active-class="delay-400 duration-300"
-                enter-from-class="opacity-0 translate-y-4"
-                enter-to-class="opacity-1 translate-y-0"
-                leave-active-class="duration-300"
-                leave-from-class="opacity-1 translate-y-0"
-                leave-to-class="opacity-0 translate-y-4"
-                appear
-            >
-              <div v-if="currentStep === index + 1">
+              <div v-if="currentStep === index + 1" class="starting:opacity-0 starting:translate-y-4 transition-all duration-300 delay-400">
                 <DynamicFormField
                     v-model="formData[question.id]"
                     :question="question"
@@ -133,7 +114,6 @@ const handleSubmit = () => {
                                 :stepper-value="stepperValue" :use-container="false" @previous-step="previousStep"
                                 class="hidden sm:block border-none py-0 mt-8"/>
               </div>
-            </transition>
           </div>
         </transition>
       </div>
