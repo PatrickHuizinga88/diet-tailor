@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="hsl(var(--primary))"/>
+  <NuxtLoadingIndicator color="var(--color-primary)"/>
 
   <div class="h-svh flex flex-col">
     <Header/>

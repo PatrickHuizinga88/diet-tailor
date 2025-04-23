@@ -6,7 +6,7 @@ const toastStore = useToastStore();
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="hsl(var(--primary))"/>
+  <NuxtLoadingIndicator color="var(--color-primary)"/>
 
   <header class="sticky top-0 left-0 bg-gradient-to-b from-background to-background-70 backdrop-blur z-20">
     <div class="container">
