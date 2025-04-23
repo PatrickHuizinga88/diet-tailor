@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import {ArrowDown, ArrowRight, Bot, Clock, PencilLine, PencilRuler, Utensils} from "lucide-vue-next";
+import {ArrowDown, ArrowRight, Bot, CheckCircle, Clock, PencilLine, PencilRuler, Utensils} from "lucide-vue-next";
 import stepOneImage from "../assets/images/how-it-works/step-1.webp";
 import stepTwoImage from "../assets/images/how-it-works/step-2.webp";
 import stepThreeImage from "../assets/images/how-it-works/step-3.webp";
+import {Separator} from "~/components/ui/separator";
+import plans from "~/data/plans";
 
 definePageMeta({
   layout: 'landing',
@@ -49,6 +51,8 @@ const features = [
     icon: Clock
   }
 ]
+
+const currency = 'EUR'
 </script>
 
 <template>
@@ -162,6 +166,44 @@ const features = [
             </div>
           </motion.li>
         </ul>
+      </div>
+    </section>
+    <section id="pricing" class="py-14 md:py-20 lg:py-24">
+      <div class="flex flex-col items-center max-w-md text-center mx-auto mb-8 sm:mb-16">
+        <div class="text-primary font-semibold mb-2">Pricing</div>
+        <h1 class="h2 mb-4">Start for free, upgrade for more</h1>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div v-for="plan in plans" :class="['flex flex-col bg-background border rounded-2xl p-6', {'border-2 border-primary shadow-[0_0_16px_-4px] shadow-primary/50': plan.highlighted}]">
+          <h3 class="font-bold mb-2">{{ plan.name }}</h3>
+          <p class="text-muted-foreground text-sm">{{ plan.description }}</p>
+          <div class="flex text-5xl font-semibold mt-6">
+            {{ (currency === 'EUR' ? '€' : '$') + plan.pricing }}
+            <span class="text-base text-muted-foreground ml-1">
+          {{ currency === 'EUR' ? 'EUR' : 'US' }}
+        </span>
+          </div>
+          <Separator class="w-full my-6"/>
+          <h3 class="text-sm text-muted-foreground font-sans mb-3">{{ plan.featuresTitle }}</h3>
+          <ul class="space-y-3 text-sm">
+            <li v-for="feature in plan.features" class="flex items-center font-medium">
+              <CheckCircle class="size-4 mr-2 shrink-0"/>
+              {{ feature.name }}
+            </li>
+          </ul>
+          <div class="mt-auto">
+            <Button v-if="plan.lookupKey" variant="outline" class="w-full sm:w-auto mt-6" as-child>
+              <NuxtLink to="/wizard">
+                Start for free, upgrade later
+              </NuxtLink>
+            </Button>
+            <Button v-else class="w-full sm:w-auto mt-6" as-child>
+              <NuxtLink to="/wizard">
+                Get started
+              </NuxtLink>
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
     <section id="cta" class="py-14 md:py-20 lg:py-24">

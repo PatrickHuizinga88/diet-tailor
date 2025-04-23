@@ -69,7 +69,7 @@ const navigateToStripeDashboard = async () => {
                 {{ $t('account.billing.view_plans') }}
               </Button>
             </DialogTrigger>
-            <DialogContent class="grid-rows-[auto_minmax(0,1fr)_auto] max-h-[90dvh] max-w-3xl p-0">
+            <DialogContent class="grid-rows-[auto_minmax(0,1fr)_auto] max-h-[90dvh] sm:max-w-3xl p-0">
               <DialogHeader class="p-6 pb-0">
                 <DialogTitle>{{ $t('account.billing.view_plans') }}</DialogTitle>
               </DialogHeader>

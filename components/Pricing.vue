@@ -2,6 +2,7 @@
 import {Separator} from "~/components/ui/separator";
 import {CheckCircle} from "lucide-vue-next";
 import type {Database} from "~/types/database.types";
+import plans from "~/data/plans";
 
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
@@ -10,32 +11,6 @@ const {t} = useI18n()
 const loading = ref('')
 
 const currency = 'EUR'
-
-// TODO - Setup: Configure or remove plans
-const plans = [
-  {
-    name: 'Free plan',
-    description: 'Perfect for trying our product and start your journey to fun and healthy eating.',
-    pricing: '0',
-    featuresTitle: 'Included features:',
-    features: [
-      { name: 'A personalized meal plan' },
-      { name: '5 weekly meal changes' },
-    ],
-    highlighted: false,
-  },
-  {
-    lookupKey: 'premium',
-    name: 'Premium plan',
-    description: 'Get the most out of your meal plan with more flexibility.',
-    pricing: '6',
-    featuresTitle: 'Everything in Free plan, plus:',
-    features: [
-      { name: '50 weekly meal changes' },
-    ],
-    highlighted: true,
-  }
-]
 
 const {data: profile} = await useAsyncData('profile', async () => {
   const {data} = await supabase.from('profiles')

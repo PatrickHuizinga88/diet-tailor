@@ -25,9 +25,9 @@ const logOut = async () => {
           <NuxtLink :to="user ? '/dashboard' : '/'">
             <img src="/logo.svg" alt="DietTailor" class="h-7">
           </NuxtLink>
-          <ul v-if="user" class="hidden md:flex items-center">
-            <li v-for="item in mainNavItems" :key="item.name" class="ml-6">
-              <NuxtLink :to="item.url" active-class="text-primary" class="text-sm font-medium hover:text-primary">
+          <ul v-if="user" class="hidden md:flex items-center gap-x-4 ml-6">
+            <li v-for="item in mainNavItems" :key="item.name">
+              <NuxtLink :to="item.url" active-class="text-primary" class="text-sm font-medium p-2 hover:text-primary">
                 {{ item.name }}
               </NuxtLink>
             </li>

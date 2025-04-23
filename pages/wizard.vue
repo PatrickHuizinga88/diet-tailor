@@ -137,7 +137,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <form v-if="!resultsLoading && !showResults" @submit.prevent="handleSubmit" class="flex flex-col h-full max-h-[818px]">
+  <form v-if="!resultsLoading && !showResults" @submit.prevent="handleSubmit" class="flex flex-col h-full">
     <LayoutContainer
         class="flex flex-col h-full flex-1 sm:h-auto sm:flex-none max-sm:overflow-y-auto">
       <Progress class="hidden sm:block h-1.5 bg-muted mb-12" :model-value="stepperValue"/>
