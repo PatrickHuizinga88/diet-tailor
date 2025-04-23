@@ -17,7 +17,7 @@ const emit = defineEmits(['previousStep'])
 </script>
 
 <template>
-  <div :class="cn('w-full border-t pb-4', props.class)">
+  <div :class="cn('w-full border-t bg-background pb-4', props.class)">
     <Progress class="sm:hidden h-1.5 bg-muted mb-4" :model-value="stepperValue"/>
     <component :is="props.useContainer ? LayoutContainer : 'div'">
       <div class="flex gap-4">

@@ -6,6 +6,11 @@ import {DropdownMenu} from "~/components/ui/dropdown-menu";
 const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
 
+const mainNavItems = [
+  {name: 'Dashboard', url: '/dashboard'},
+  {name: 'Preferences', url: '/preferences'},
+]
+
 const logOut = async () => {
   await supabase.auth.signOut()
   navigateTo('/')
@@ -20,6 +25,13 @@ const logOut = async () => {
           <NuxtLink :to="user ? '/dashboard' : '/'">
             <img src="/logo.svg" alt="DietTailor" class="h-7">
           </NuxtLink>
+          <ul v-if="user" class="hidden md:flex items-center">
+            <li v-for="item in mainNavItems" :key="item.name" class="ml-6">
+              <NuxtLink :to="item.url" active-class="text-primary" class="text-sm font-medium hover:text-primary">
+                {{ item.name }}
+              </NuxtLink>
+            </li>
+          </ul>
         </div>
         <DropdownMenu v-if="user">
           <DropdownMenuTrigger as-child>

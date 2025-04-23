@@ -30,7 +30,7 @@ const setShowOtherField = () => {
 }
 
 const otherValue = ref('')
-const otherField = ref<HTMLInputElement | null>(null)
+const otherField = useTemplateRef('other-field')
 const showOtherField = ref(false)
 
 const filteredOptions = computed(() => {
@@ -60,21 +60,24 @@ const inputMode = () => {
   }
 }
 
-// watch(showOtherField, (newValue) => {
-//   nextTick(() => {
-//     if (newValue && otherField.value) {
-//       otherField.value.scrollIntoView({behavior: 'smooth'})
-//       otherField.value.focus()
-//     }
-//   })
-// })
+watch(showOtherField, async (newValue) => {
+  await nextTick(() => {
+    if (newValue && otherField.value) {
+      otherField.value.focus()
+    } else if (!newValue) {
+      otherValue.value = ''
+    }
+  })
+})
 
 watch([modelValue, otherValue], ([newModelValue, newOtherValue]) => {
   if (Array.isArray(newModelValue)) {
+    const validOptions = props.question.options?.map(option => option.value) || [];
+    const filteredValues = newModelValue.filter(val => validOptions.includes(val));
     if (otherValue.value) {
-      emit('update:modelValue', [...newModelValue, newOtherValue])
+      emit('update:modelValue', [...filteredValues, newOtherValue])
     } else {
-      emit('update:modelValue', newModelValue)
+      emit('update:modelValue', filteredValues)
     }
   } else {
     emit('update:modelValue', newModelValue === 'other' ? newOtherValue : newModelValue)
@@ -129,7 +132,7 @@ onMounted(() => {
           </template>
         </div>
       </div>
-      <input v-if="showOtherField" v-model="otherValue" ref="otherField" type="text" placeholder="Enter your own answer here..."
+      <input v-if="showOtherField" v-model="otherValue" ref="other-field" type="text" placeholder="Enter your own answer here..."
              class="flex h-14 w-full rounded-lg border border-input bg-background px-3 py-2 mt-4 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
              required/>
     </template>

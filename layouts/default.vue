@@ -7,7 +7,7 @@ const toastStore = useToastStore();
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="hsl(var(--primary))"/>
+  <NuxtLoadingIndicator color="var(--color-primary)"/>
 
   <main class="h-svh flex flex-col">
     <Header/>
@@ -16,7 +16,7 @@ const toastStore = useToastStore();
       <slot/>
     </div>
 
-<!--    <NavBar class="md:hidden sticky bottom-0"/>-->
+    <NavBar class="md:hidden sticky bottom-0"/>
   </main>
 
   <Toaster :toasts="toastStore.toasts"/>
