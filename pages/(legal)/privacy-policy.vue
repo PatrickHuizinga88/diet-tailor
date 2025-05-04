@@ -2,6 +2,11 @@
 import {APP_NAME, SUPPORT_EMAIL} from '~/constants'
 import {ArrowLeft} from "lucide-vue-next";
 
+useServerSeoMeta({
+  title: 'Privacy Policy',
+  description: 'Learn how we handle your data and privacy',
+})
+
 const lastUpdated = '30-03-2025'
 </script>
 

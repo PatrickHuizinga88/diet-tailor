@@ -173,15 +173,15 @@ const currency = 'EUR'
         <div class="text-primary font-semibold mb-2">Pricing</div>
         <h1 class="h2 mb-4">Start for free, upgrade for more</h1>
       </div>
-      <div class="grid sm:grid-cols-2 gap-6">
-        <div v-for="plan in plans" :class="['flex flex-col bg-background border rounded-2xl p-6', {'border-2 border-primary shadow-[0_0_16px_-4px] shadow-primary/50': plan.highlighted}]">
+      <div class="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <motion.div v-for="(plan, index) in plans" :transition="{ ease: 'linear',duration: .25, delay: (index + 1) * .1 }"
+                    :initial="{opacity: 0, translateY: 8}" :whileInView="{ opacity: 1, translateY: 0 }"  :inViewOptions="{ once: true }"
+                    :class="['flex flex-col bg-background border rounded-2xl p-6', {'border-2 border-primary shadow-[0_0_16px_-4px] shadow-primary/50': plan.highlighted}]">
           <h3 class="font-bold mb-2">{{ plan.name }}</h3>
           <p class="text-muted-foreground text-sm">{{ plan.description }}</p>
           <div class="flex text-5xl font-semibold mt-6">
             {{ (currency === 'EUR' ? '€' : '$') + plan.pricing }}
-            <span class="text-base text-muted-foreground ml-1">
-          {{ currency === 'EUR' ? 'EUR' : 'US' }}
-        </span>
+            <span v-if="plan.lookupKey" class="text-base text-muted-foreground ml-1">per month</span>
           </div>
           <Separator class="w-full my-6"/>
           <h3 class="text-sm text-muted-foreground font-sans mb-3">{{ plan.featuresTitle }}</h3>
@@ -203,7 +203,7 @@ const currency = 'EUR'
               </NuxtLink>
             </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
     <section id="cta" class="py-14 md:py-20 lg:py-24">

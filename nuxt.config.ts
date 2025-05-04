@@ -6,11 +6,6 @@ const description = "Create a daily meal plan that's perfectly tailored to your 
 export default defineNuxtConfig({
   devtools: {enabled: true},
 
-  site: {
-    url: process.env.NUXT_PUBLIC_BASE_URL,
-    name: 'DietTailor',
-  },
-
   app: {
     head: {
       title: title,
@@ -27,7 +22,6 @@ export default defineNuxtConfig({
         {name: 'twitter:image', content: '/logo.svg'},
         {name: 'apple-mobile-web-app-title', content: 'DietTailor'},
         {name: 'theme-color', content: '#0d7351'},
-        {name: 'robots', content: 'index, follow'},
       ],
       link: [
         {rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon/favicon-96x96.png'},
@@ -35,14 +29,32 @@ export default defineNuxtConfig({
         {rel: 'shortcut icon', href: '/favicon/favicon.ico'},
         {rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png'},
         {rel: 'manifest', href: '/favicon/site.webmanifest'},
-        {rel: 'sitemap', href: '/sitemap_index.xml'},
       ],
       script: [
         (process.env.NODE_ENV === 'production' ?
-            {src: 'https://cloud.umami.is/script.js', 'data-website-id': "43d25c72-944a-424f-8ba8-5710aa9a98e5", defer: true} : ''
+            {src: 'https://cloud.umami.is/script.js', 'data-website-id': "43d25c72-944a-424f-8ba8-5710aa9a98e5", defer: true} :
+            undefined
         )
       ]
     },
+  },
+
+  site: {
+    url: process.env.NUXT_PUBLIC_BASE_URL,
+    name: 'DietTailor',
+  },
+
+  robots: {
+    disallow: [
+      '/account',
+      '/confirm-registration',
+      '/confirm-payment',
+      '/dashboard',
+      '/intro',
+      '/preferences',
+      '/results',
+      '/update-password'
+    ],
   },
 
   runtimeConfig: {
@@ -69,6 +81,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     'dayjs-nuxt',
     '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
     'motion-v/nuxt'
   ],
 
@@ -97,6 +110,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
     strategy: 'prefix_except_default',
     defaultLocale: 'en',
     locales: [

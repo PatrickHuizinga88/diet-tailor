@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {ArrowRight} from "lucide-vue-next";
 import {PasswordInput} from "~/components/ui/password-input";
 import {toTypedSchema} from "@vee-validate/zod";
 import * as z from "zod";
@@ -8,6 +7,11 @@ import type {Database} from "~/types/database.types";
 
 definePageMeta({
   layout: false,
+})
+
+useServerSeoMeta({
+  title: 'Sign In',
+  description: 'Sign in to your account',
 })
 
 const supabase = useSupabaseClient<Database>()
@@ -95,15 +99,15 @@ const onSubmit = form.handleSubmit(async (values) => {
       <p v-if="errorMessage" class="text-sm text-destructive">{{ errorMessage }}</p>
     </form>
 
-    <template #footer>
-      {{ $t('authentication.login.no_account') }}
-      <Button variant="link" size="sm" class="h-auto p-0 ml-1" as-child>
-        <NuxtLink to="/sign-up">
-          {{ $t('authentication.login.sign_up_now') }}
-          <ArrowRight aria-hidden="true"/>
-        </NuxtLink>
-      </Button>
-    </template>
+<!--    <template #footer>-->
+<!--      {{ $t('authentication.login.no_account') }}-->
+<!--      <Button variant="link" size="sm" class="h-auto p-0 ml-1" as-child>-->
+<!--        <NuxtLink to="/sign-up">-->
+<!--          {{ $t('authentication.login.sign_up_now') }}-->
+<!--          <ArrowRight aria-hidden="true"/>-->
+<!--        </NuxtLink>-->
+<!--      </Button>-->
+<!--    </template>-->
   </NuxtLayout>
 </template>
 

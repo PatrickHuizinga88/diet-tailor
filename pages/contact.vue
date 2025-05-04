@@ -8,6 +8,11 @@ definePageMeta({
   layout: 'landing'
 })
 
+useServerSeoMeta({
+  title: 'Contact Us',
+  description: 'Get in touch with us for any inquiries or support.',
+})
+
 const {t} = useI18n()
 
 const loading = ref(false)

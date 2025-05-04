@@ -9,6 +9,11 @@ definePageMeta({
   layout: false
 })
 
+useServerSeoMeta({
+  title: 'Password Recovery',
+  description: 'Recover your password',
+})
+
 const supabase = useSupabaseClient()
 const toastStore = useToastStore()
 const {t} = useI18n()

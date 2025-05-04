@@ -2,6 +2,11 @@
 import {APP_NAME, SUPPORT_EMAIL} from '~/constants'
 import {ArrowLeft} from "lucide-vue-next";
 
+useServerSeoMeta({
+  title: 'Terms of Service',
+  description: 'Learn about our terms and conditions for using the service',
+})
+
 const lastUpdated = '28-03-2025'
 </script>
 

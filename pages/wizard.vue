@@ -9,7 +9,11 @@ import type {Database} from "~/types/database.types";
 
 definePageMeta({
   layout: 'wizard',
-  // middleware: 'auth'
+})
+
+useServerSeoMeta({
+  title: 'Create Your Meal Plan',
+  description: 'Create your personalized meal plan by answering a few questions about your dietary preferences and goals.',
 })
 
 const supabase = useSupabaseClient<Database>()
