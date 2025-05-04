@@ -28,15 +28,15 @@ const open = ref(false)
       <ul class="space-y-2.5 mb-6">
         <li class="flex items-center">
           <CheckCircle class="size-5 mr-2" aria-hidden="true"/>
-          Tweak and save your meal plan
+          Save your meal plan for later
         </li>
         <li class="flex items-center">
           <CheckCircle class="size-5 mr-2" aria-hidden="true"/>
-          View a recipe for every meal
+          Tweak every meal to your liking
         </li>
         <li class="flex items-center">
           <CheckCircle class="size-5 mr-2" aria-hidden="true"/>
-          Get access to better AI models
+          Change your preferences anytime
         </li>
       </ul>
       <Dialog v-model:open="open">

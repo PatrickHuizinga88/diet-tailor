@@ -95,7 +95,6 @@ const navigateToStripeDashboard = async () => {
 
     <section id="danger-zone">
       <h2 class="h4 text-destructive mb-2">{{ $t('account.danger_zone.danger_zone') }}</h2>
-      <!-- TODO - Setup: Change support email -->
       <p class="text-muted-foreground text-sm mb-6">{{ $t('account.danger_zone.explanation') }} <a
           href="mailto:support@diettailor.fit" class="text-primary underline">support@diettailor.fit</a>.</p>
       <!--    <p class="text-muted-foreground text-sm mb-6">Once you delete your account, there is no going back. Please be certain.</p>-->

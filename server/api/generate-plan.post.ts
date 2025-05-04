@@ -117,9 +117,14 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  return object.meals.map(meal => {
-    meal.items.map(item => {
-      item.id = uuidv4()
-    })
-  })
+  return {
+    ...object,
+    meals: object.meals.map((meal) => ({
+      ...meal,
+      items: meal.items.map((item) => ({
+        ...item,
+        id: uuidv4(),
+      })),
+    })),
+  }
 })

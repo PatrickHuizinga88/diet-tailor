@@ -67,7 +67,7 @@ const emit = defineEmits(['clickPremiumFeature'])
             <div class="grid grid-cols-1 gap-4 mt-2">
               <Button @click="props.isTeaser ? emit('clickPremiumFeature') : openChangeMealDialog(meal.type, item)" size="sm" variant="outline">
                 Change {{ meal.type }}
-                <Lock v-if="props.isTeaser" class="size-3"/>
+                <Lock v-if="props.isTeaser" class="!size-4"/>
               </Button>
               <!--              <Button @click="emit('clickPremiumFeature')" size="sm" variant="outline" :as-child="!props.isTeaser">-->
               <!--                View recipe-->
@@ -78,7 +78,7 @@ const emit = defineEmits(['clickPremiumFeature'])
         </ul>
       </div>
     </div>
-    <ChangeMealDialog ref="change-meal-dialog" :mealType="currentMeal" :item="currentMealItem"/>
+    <ChangeMealDialog v-if="!props.isTeaser" ref="change-meal-dialog" :mealType="currentMeal" :item="currentMealItem"/>
   </template>
   <p v-else class="block text-center text-muted-foreground">
     No meal plan available.
