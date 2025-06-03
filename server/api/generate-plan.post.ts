@@ -85,7 +85,7 @@ export default defineEventHandler(async (event) => {
   })
 
   const {object} = await generateObject({
-    model: openai("gpt-4o-mini", {
+    model: openai("gpt-4.1-mini", {
       structuredOutputs: true,
     }),
     schemaName: "mealPlan",
